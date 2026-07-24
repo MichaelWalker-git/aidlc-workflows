@@ -10,15 +10,15 @@ The aidlc-delivery-agent leads three stages spanning Ideation and Inception. It 
 
 | Stage | Phase | Description |
 |-------|-------|-------------|
-| 1.5 Team Formation | Ideation | Assesses required skills and composes team structure |
-| 1.7 Approval & Handoff | Ideation | Compiles initiative brief for phase gate approval |
+| 1.6 Team Formation | Ideation | Assesses required skills and composes team structure |
+| 1.8 Approval & Handoff | Ideation | Compiles initiative brief for phase gate approval |
 | 2.8 Delivery Planning | Inception | Plans the Bolt sequence (economic ordering through 2.7's DAG), with team allocation, risk/sequencing rationale, and external dependency map |
 
 ## Stages Supported
 
 | Stage | Phase | Contribution |
 |-------|-------|-------------|
-| 1.4 Scope Definition | Ideation | Validates scope against delivery feasibility |
+| 1.5 Scope Definition | Ideation | Validates scope against delivery feasibility |
 | 2.7 Units Generation | Inception | Aligns unit granularity with planning needs |
 
 ## What to Expect

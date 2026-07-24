@@ -63,7 +63,7 @@ When the argument is freeform text (not a known scope keyword):
    - Anything else defaults to `feature`
 3. Disambiguation rule: if the text contains BOTH a scope keyword AND a longer project description (more than 5 words), the match is treated as incidental and the COMPOSE OFFER fires instead of a silent default.
 4. On a clear keyword match, confirms with the user, naming the ceremony from the compiled grid: `Starting a "[scope]" workflow for: "[text]" - [N] of [T] stages, [G] approval gates. Confirm to proceed, name a different scope, or say "compose" for a tailored plan.` (A per-unit clause is appended when the scope's Construction stages fan out per Unit of Work.)
-5. On no match / rich prose, offers the adaptive composer: the composer agent estimates the task's implementation entropy and proposes the minimum viable EXECUTE/SKIP grid, human-gated (see the compose surfaces below). The offer's example scope list carries counts too (`bugfix = 7 of 32 stages, poc = 8, feature = all 32`) so the magnitude difference is visible before choosing.
+5. On no match / rich prose, offers the adaptive composer: the composer agent estimates the task's implementation entropy and proposes the minimum viable EXECUTE/SKIP grid, human-gated (see the compose surfaces below). The offer's example scope list carries counts too (`bugfix = 7 of 33 stages, poc = 8, feature = all 33`) so the magnitude difference is visible before choosing.
 6. On confirmation, proceeds as with an explicit scope. The original freeform text is stored as `Initial Intent` in `aidlc-state.md`.
 7. If the user overrides the detected scope, uses the user's chosen scope instead.
 
@@ -247,7 +247,7 @@ When a state file is detected, the orchestrator presents four options. The condu
 | Phase / Stage Type | Context Loaded |
 |---|---|
 | INITIALIZATION (0.1-0.3) | Guardrails only (workspace not yet detected) |
-| IDEATION (1.1-1.7) | `<record>/ideation/` artifacts completed so far + guardrails |
+| IDEATION (1.1-1.8) | `<record>/ideation/` artifacts completed so far + guardrails |
 | INCEPTION -- RE stages | `aidlc/spaces/<active-space>/codekb/<repo>/` + ideation artifacts |
 | INCEPTION -- Requirements stages | Per-repo `codekb/` artifacts (if performed) + requirements artifacts |
 | INCEPTION -- Design stages | Requirements + user stories + application design artifacts |
@@ -261,7 +261,7 @@ When a state file is detected, the orchestrator presents four options. The condu
 
 ## Scope-to-Stage Mapping
 
-The scope determines which of the 32 stages execute and at what depth. Stages not in scope are skipped entirely -- no task is created, no approval gate is presented. All scopes begin with the Initialization phase (0.1-0.3).
+The scope determines which of the 33 stages execute and at what depth. Stages not in scope are skipped entirely -- no task is created, no approval gate is presented. All scopes begin with the Initialization phase (0.1-0.3).
 
 ### Complete Mapping
 
@@ -269,20 +269,20 @@ Authoritative data lives in the `.claude/scopes/aidlc-<name>.md` files plus each
 
 | Scope | Stages Included | EXECUTE / Total | Depth | Test Strategy |
 |---|---|---|---|---|
-| `enterprise` | All: 0.1-0.3, 1.1-1.7, 2.1-2.8, 3.1-3.7, 4.1-4.7 | 32 / 32 | Comprehensive | Comprehensive |
-| `feature` | All: 0.1-0.3, 1.1-1.7, 2.1-2.8, 3.1-3.7, 4.1-4.7 | 32 / 32 | Standard | Standard |
-| `mvp` | 0.1-0.3, 1.1, 1.3 (light), 1.4, 2.1 (if brownfield), 2.2, 2.3, 2.4, 2.5 (if UI), 2.6, 2.7, 2.8, 3.1-3.7 | 22 / 32 | Standard | Standard |
-| `poc` | 0.1-0.3, 1.1 (minimal), 2.1 (if brownfield), 2.3 (minimal), 3.5, 3.6 | 8 / 32 | Minimal | Minimal |
-| `bugfix` | 0.1-0.3, 2.1 (always), 2.3 (minimal), 3.5, 3.6 | 7 / 32 | Minimal | Minimal |
-| `refactor` | 0.1-0.3, 2.1 (always), 2.3 (minimal), 3.1 (refactoring plan), 3.5, 3.6 | 8 / 32 | Minimal | Minimal |
-| `infra` | 0.1-0.3, 2.2, 2.3 (infra requirements), 3.2, 3.3, 3.4, 3.7, 4.1, 4.2, 4.3, 4.4 | 13 / 32 | Standard | Standard |
-| `security-patch` | 0.1-0.3, 2.1 (find vulnerability context), 2.3 (minimal), 3.2, 3.5, 3.6, 4.1, 4.3 | 10 / 32 | Minimal | Minimal |
-| `workshop` | 0.1-0.3, 2.1-2.8, 3.1-3.7, 4.1-4.7 (skips all ideation 1.1-1.7) | 25 / 32 | Standard | **Minimal** |
+| `enterprise` | All: 0.1-0.3, 1.1-1.8, 2.1-2.8, 3.1-3.7, 4.1-4.7 | 33 / 33 | Comprehensive | Comprehensive |
+| `feature` | All: 0.1-0.3, 1.1-1.8, 2.1-2.8, 3.1-3.7, 4.1-4.7 | 33 / 33 | Standard | Standard |
+| `mvp` | 0.1-0.3, 1.1, 1.4 (light), 1.5, 2.1 (if brownfield), 2.2, 2.3, 2.4, 2.5 (if UI), 2.6, 2.7, 2.8, 3.1-3.7 | 22 / 33 | Standard | Standard |
+| `poc` | 0.1-0.3, 1.1 (minimal), 2.1 (if brownfield), 2.3 (minimal), 3.5, 3.6 | 8 / 33 | Minimal | Minimal |
+| `bugfix` | 0.1-0.3, 2.1 (always), 2.3 (minimal), 3.5, 3.6 | 7 / 33 | Minimal | Minimal |
+| `refactor` | 0.1-0.3, 2.1 (always), 2.3 (minimal), 3.1 (refactoring plan), 3.5, 3.6 | 8 / 33 | Minimal | Minimal |
+| `infra` | 0.1-0.3, 2.2, 2.3 (infra requirements), 3.2, 3.3, 3.4, 3.7, 4.1, 4.2, 4.3, 4.4 | 13 / 33 | Standard | Standard |
+| `security-patch` | 0.1-0.3, 2.1 (find vulnerability context), 2.3 (minimal), 3.2, 3.5, 3.6, 4.1, 4.3 | 10 / 33 | Minimal | Minimal |
+| `workshop` | 0.1-0.3, 2.1-2.8, 3.1-3.7, 4.1-4.7 (skips all ideation 1.1-1.8) | 25 / 33 | Standard | **Minimal** |
 
 ### Detailed Scope Breakdown
 
-- **enterprise** -- All 32 stages with comprehensive depth. Every stage executes with full artifact detail, deep analysis, and all optional stages included. Suitable for regulated enterprise features requiring complete traceability.
-- **feature** -- All 32 stages with standard depth. Same stage set as enterprise but with moderate artifact detail. The default scope for new features.
+- **enterprise** -- All 33 stages with comprehensive depth. Every stage executes with full artifact detail, deep analysis, and all optional stages included. Suitable for regulated enterprise features requiring complete traceability.
+- **feature** -- All 33 stages with standard depth. Same stage set as enterprise but with moderate artifact detail. The default scope for new features.
 - **mvp** -- Skips most of Ideation (keeps only Intent Capture, light Feasibility, and Scope Definition). Runs all of Inception and Construction. Operation stages optional.
 - **poc** -- Minimal Ideation (only Intent Capture). Core Inception. Only Code Generation and Build and Test from Construction. No Operation.
 - **bugfix** -- No Ideation. Reverse Engineering always included (to find the bug) plus minimal Requirements Analysis. Code Generation and Build and Test only.
@@ -305,7 +305,7 @@ Authoritative data lives in the `.claude/scopes/aidlc-<name>.md` files plus each
 
 ## Stage Execution Engine
 
-Every stage follows one of the four active execution patterns: inline, subagent, pipeline, or mob (28 / 2 / 1 / 1 in the shipped graph). The compiled stage graph (`tools/data/stage-graph.json`) carries each stage's mode; the engine reads it and delivers it on the `run-stage` directive as `directive.mode`. The Stage Graph table in SKILL.md is a human-readable mirror, not the dispatch source.
+Every stage follows one of the four active execution patterns: inline, subagent, pipeline, or mob (29 / 2 / 1 / 1 in the shipped graph). The compiled stage graph (`tools/data/stage-graph.json`) carries each stage's mode; the engine reads it and delivers it on the `run-stage` directive as `directive.mode`. The Stage Graph table in SKILL.md is a human-readable mirror, not the dispatch source.
 
 ### Full Stage Lifecycle
 
@@ -331,20 +331,20 @@ sequenceDiagram
     O->>S: 4. Engine activates stage as [-]
     S->>AU: Emit STAGE_STARTED
 
-    alt Inline Stage (28 of 32)
+    alt Inline Stage (29 of 33)
         O->>U: Execute stage work in conversation
         U-->>O: Answer questions, provide feedback
         O->>U: Present 5-part completion message
         O->>U: AskUserQuestion: Approval Gate
         U-->>O: Approve / Request Changes
-    else Fully Dispatched Stage (3 of 32: subagent or pipeline)
+    else Fully Dispatched Stage (3 of 33: subagent or pipeline)
         O->>O: Bundle context into Task prompt
         O->>O: Call Task tool (subagent_type set to the named agent)
         O-->>O: Receive structured summary
         O->>U: Present completion message from summary
         O->>U: AskUserQuestion: Approval Gate
         U-->>O: Approve / Request Changes
-    else Mob Stage (1 of 32)
+    else Mob Stage (1 of 33)
         O->>U: Execute lead draft inline
         O->>O: Dispatch blind support-agent contributions
         O->>U: Integrate as lead and present Approval Gate
@@ -358,7 +358,7 @@ sequenceDiagram
 
 ### Inline Execution
 
-Inline stages run directly in the orchestrator conversation. The user can interact with the stage in real time. Twenty-eight of 32 stages are inline; the other four are dispatched (practices-discovery and code-generation subagents, reverse-engineering pipeline, user-stories mob).
+Inline stages run directly in the orchestrator conversation. The user can interact with the stage in real time. Twenty-nine of 33 stages are inline; the other four are dispatched (practices-discovery and code-generation subagents, reverse-engineering pipeline, user-stories mob).
 
 The 6-step process:
 
@@ -669,7 +669,7 @@ If user inputs from different stages contradict each other:
 
 ## Appendix A: Stage Graph Reference
 
-Complete reference of all 32 stages with execution metadata. The welcome message is rendered at session start via `companyAnnouncements` in `settings.json` — not a stage.
+Complete reference of all 33 stages with execution metadata. The welcome message is rendered at session start via `companyAnnouncements` in `settings.json` — not a stage.
 
 | # | Stage | Phase | Execution | Lead Agent | Support Agents | Mode |
 |---|---|---|---|---|---|---|
@@ -677,12 +677,13 @@ Complete reference of all 32 stages with execution metadata. The welcome message
 | 0.2 | Workspace Detection | Initialization | ALWAYS | (orchestrator) | -- | inline |
 | 0.3 | State Initialization | Initialization | ALWAYS | (orchestrator) | -- | inline |
 | 1.1 | Intent Capture & Framing | Ideation | ALWAYS | aidlc-product-agent | aidlc-architect-agent | inline |
-| 1.2 | Market Research | Ideation | CONDITIONAL | aidlc-product-agent | -- | inline |
-| 1.3 | Feasibility & Constraints | Ideation | CONDITIONAL | aidlc-architect-agent | aidlc-aws-platform-agent, aidlc-compliance-agent | inline |
-| 1.4 | Scope Definition | Ideation | ALWAYS | aidlc-product-agent | aidlc-delivery-agent | inline |
-| 1.5 | Team Formation | Ideation | CONDITIONAL | aidlc-delivery-agent | -- | inline |
-| 1.6 | Rough Mockups | Ideation | CONDITIONAL | aidlc-design-agent | aidlc-product-agent | inline |
-| 1.7 | Approval & Handoff | Ideation | ALWAYS | aidlc-delivery-agent | aidlc-product-agent | inline |
+| 1.2 | Precedent Research | Ideation | CONDITIONAL | aidlc-research-agent | -- | inline |
+| 1.3 | Market Research | Ideation | CONDITIONAL | aidlc-product-agent | -- | inline |
+| 1.4 | Feasibility & Constraints | Ideation | CONDITIONAL | aidlc-architect-agent | aidlc-aws-platform-agent, aidlc-compliance-agent | inline |
+| 1.5 | Scope Definition | Ideation | ALWAYS | aidlc-product-agent | aidlc-delivery-agent | inline |
+| 1.6 | Team Formation | Ideation | CONDITIONAL | aidlc-delivery-agent | -- | inline |
+| 1.7 | Rough Mockups | Ideation | CONDITIONAL | aidlc-design-agent | aidlc-product-agent | inline |
+| 1.8 | Approval & Handoff | Ideation | ALWAYS | aidlc-delivery-agent | aidlc-product-agent | inline |
 | 2.1 | Reverse Engineering | Inception | CONDITIONAL | aidlc-developer-agent | aidlc-architect-agent | pipeline (aidlc-developer-agent → aidlc-architect-agent) |
 | 2.2 | Practices Discovery | Inception | CONDITIONAL | aidlc-pipeline-deploy-agent | aidlc-quality-agent, aidlc-developer-agent, aidlc-devsecops-agent | subagent |
 | 2.3 | Requirements Analysis | Inception | ALWAYS | aidlc-product-agent | -- | inline |

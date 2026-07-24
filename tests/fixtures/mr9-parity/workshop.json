@@ -20,6 +20,11 @@
     "action": "SKIP"
   },
   {
+    "slug": "precedent-research",
+    "phase": "ideation",
+    "action": "SKIP"
+  },
+  {
     "slug": "market-research",
     "phase": "ideation",
     "action": "SKIP"

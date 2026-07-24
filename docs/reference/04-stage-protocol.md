@@ -28,7 +28,7 @@ conductor based on workflow context:
 |------|----------|-------------|
 | `stage-protocol.md` | Core protocol: approval gates, completion messages, question flow, state tracking, agent persona loading, depth guidance, terminology, content validation, subagent return formats, and the §13 Learnings Ritual | Every stage (mandatory) |
 | `stage-protocol-recovery.md` | Error Recovery + Change Handling | On session resume, or when a change event is detected mid-stage |
-| `stage-protocol-governance.md` | Phase Boundary Verification (§13) | At phase boundaries (1.7->2.1, 2.8->3.1, 3.7->4.1) |
+| `stage-protocol-governance.md` | Phase Boundary Verification (§13) | At phase boundaries (1.8->2.1, 2.8->3.1, 3.7->4.1) |
 
 ### Conditional Loading Logic (from SKILL.md Routing)
 
@@ -40,7 +40,7 @@ The conductor's Routing section defines the loading rules:
   event is detected mid-stage. This keeps error recovery and change handling
   out of context for normal forward-progress stages.
 - **`stage-protocol-governance.md`**: load at phase boundaries
-  (1.7->2.1, 2.8->3.1, 3.7->4.1) to run the Phase Boundary Verification
+  (1.8->2.1, 2.8->3.1, 3.7->4.1) to run the Phase Boundary Verification
   traceability check. This limits governance overhead to the points where it
   is needed.
 
@@ -54,7 +54,7 @@ corrections as durable Rules is handled by the §13 Learnings Ritual in
 ## Overview
 
 The stage protocol is the mandatory behavioral contract governing how every
-stage in the AI-DLC workflow executes. All 32 stages across five phases
+stage in the AI-DLC workflow executes. All 33 stages across five phases
 (Initialization, Ideation, Inception, Construction, Operation) follow this protocol without
 exception. The conductor (`SKILL.md`) hands stage execution to agent
 personas; the protocol stays independent of phase and agent, defining
@@ -272,7 +272,7 @@ Progress: [N]/[total] overall | [phase-N]/[phase-total] [Phase] stages complete.
 ```
 
 Count only current-phase stages. Include completed and skipped in numerator.
-Example: `Progress: 13/32 overall | 3/7 IDEATION stages complete. Next: Approval & Handoff`
+Example: `Progress: 13/33 overall | 3/8 IDEATION stages complete. Next: Approval & Handoff`
 
 ---
 
@@ -438,7 +438,7 @@ Before beginning any stage, transition sidebar tasks:
 2. Current stage task -> mark `in_progress` with `activeForm: "Running [Stage Name]"`
 
 Rules: task must be `in_progress` for spinner to display. Update BEFORE
-reading stage file. Applies to all 32 stages. If task IDs lost (compaction),
+reading stage file. Applies to all 33 stages. If task IDs lost (compaction),
 use `TaskList` to find by subject. For skipped stages:
 `TaskUpdate({ taskId: [ID], status: "completed", description: "[original] -- Skipped: [reason]" })`
 
@@ -602,13 +602,13 @@ Approve, `practices-promote` must commit both the affirmed timestamp and a
 `PRACTICES_AFFIRMED` audit receipt from the current stage attempt before the
 conductor reports the stage approved.
 
-### The 11 Domain Agents
+### The 12 Domain Agents
 
-The full 14-agent roster comprises 11 domain agents, 2 review-only agents, and
+The full 15-agent roster comprises 12 domain agents, 2 review-only agents, and
 the adaptive-workflows composer. The domain agents that lead and support stage
 work are:
 
-aidlc-product-agent, aidlc-design-agent, aidlc-delivery-agent, aidlc-architect-agent,
+aidlc-product-agent, aidlc-research-agent, aidlc-design-agent, aidlc-delivery-agent, aidlc-architect-agent,
 aidlc-aws-platform-agent, aidlc-compliance-agent, aidlc-devsecops-agent, aidlc-developer-agent,
 aidlc-quality-agent, aidlc-pipeline-deploy-agent, aidlc-operations-agent.
 
@@ -634,7 +634,7 @@ existence, then offers to resume from the last incomplete stage.
 | Phase/Stage Group | Context to Load |
 |-------------------|----------------|
 | **Initialization (0.1-0.3)** | Workspace filesystem; `aidlc-state.md` |
-| **Ideation (1.1-1.7)** | `<record>/ideation/` artifacts; guardrails |
+| **Ideation (1.1-1.8)** | `<record>/ideation/` artifacts; guardrails |
 | **Inception -- RE** | Per-repo RE artifacts at `aidlc/spaces/<active-space>/codekb/<repo>/`; ideation scope/feasibility |
 | **Inception -- Practices Discovery** | Preserve the lead draft and existing contribution files; dispatch only missing quality/developer/devsecops spokes, then continue with the human interview and lead integration |
 | **Inception -- Requirements** | Per-repo `codekb/` artifacts (if performed); requirements-analysis docs |
@@ -768,8 +768,8 @@ and problem complexity.
 
 | Scope | Default Depth | Test Strategy | Typical Stages | Notes |
 |-------|--------------|---------------|---------------:|-------|
-| enterprise | Comprehensive | Comprehensive | 32 | All stages |
-| feature | Standard | Standard | 32 | All stages |
+| enterprise | Comprehensive | Comprehensive | 33 | All stages |
+| feature | Standard | Standard | 33 | All stages |
 | mvp | Standard | Standard | 22 | Skip all Operation |
 | poc | Minimal | Minimal | ~8 | Initialization + Ideation + core Inception |
 | bugfix | Minimal | Minimal | ~8 | Targeted |

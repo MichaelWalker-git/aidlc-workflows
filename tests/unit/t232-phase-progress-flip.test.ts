@@ -151,6 +151,7 @@ function advance(proj: string, slug: string): RunResult {
 // ideation->inception boundary (greenfield SKIPs reverse-engineering).
 const IDEATION_LADDER = [
   "intent-capture",
+  "precedent-research",
   "market-research",
   "feasibility",
   "scope-definition",

@@ -10,7 +10,7 @@ The aidlc-design-agent leads two stages and supports two others. It ensures that
 
 | Stage | Phase | Description |
 |-------|-------|-------------|
-| 1.6 Rough Mockups | Ideation | Low-fidelity wireframes and concept visualization |
+| 1.7 Rough Mockups | Ideation | Low-fidelity wireframes and concept visualization |
 | 2.5 Refined Mockups | Inception | High-fidelity mockups with interaction specs and accessibility |
 
 ## Stages Supported

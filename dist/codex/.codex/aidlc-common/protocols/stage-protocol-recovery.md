@@ -57,8 +57,8 @@ When resuming, load context appropriate to the current phase and stage type:
 - Workspace Detection loads fresh filesystem scan
 - State Init reads workspace classification from Workspace Detection
 
-**IDEATION stages (1.1–1.7):**
-- Load `<record>/ideation/` artifacts completed so far (intent capture, market research, feasibility, scope)
+**IDEATION stages (1.1–1.8):**
+- Load `<record>/ideation/` artifacts completed so far (intent capture, precedent research, market research, feasibility, scope)
 - Load guardrails from
   `aidlc/spaces/<active-space>/memory/{org,team,project}.md`
 

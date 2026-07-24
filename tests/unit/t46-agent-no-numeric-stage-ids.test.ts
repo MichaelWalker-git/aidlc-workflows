@@ -63,10 +63,11 @@ import { AIDLC_SRC } from "../harness/fixtures.ts";
 const AGENTS_DIR = join(AIDLC_SRC, "agents");
 const STAGE_GRAPH = join(AIDLC_SRC, "tools", "data", "stage-graph.json");
 
-// The 11 domain-expert agents, in the order the .sh's `AGENTS=` list named them
+// The 12 domain-expert agents, in the order the .sh's `AGENTS=` list named them
 // (.sh L24).
 const AGENTS = [
   "product",
+  "research",
   "design",
   "delivery",
   "architect",
@@ -187,10 +188,10 @@ describe("t46 agent files reference stages by slug, not numeric ID (migrated fro
   });
 
   // .sh L31: plan 22. Re-count to pin the plan and guard against an agent being
-  // silently dropped from the roster (2 invariants × 11 agents = 22 rows).
-  test("covers EXACTLY 11 agents × 2 invariants = 22 assertions (TAP plan parity)", () => {
-    expect(AGENTS.length).toBe(11);
+  // silently dropped from the roster (2 invariants × 12 agents = 24 rows).
+  test("covers EXACTLY 12 agents × 2 invariants = 24 assertions (TAP plan parity)", () => {
+    expect(AGENTS.length).toBe(12);
     const INVARIANTS_PER_AGENT = 2;
-    expect(AGENTS.length * INVARIANTS_PER_AGENT).toBe(22);
+    expect(AGENTS.length * INVARIANTS_PER_AGENT).toBe(24);
   });
 });

@@ -329,7 +329,7 @@ describe("t115 routed skip (report -> aidlc-state skip --route)", () => {
     expect(content).toContain("- [S] feasibility — EXECUTE");
     expect(content).toContain("- [-] scope-definition — EXECUTE");
     expect(state(["get", "Current Stage"], p).stdout.trim()).toBe("scope-definition");
-    expect(state(["get", "Completed"], p).stdout.trim()).toBe("5");
+    expect(state(["get", "Completed"], p).stdout.trim()).toBe("6");
     expect(auditEvents(p)).toContain("STAGE_SKIPPED STAGE_STARTED");
     expect(countEvent(p, "STAGE_SKIPPED")).toBe(1);
     expect(countEvent(p, "STAGE_STARTED")).toBe(1);

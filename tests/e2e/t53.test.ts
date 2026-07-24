@@ -49,7 +49,7 @@
 //   2  no ideation artifacts (empty/absent) -> no files under aidlc-docs/ideation/ on disk
 //                                              (init scaffolds empty stage dirs only, utility.ts:1818-1838;
 //                                               every Ideation stage is SKIP so no stage writes there)
-//   3  0× `[x] <ideation-stage>`            -> STRONGER: each of the 7 Ideation stage rows in Stage
+//   3  0× `[x] <ideation-stage>`            -> STRONGER: each of the 8 Ideation stage rows in Stage
 //                                              Progress is `[ ] <slug> — SKIP` (never [x]); asserted
 //                                              per-stage on the state file (utility.ts:1996-1998)
 //   4  grep STATE reverse-engineering|requirements-analysis (Inception present)
@@ -113,6 +113,7 @@ const DRIVE_TIMEOUT_MS = Math.max(120_000, TEST_TIMEOUT_MS - 15_000);
 // Operation phase is entirely SKIP. (scope-mapping.json "bugfix".stages)
 const IDEATION_STAGES = [
   "intent-capture",
+  "precedent-research",
   "market-research",
   "feasibility",
   "scope-definition",

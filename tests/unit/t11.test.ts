@@ -147,12 +147,13 @@ describe("t11 aidlc-statusline hook (migrated from t11-hook-statusline.sh, plan 
     expect(out).not.toContain("aidlc-architect-agent");
   });
 
-  // --- .sh Test 6: phase progress 2/7 ---
-  // IDEATION has 7 non-SKIP stages, 2 are [x] (intent-capture, market-research).
-  test("6: computes phase progress 2/7", () => {
+  // --- .sh Test 6: phase progress 3/8 ---
+  // IDEATION has 8 non-SKIP stages, 3 are [x] (intent-capture,
+  // precedent-research, market-research).
+  test("6: computes phase progress 3/8", () => {
     const p = proj();
     seedStateFile(p, MID_IDEATION);
-    expect(runHook(stdinFor(p)).out).toContain("2/7");
+    expect(runHook(stdinFor(p)).out).toContain("3/8");
   });
 
   // --- .sh Test 7: output starts with [AIDLC] prefix ---
@@ -277,7 +278,7 @@ describe("t11 aidlc-statusline hook (migrated from t11-hook-statusline.sh, plan 
   });
 
   // --- .sh Test 18: [S] in completed ideation phase show correct count ---
-  test("18: [S] stages excluded; ideation shows 2/2 + full bar", () => {
+  test("18: [S] stages excluded; ideation shows 3/3 + full bar", () => {
     const p = proj();
     seedStateFile(p, STATE_JUMPED);
     // Flip only the Lifecycle Phase pointer to IDEATION (not the heading).
@@ -286,7 +287,7 @@ describe("t11 aidlc-statusline hook (migrated from t11-hook-statusline.sh, plan 
       .replace("**Lifecycle Phase**: CONSTRUCTION", "**Lifecycle Phase**: IDEATION");
     writeFileSync(statePath(p), body);
     const out = runHook(stdinFor(p)).out;
-    expect(out).toContain("2/2");
+    expect(out).toContain("3/3");
     expect(out).toContain("[▓▓▓▓▓▓▓▓▓▓]");
   });
 

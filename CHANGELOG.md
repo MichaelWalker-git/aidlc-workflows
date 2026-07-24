@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.0] - 2026-07-24
+
+The workflow can now route each new intent to your organization's own precedent. A new CONDITIONAL ideation stage, **Precedent Research** (displayed 1.2, directly after Intent Capture), is led by the new **research agent**: it reads the captured intent, reasons over the curated Org Body of Knowledge index at `<harness-dir>/knowledge/org-bok/index.md`, loads only the matching exemplar profiles, and writes a **reference brief** naming the selected precedent, the patterns to follow, and concrete UI directives — or honestly states that no precedent matches. On an install with no BoK (or an index with no exemplar entries) the stage is skipped automatically by a deterministic file check — no configuration needed. The BoK ships as a skeleton: a stub index plus one fixture exemplar profile demonstrating the required shape; distill your own exemplars to make the stage earn its keep. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.
+
+* New ideation stage `precedent-research` (1.2, CONDITIONAL): later ideation stages renumber display-only (Market Research is now 1.3 … Approval & Handoff 1.8); slugs are unchanged, so `/aidlc --stage <slug>` invocations are unaffected. The stage produces the `reference-brief` artifact and runs in the `enterprise` and `feature` scopes.
+* New 15th agent `aidlc-research-agent` (judgment tier) leads the stage; it is the only agent that loads the BoK index and raw exemplar profiles.
+* New `/aidlc-precedent-research` runner skill (generated, like every stage runner).
+* Deterministic gate: intent birth and scope changes pre-mark `precedent-research` SKIP when `knowledge/org-bok/index.md` is missing or lists no `exemplars/<slug>/profile.md` link; the state file's Stages-to-Skip row is annotated `(precedent-research — no org-bok index)`.
+* Org BoK skeleton ships in every harness dist: `knowledge/org-bok/index.md` (curated decision tree stub) and `knowledge/org-bok/exemplars/sample-internal-developer-platform/profile.md` (fixture profile with the required sections: ask/context, architecture & why, key patterns, repo pointers in frontmatter).
+* Stage totals move 32→33 (e.g. help text now reads "7 of 33 stages" for bugfix); scope EXECUTE counts are unchanged except `enterprise`/`feature`, which now run 33 stages.
+
 ## [2.5.5] - 2026-07-22
 
 Reviewer-bearing stages now have an engine-enforced, auditable verification boundary on every completion route. Interactive, per-unit, unit-major, and autonomous Construction runs record reviewer dispatch and verdict events, and stale or incomplete reviews refuse completion without adding another human checkpoint. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.

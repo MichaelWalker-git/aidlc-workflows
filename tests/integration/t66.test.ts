@@ -198,9 +198,9 @@ describe("t66 producersOf / consumersOf (in-process)", () => {
 
 describe("t66 topoSort (in-process)", () => {
   // .sh:79-84
-  test("topoSort(loadGraph()) returns 32 stages starting with workspace-scaffold", () => {
+  test("topoSort(loadGraph()) returns 33 stages starting with workspace-scaffold", () => {
     const order = topoSort(loadGraph());
-    expect(`${order.length}:${order[0]}`).toBe("32:workspace-scaffold");
+    expect(`${order.length}:${order[0]}`).toBe("33:workspace-scaffold");
   });
   // .sh:86-95
   test("topoSort throws on cycle input", () => {
@@ -218,7 +218,7 @@ describe("t66 topoSort (in-process)", () => {
 
 describe("t66 findCycles (in-process)", () => {
   // .sh:101-105
-  test("findCycles(loadGraph()) returns [] for today's 32-stage graph", () => {
+  test("findCycles(loadGraph()) returns [] for today's 33-stage graph", () => {
     expect(findCycles(loadGraph()).length).toBe(0);
   });
   // .sh:107-115 — A->B->A
@@ -258,7 +258,7 @@ describe("t66 findCycles (in-process)", () => {
 
 describe("t66 subgraphForScope (in-process)", () => {
   // .sh:153-159 — subset of full graph
-  test("subgraphForScope returns subset of full graph (bugfix < 32)", () => {
+  test("subgraphForScope returns subset of full graph (bugfix < 33)", () => {
     expect(subgraphForScope("bugfix").length).toBeLessThan(loadGraph().length);
   });
   // .sh:162-173 — numeric order
@@ -592,6 +592,7 @@ describe("t66 nextInScopeStage state-file semantics (in-process)", () => {
 ## Stage Progress
 
 - [x] intent-capture — EXECUTE
+- [ ] precedent-research — SKIP
 - [ ] market-research — EXECUTE
 - [ ] feasibility — EXECUTE
 `;
@@ -606,6 +607,7 @@ describe("t66 nextInScopeStage state-file semantics (in-process)", () => {
 ## Stage Progress
 
 - [ ] intent-capture — SKIP
+- [ ] precedent-research — SKIP
 - [ ] market-research — EXECUTE
 `;
     const next = nextInScopeStage("state-init", "feature", state);
@@ -1006,7 +1008,7 @@ describe("t66 designer export (spawnSync CLI-boundary)", () => {
   });
 
   // .sh:892-900 — Group B: element counts match live sources (4 assertions)
-  test("export element counts: stages=32, scopes=9, artifacts=122, agents=14", () => {
+  test("export element counts: stages=33, scopes=9, artifacts=123, agents=15", () => {
     const res = spawnSync(BUN, [GRAPH_TS, "export"], { encoding: "utf8" });
     const out = JSON.parse(res.stdout) as {
       stages: unknown[];
@@ -1014,10 +1016,10 @@ describe("t66 designer export (spawnSync CLI-boundary)", () => {
       artifacts: unknown[];
       agents: unknown[];
     };
-    expect(out.stages.length).toBe(32);
+    expect(out.stages.length).toBe(33);
     expect(Object.keys(out.scopes).length).toBe(9);
-    expect(out.artifacts.length).toBe(122);
-    expect(out.agents.length).toBe(14);
+    expect(out.artifacts.length).toBe(123);
+    expect(out.agents.length).toBe(15);
   });
 
   // .sh:903-904 — Group C: determinism across two invocations

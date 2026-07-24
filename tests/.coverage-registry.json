@@ -20,18 +20,18 @@
     "render-surface": "tui"
   },
   "counts": {
-    "total": 477,
+    "total": 480,
     "enumeratedByClass": {
-      "function": 246,
+      "function": 248,
       "audit": 74,
       "scope": 9,
-      "stage": 32,
+      "stage": 33,
       "hook": 13,
       "subcommand": 96,
       "render-surface": 7
     },
     "coveredByClass": {
-      "function": 101,
+      "function": 102,
       "audit": 33,
       "scope": 9,
       "stage": 9,
@@ -1562,6 +1562,18 @@
     },
     {
       "unitClass": "function",
+      "unitId": "function:hasOrgBokPrecedent",
+      "minMechanism": "none",
+      "coveredBy": [
+        {
+          "file": "tests/unit/t244-org-bok-gate.test.ts",
+          "mechanism": "cli"
+        }
+      ],
+      "status": "covered"
+    },
+    {
+      "unitClass": "function",
       "unitId": "function:holdsAuditLock",
       "minMechanism": "none",
       "coveredBy": [
@@ -2113,6 +2125,13 @@
     {
       "unitClass": "function",
       "unitId": "function:numericStageOrder",
+      "minMechanism": "none",
+      "coveredBy": [],
+      "status": "UNCOVERED"
+    },
+    {
+      "unitClass": "function",
+      "unitId": "function:orgBokIndexPath",
       "minMechanism": "none",
       "coveredBy": [],
       "status": "UNCOVERED"
@@ -3890,6 +3909,13 @@
     },
     {
       "unitClass": "stage",
+      "unitId": "ideation/precedent-research",
+      "minMechanism": "none",
+      "coveredBy": [],
+      "status": "UNCOVERED"
+    },
+    {
+      "unitClass": "stage",
       "unitId": "ideation/rough-mockups",
       "minMechanism": "none",
       "coveredBy": [],
@@ -5332,6 +5358,10 @@
         },
         {
           "file": "tests/unit/t232-phase-progress-flip.test.ts",
+          "mechanism": "cli"
+        },
+        {
+          "file": "tests/unit/t244-org-bok-gate.test.ts",
           "mechanism": "cli"
         }
       ],

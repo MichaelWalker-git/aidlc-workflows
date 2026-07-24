@@ -3600,6 +3600,39 @@ export function scopesDir(): string {
     ?? resolveHarnessPath(["scopes"]);
 }
 
+// The Org BoK's curated exemplar index. AIDLC_ORG_BOK_INDEX env-var seam
+// mirrors AIDLC_SCOPES_DIR so fixture tests can point the gate predicate at
+// an isolated file. Evaluated at call time so tests that set/unset
+// mid-process see the change.
+export function orgBokIndexPath(): string {
+  return (
+    process.env.AIDLC_ORG_BOK_INDEX ??
+    resolveHarnessPath(["knowledge", "org-bok", "index.md"])
+  );
+}
+
+// The deterministic Org BoK gate predicate for the precedent-research stage:
+// true iff the curated index exists AND links at least one exemplar profile
+// (`exemplars/<slug>/profile.md`). Same posture as the brownfield gate on
+// reverse-engineering — a pure file check, no LLM judgment: intent birth and
+// scope-change consult it to pre-mark precedent-research SKIP on installs
+// that ship no usable BoK (a stripped copy, or an index with prose but no
+// exemplar entries), and the stage body re-checks it at dispatch as the
+// escape hatch for a plan built before the BoK was removed.
+// Only markdown-link targets count — the index's own prose quotes the literal
+// `exemplars/<slug>/profile.md` placeholder, which must read as empty.
+export function hasOrgBokPrecedent(): boolean {
+  const indexPath = orgBokIndexPath();
+  if (!existsSync(indexPath)) return false;
+  let content: string;
+  try {
+    content = readFileSync(indexPath, "utf-8");
+  } catch {
+    return false;
+  }
+  return /\]\(exemplars\/[^\s()<>]+\/profile\.md\)/.test(content);
+}
+
 export function loadStageGraph(): StageEntry[] {
   if (_stageGraph !== null) return _stageGraph;
   _stageGraph = loadStageGraphAll().filter((s) => s.enabled !== false);
@@ -4752,7 +4785,7 @@ export function stagesInScope(
 // sees agrees with the grid the engine runs.
 
 export interface ScopeCostSummary {
-  total: number;         // stages in the grid (32 today, never hardcoded)
+  total: number;         // stages in the grid (33 today, never hardcoded)
   execute: number;       // EXECUTE count
   skip: number;          // total - execute
   gates: number;         // EXECUTE stages outside initialization; mirrors

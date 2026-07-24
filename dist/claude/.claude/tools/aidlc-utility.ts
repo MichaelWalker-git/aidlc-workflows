@@ -57,6 +57,7 @@ import {
   relativeCodekbDir,
   RESERVED_RECORD_NAMES,
   gridCostSummary,
+  hasOrgBokPrecedent,
   listIntents,
   listSpaces,
   loadAgents,
@@ -3641,6 +3642,24 @@ function handleIntentBirth(projectDir: string, flags: Record<string, string>): v
   });
 }
 
+// Deterministic Org BoK gate: precedent-research runs only when the curated
+// index exists with at least one exemplar entry. Same posture as the
+// greenfield reverse-engineering downgrade — a pure file check applied to the
+// plan's adjusted mapping before the state file is written. Returns true when
+// the stage was downgraded so callers can annotate their skip lists.
+function applyOrgBokGate(
+  adjustedMapping: Record<string, "EXECUTE" | "SKIP">,
+): boolean {
+  if (
+    adjustedMapping["precedent-research"] !== "EXECUTE" ||
+    hasOrgBokPrecedent()
+  ) {
+    return false;
+  }
+  adjustedMapping["precedent-research"] = "SKIP";
+  return true;
+}
+
 // The scope→stage state-build half of birth: the workspace detection + state
 // file authoring + routing audit emits the old --init ran after scaffolding.
 // Split out only so handleIntentBirth's lock body stays readable; it is called
@@ -3720,6 +3739,14 @@ function handleIntentBirthStateBuild(
 
   // For greenfield, reverse-engineering becomes SKIP
   const adjustedMapping = { ...scopeDef.stages };
+  if (applyOrgBokGate(adjustedMapping)) {
+    const prStage = graph.find((s) => s.slug === "precedent-research");
+    if (prStage) {
+      const idx = executeStages.indexOf(prStage.number);
+      if (idx >= 0) executeStages.splice(idx, 1);
+      skipStages.push(`${prStage.number} (precedent-research — no org-bok index)`);
+    }
+  }
   if (scan.projectType.toLowerCase() === "greenfield") {
     if (adjustedMapping["reverse-engineering"] === "EXECUTE") {
       adjustedMapping["reverse-engineering"] = "SKIP";
@@ -3793,7 +3820,18 @@ function handleIntentBirthStateBuild(
     ? firstPostInitEntry.lead_agent
     : "aidlc-product-agent";
 
-  const nextAfterFirst = nextInScopeStage(firstPostInit, scope);
+  // Walk the ADJUSTED mapping, not the raw scope grid: birth-time downgrades
+  // (greenfield reverse-engineering, the Org BoK precedent-research gate) must
+  // not be named as the seeded Next Stage. nextInScopeStage(slug, scope) reads
+  // the raw grid; the state file that would carry the overrides is not
+  // written yet, so resolve against adjustedMapping directly.
+  const firstIdx = graph.findIndex((s) => s.slug === firstPostInit);
+  const nextAfterFirst =
+    firstIdx >= 0
+      ? graph
+          .slice(firstIdx + 1)
+          .find((s) => (adjustedMapping[s.slug] || "SKIP") === "EXECUTE") ?? null
+      : nextInScopeStage(firstPostInit, scope);
   const nextStageName = nextAfterFirst ? nextAfterFirst.slug : "none";
 
   const projectDesc = flags.arguments || "[Project description]";
@@ -4363,13 +4401,15 @@ function handleScopeChange(projectDir: string, flags: Record<string, string>): v
   const graph = loadStageGraph();
   const projectType = getField(content, "Project Type") || "Greenfield";
 
-  // Compute adjusted mapping (greenfield reverse-engineering adjustment)
+  // Compute adjusted mapping (greenfield reverse-engineering adjustment +
+  // the deterministic Org BoK gate on precedent-research)
   const adjustedMapping = { ...newScopeDef.stages };
   if (projectType.toLowerCase() === "greenfield") {
     if (adjustedMapping["reverse-engineering"] === "EXECUTE") {
       adjustedMapping["reverse-engineering"] = "SKIP";
     }
   }
+  const orgBokGated = applyOrgBokGate(adjustedMapping);
 
   // Compute new execute/skip lists
   const executeStages: string[] = [];
@@ -4383,6 +4423,9 @@ function handleScopeChange(projectDir: string, flags: Record<string, string>): v
       if (stage.slug === "reverse-engineering" && projectType.toLowerCase() === "greenfield" &&
           newScopeDef.stages["reverse-engineering"] === "EXECUTE") {
         reason += " — greenfield";
+      }
+      if (stage.slug === "precedent-research" && orgBokGated) {
+        reason += " — no org-bok index";
       }
       skipStages.push(`${stage.number} (${reason})`);
     }

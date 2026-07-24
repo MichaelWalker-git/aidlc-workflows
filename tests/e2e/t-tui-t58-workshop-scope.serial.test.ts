@@ -172,11 +172,12 @@ function skipReason(): string | null {
 }
 const SKIP_REASON = skipReason();
 
-// The 7 ideation slugs (SKILL.md:465-471 stage graph). The workshop scope SKIPs
+// The 8 ideation slugs (SKILL.md stage graph). The workshop scope SKIPs
 // EVERY one (scope-mapping.json `workshop.stages`), so none may ever be marked
 // `[x]` — the .sh's Test 3 grep, here a per-slug disk read.
 const IDEATION_SLUGS = [
   "intent-capture",
+  "precedent-research",
   "market-research",
   "feasibility",
   "scope-definition",
@@ -387,7 +388,7 @@ describe("t-tui-t58 workshop-scope (skips Ideation, runs Inception+ at Standard/
         //     scopeDef.testStrategy). Pin the field.
         expect(stateMd).toMatch(/^-\s*\*\*Test Strategy\*\*:\s*Minimal$/m);
 
-        // #14 completed < 30 (workshop is 25/32 EXECUTE — the scope cap). The
+        // #14 completed < 30 (workshop is 25/33 EXECUTE — the scope cap). The
         //     terminator already proved >= 5; here pin the < 30 ceiling on the
         //     final disk read.
         const completed = completedCount(proj);

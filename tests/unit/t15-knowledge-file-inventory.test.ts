@@ -71,6 +71,7 @@ const AGENT_COUNTS: ReadonlyArray<readonly [string, number]> = [
   ["aidlc-product-agent", 7],
   ["aidlc-product-lead-agent", 1],
   ["aidlc-quality-agent", 4],
+  ["aidlc-research-agent", 1],
 ];
 
 // The 7 named cross-agent files the .sh existence-checked (.sh L45).
@@ -102,7 +103,7 @@ function findMd(dir: string): string[] {
 
 describe("t15 — knowledge-file inventory + non-emptiness (mechanism: none)", () => {
   // .sh Part 1 (L16-23): each of the 11 agent dirs has at least one .md file.
-  test("each of the 14 agent knowledge dirs has at least one .md file [.sh L20-23]", () => {
+  test("each of the 15 agent knowledge dirs has at least one .md file [.sh L20-23]", () => {
     for (const [agent] of AGENT_COUNTS) {
       const dir = join(KNOWLEDGE_DIR, agent);
       expect(existsSync(dir)).toBe(true);
@@ -119,15 +120,27 @@ describe("t15 — knowledge-file inventory + non-emptiness (mechanism: none)", (
     });
   }
 
-  // STRENGTHENING: knowledge/ holds EXACTLY the 11 expected agent dirs plus
-  // aidlc-shared/ — no extra agent dir. The .sh's fixed loop never pinned this.
-  test("knowledge/ holds EXACTLY the 14 agent dirs + aidlc-shared/ [.sh L10 — membership strengthening]", () => {
+  // STRENGTHENING: knowledge/ holds EXACTLY the expected agent dirs plus
+  // aidlc-shared/ and the org-bok subtree — no extra dir. The .sh's fixed
+  // loop never pinned this.
+  test("knowledge/ holds EXACTLY the 15 agent dirs + aidlc-shared/ + org-bok/ [.sh L10 — membership strengthening]", () => {
     const dirs = readdirSync(KNOWLEDGE_DIR, { withFileTypes: true })
       .filter((e) => e.isDirectory())
       .map((e) => e.name)
       .sort();
-    const expected = [...AGENT_COUNTS.map(([a]) => a), "aidlc-shared"].sort();
+    const expected = [...AGENT_COUNTS.map(([a]) => a), "aidlc-shared", "org-bok"].sort();
     expect(dirs).toEqual(expected);
+  });
+
+  // The Org BoK skeleton (issue #01 tracer): the curated index plus at least
+  // one exemplar profile ship in every dist, so the deterministic
+  // precedent-research gate is satisfied on a stock install.
+  test("org-bok/ ships the curated index and exactly 1 fixture exemplar profile", () => {
+    const bok = join(KNOWLEDGE_DIR, "org-bok");
+    expect(existsSync(join(bok, "index.md"))).toBe(true);
+    const profiles = findMd(join(bok, "exemplars"));
+    expect(profiles.length).toBe(1);
+    expect(profiles[0].endsWith("profile.md")).toBe(true);
   });
 
   // .sh Part 3 (L41-47): the 7 named aidlc-shared/ files exist.
@@ -153,11 +166,13 @@ describe("t15 — knowledge-file inventory + non-emptiness (mechanism: none)", (
 
   // .sh L11-14: dynamic TAP plan = 11 + 11 + 7 + TOTAL_FILES. Re-derive that
   // arithmetic from the live tree so the migrated suite cannot silently shrink
-  // the surface: pin the total .md count at 56 and the summed plan at 85.
-  test("TAP-plan parity: 14 + 14 + 7 + TOTAL == 94 with TOTAL == 59 [.sh L11-14]", () => {
+  // the surface: pin the total .md count at 62 (59 + the research agent's
+  // method file + the org-bok index and fixture exemplar profile) and the
+  // summed plan at 99.
+  test("TAP-plan parity: 15 + 15 + 7 + TOTAL == 99 with TOTAL == 62 [.sh L11-14]", () => {
     const total = findMd(KNOWLEDGE_DIR).length;
-    expect(total).toBe(59);
-    const plan = 14 + 14 + 7 + total;
-    expect(plan).toBe(94);
+    expect(total).toBe(62);
+    const plan = 15 + 15 + 7 + total;
+    expect(plan).toBe(99);
   });
 });

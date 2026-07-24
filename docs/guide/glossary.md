@@ -6,7 +6,7 @@ Canonical definitions for AI-DLC terminology. All documentation in the User Guid
 
 | Term | Definition |
 |------|-----------|
-| **Agent** | One of the 14 shipped personas: 11 domain experts, 2 review-only agents, and the adaptive-workflows composer. The conductor activates each for its specialized stage, review, or composition role. |
+| **Agent** | One of the 15 shipped personas: 12 domain experts, 2 review-only agents, and the adaptive-workflows composer. The conductor activates each for its specialized stage, review, or composition role. |
 | **Approval gate** | An interactive checkpoint at the end of each stage where you choose to approve the work, request changes, or (after 3 revisions) accept as-is. Initialization stages skip approval gates. |
 | **Autonomy mode** | The setting recorded in `aidlc-state.md` (`Construction Autonomy Mode`) after the walking-skeleton ladder prompt. Either `autonomous` (subsequent Bolts run without gates) or `gated` (each Bolt asks for approval). Defaults to `unset` before the prompt. |
 | **Bolt** | The unit of Construction execution: one pass through stages 3.1–3.5 for a Unit (or small group of dependency-linked Units). Stages 3.6 (Build and Test) and 3.7 (CI Pipeline) run once after all Bolts complete, not per-Bolt. The first Bolt in Construction is the walking skeleton. See also: [parallel batch], [walking skeleton], [ladder prompt]. |
@@ -59,7 +59,7 @@ Canonical definitions for AI-DLC terminology. All documentation in the User Guid
 | **Session** | A single Claude Code conversation in which you run `/aidlc`. A workflow may span multiple sessions via the resume mechanism. |
 | **Skill** | A Claude Code primitive: a markdown file with YAML frontmatter that registers a slash command. AI-DLC's orchestrator is implemented as the `/aidlc` skill. In user-facing documentation, prefer "command" over "skill". |
 | **Space** | A per-team workspace at `aidlc/spaces/<space>/` holding its own `memory/`, `knowledge/`, and intent records (`intents/`). The active space is resolved by the gitignored `aidlc/active-space` pointer and defaults to `default`; single-team users only ever see `spaces/default/`. See **Intent**, **Knowledge**. |
-| **Stage** | One of the 32 discrete steps in the lifecycle. Each stage has a lead agent, defined inputs/outputs, and follows the stage protocol. Stages are numbered by phase (e.g., 1.1, 2.4, 3.5). |
+| **Stage** | One of the 33 discrete steps in the lifecycle. Each stage has a lead agent, defined inputs/outputs, and follows the stage protocol. Stages are numbered by phase (e.g., 1.1, 2.4, 3.5). |
 | **State file** | The persistent per-intent workflow state at `aidlc/spaces/<space>/intents/<YYMMDD>-<label>/aidlc-state.md` (under the intent's record dir). Tracks stage progress, scope, workspace context, and session resume information using six-state checkboxes (`[ ]` / `[-]` / `[?]` / `[R]` / `[x]` / `[S]`). |
 | **Subagent execution** | A dispatched hub (`mode: subagent`) where the conductor invokes a separate agent context through the harness's dispatch tool. Code Generation (3.5) is a focused one-agent run. Practices Discovery (2.2) is hub-and-spoke: lead draft, three mutually blind support contributions, human interview, then lead integration. |
 | **Unit of work** | An independently implementable piece of the solution, decomposed during stage 2.7 (Units Generation). One or more Units are bundled into a Bolt for Construction. |

@@ -268,13 +268,14 @@ describe("t34 stage-protocol.md structure + cross-references (migrated from t34-
   // §5 — Agent persona loading: all 11 agents on the agent-list line
   // (.sh 106-114). The .sh extracted the `^aidlc-product-agent` line, then
   // grepped each agent within it. Reproduce: pull THAT line, assert each agent
-  // is on it, AND (STRONGER) assert it carries exactly 11 comma-separated
+  // is on it, AND (STRONGER) assert it carries exactly 12 comma-separated
   // agents — so a dropped or added agent fails.
   // =========================================================================
   const AGENT_LINE =
     PROTOCOL.split("\n").find((l) => l.startsWith("aidlc-product-agent")) ?? "";
   const ELEVEN_AGENTS = [
     "aidlc-product-agent",
+    "aidlc-research-agent",
     "aidlc-design-agent",
     "aidlc-delivery-agent",
     "aidlc-architect-agent",
@@ -292,13 +293,13 @@ describe("t34 stage-protocol.md structure + cross-references (migrated from t34-
       expect(AGENT_LINE.includes(agent)).toBe(true);
     });
   }
-  test("§5: agent-list line names exactly 11 agents (no drop/add)", () => {
+  test("§5: agent-list line names exactly 12 agents (no drop/add)", () => {
     // STRONGER than the .sh: pin the cardinality so the list can't silently
-    // grow or shrink while still containing the 11 names above.
+    // grow or shrink while still containing the 12 names above.
     const names = AGENT_LINE.split(",")
       .map((s) => s.trim())
       .filter((s) => s.startsWith("aidlc-") && s.endsWith("-agent"));
-    expect(names.length).toBe(11);
+    expect(names.length).toBe(12);
   });
 
   // =========================================================================

@@ -260,13 +260,13 @@ describe("documentation parity derives current behavior from authored implementa
   });
 
   test("documented agent roster matches agent files and reviewer frontmatter", () => {
-    expect(agentNames.length).toBe(14);
-    expect(domainNames.length).toBe(11);
+    expect(agentNames.length).toBe(15);
+    expect(domainNames.length).toBe(12);
     expect(reviewerNames.length).toBe(2);
     expect(composerNames.length).toBe(1);
 
     const index = read("docs", "reference", "agents", "README.md");
-    const roster = sliceBetween(index, "## The 14 Agents", "## Shared Configuration");
+    const roster = sliceBetween(index, "## The 15 Agents", "## Shared Configuration");
     expect(agentTokens(roster)).toEqual(agentNames);
 
     for (const doc of [

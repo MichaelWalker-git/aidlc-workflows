@@ -267,10 +267,10 @@ describe("t17 get/set/checkbox/count", () => {
     expect(readState(proj)).toContain("[S] intent-capture");
   });
 
-  test("11: count returns 5 completed stages", () => {
+  test("11: count returns 6 completed stages", () => {
     proj = createTestProject();
     seedStateFile(proj, MID_IDEATION);
-    expect(runState(proj, ["count", "completed"]).combined.trim()).toBe("5");
+    expect(runState(proj, ["count", "completed"]).combined.trim()).toBe("6");
   });
 });
 
@@ -294,19 +294,19 @@ describe("t17 advance + counter sync", () => {
     expect(runState(proj, ["get", "Current Stage"]).combined.trim()).toBe("scope-definition");
   });
 
-  test("19: checkbox syncs Completed counter (5->6)", () => {
+  test("19: checkbox syncs Completed counter (6->7)", () => {
     proj = createTestProject();
     seedStateFile(proj, MID_IDEATION);
-    // feasibility is [-], mark completed -> Completed 5 -> 6
+    // feasibility is [-], mark completed -> Completed 6 -> 7
     runState(proj, ["checkbox", "feasibility=completed"]);
-    expect(runState(proj, ["get", "Completed"]).combined.trim()).toBe("6");
+    expect(runState(proj, ["get", "Completed"]).combined.trim()).toBe("7");
   });
 
-  test("20: advance uses countCheckboxes (count=6 not 5+1)", () => {
+  test("20: advance uses countCheckboxes (count=7 not 6+1)", () => {
     proj = createTestProject();
     seedStateFile(proj, MID_IDEATION);
     runState(proj, ["advance", "feasibility", "scope-definition"]);
-    expect(runState(proj, ["get", "Completed"]).combined.trim()).toBe("6");
+    expect(runState(proj, ["get", "Completed"]).combined.trim()).toBe("7");
   });
 });
 
@@ -333,9 +333,9 @@ describe("t17 lookup", () => {
     );
   });
 
-  test("17: lookup next-stage intent-capture feature = market-research", () => {
+  test("17: lookup next-stage intent-capture feature = precedent-research", () => {
     expect(runStateBare(["lookup", "next-stage", "intent-capture", "feature"]).combined.trim()).toBe(
-      "market-research",
+      "precedent-research",
     );
   });
 
@@ -362,7 +362,7 @@ describe("t17 finalize", () => {
     proj = createTestProject();
     seedStateFile(proj, MID_IDEATION);
     runState(proj, ["finalize", "feasibility"]);
-    expect(runState(proj, ["get", "Completed"]).combined.trim()).toBe("6");
+    expect(runState(proj, ["get", "Completed"]).combined.trim()).toBe("7");
   });
 
   test("23: finalize advances Current Stage to next", () => {
@@ -726,7 +726,7 @@ describe("t17 approve", () => {
     seedStateFile(proj, MID_IDEATION);
     runState(proj, ["gate-start", "feasibility"]);
     runState(proj, ["approve", "feasibility"]);
-    expect(runState(proj, ["get", "Completed"]).combined.trim()).toBe("6");
+    expect(runState(proj, ["get", "Completed"]).combined.trim()).toBe("7");
   });
 
   test("68: approve sets Last Completed Stage", () => {

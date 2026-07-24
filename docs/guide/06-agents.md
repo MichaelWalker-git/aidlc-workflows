@@ -1,12 +1,12 @@
 # Agents
 
-AI-DLC ships 14 agent personas: 11 domain experts that execute stage work, 2 review-only agents, and the adaptive-workflows composer. This chapter explains the full roster, beginning with the domain agents and then covering the reviewers and composer.
+AI-DLC ships 15 agent personas: 12 domain experts that execute stage work, 2 review-only agents, and the adaptive-workflows composer. This chapter explains the full roster, beginning with the domain agents and then covering the reviewers and composer.
 
 ---
 
 ## Philosophy: Small Mob, Broad Agents
 
-Rather than dozens of narrow specialists (which recreates waterfall handoff chains), AI-DLC uses **11 broadly capable agents** that each participate across multiple stages and phases.
+Rather than dozens of narrow specialists (which recreates waterfall handoff chains), AI-DLC uses **12 broadly capable agents** that each participate across multiple stages and phases.
 
 ### Why 11, not 30?
 
@@ -231,11 +231,11 @@ This table shows which agents are active in which phases, and whether they serve
 
 ## Agent Tool Access
 
-Every agent inherits the **full session toolset** — all of Claude Code's built-in tools plus any MCP tools provisioned to the session. The one shipped restriction is `disallowedTools: Task` (only the conductor spawns subagents); none of the 14 agents declare a `tools:` allowlist. So the table below is not a set of per-agent grants — it records which tools each persona is *expected* to exercise in its work.
+Every agent inherits the **full session toolset** — all of Claude Code's built-in tools plus any MCP tools provisioned to the session. The one shipped restriction is `disallowedTools: Task` (only the conductor spawns subagents); none of the 15 agents declare a `tools:` allowlist. So the table below is not a set of per-agent grants — it records which tools each persona is *expected* to exercise in its work.
 
 | Tool | Expected to exercise it |
 |------|-------------|
-| Read, Edit, Write, Glob, Grep, AskUserQuestion | All 14 agents |
+| Read, Edit, Write, Glob, Grep, AskUserQuestion | All 15 agents |
 | Bash | aidlc-aws-platform-agent, aidlc-devsecops-agent, aidlc-developer-agent, aidlc-quality-agent, aidlc-pipeline-deploy-agent, aidlc-operations-agent |
 | WebSearch | aidlc-product-agent, aidlc-design-agent, aidlc-compliance-agent |
 | Task | None (blocked on every agent via `disallowedTools: Task`) |
@@ -244,7 +244,7 @@ To genuinely narrow a persona, add an optional `tools:` allowlist to its frontma
 
 ### MCP servers are shared, not per-agent
 
-The table above shows the built-in tools each persona is expected to use; in practice every agent inherits all of them. MCP servers follow the same inherit-all model: this implementation declares them once in `.mcp.json` at the project root (beside `.claude/`), Claude Code provisions them to the session, and every agent inherits all of them — there is no per-agent grant. Each of the 14 agents can reach every declared server (`context7` and the four AWS servers) with no further configuration, and a server you lack credentials for is simply unavailable rather than a blocker. To stop a specific agent from reaching a server, narrow that agent's `tools:` allowlist to the fully-qualified `mcp__<server>__<tool>` ids it should keep (for example `mcp__context7__<tool>`); this implementation ships no such restrictions today.
+The table above shows the built-in tools each persona is expected to use; in practice every agent inherits all of them. MCP servers follow the same inherit-all model: this implementation declares them once in `.mcp.json` at the project root (beside `.claude/`), Claude Code provisions them to the session, and every agent inherits all of them — there is no per-agent grant. Each of the 15 agents can reach every declared server (`context7` and the four AWS servers) with no further configuration, and a server you lack credentials for is simply unavailable rather than a blocker. To stop a specific agent from reaching a server, narrow that agent's `tools:` allowlist to the fully-qualified `mcp__<server>__<tool>` ids it should keep (for example `mcp__context7__<tool>`); this implementation ships no such restrictions today.
 
 See [Getting Started](01-getting-started.md) for the server registry and credentials, and [Harness Primitives Mapping](../reference/14-claude-features.md#mcp-servers) for how MCP maps onto Claude Code's native tool model.
 
@@ -252,7 +252,7 @@ See [Getting Started](01-getting-started.md) for the server registry and credent
 
 ## Reviewer Agents
 
-Beyond the 11 domain-expert agents, AI-DLC ships **2 quality-gate reviewer
+Beyond the 12 domain-expert agents, AI-DLC ships **2 quality-gate reviewer
 agents**. They do not produce artifacts — they review what a builder produced and
 challenge it, representing the customer (or the review board) at the gate.
 

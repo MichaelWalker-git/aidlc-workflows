@@ -447,7 +447,7 @@ Every agent inherits the full session toolset by default; the only shipped restr
 |------------------|---------------------------------|
 | Bash | aidlc-aws-platform-agent, aidlc-devsecops-agent, aidlc-developer-agent, aidlc-quality-agent, aidlc-pipeline-deploy-agent, aidlc-operations-agent |
 | WebSearch | aidlc-product-agent, aidlc-design-agent, aidlc-compliance-agent |
-| Read/Edit/Write/Glob/Grep/AskUserQuestion | All 14 agents |
+| Read/Edit/Write/Glob/Grep/AskUserQuestion | All 15 agents |
 
 **Pattern:** Bash is expected in roles that need CLI interaction (build tools,
 test commands, infrastructure). WebSearch is expected in research-oriented

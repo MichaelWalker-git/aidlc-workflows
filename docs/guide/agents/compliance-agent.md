@@ -14,7 +14,7 @@ The aidlc-compliance-agent does not lead any stages.
 
 | Stage | Phase | Contribution |
 |-------|-------|-------------|
-| 1.3 Feasibility & Constraints | Ideation | Regulatory constraint identification, compliance feasibility, RAID log initialization |
+| 1.4 Feasibility & Constraints | Ideation | Regulatory constraint identification, compliance feasibility, RAID log initialization |
 | 3.2 NFR Requirements | Construction | Regulatory NFR mapping, compliance control requirements, data classification |
 | 3.4 Infrastructure Design | Construction | Data residency validation, encryption requirements, IAM compliance controls |
 | 4.2 Environment Provisioning | Operation | Compliance controls validation, audit logging, regulatory configuration checks |

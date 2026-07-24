@@ -682,7 +682,7 @@ Changes**.
 
 ### Purpose
 
-Refined Mockups evolves the rough concept wireframes from Ideation Stage 1.6
+Refined Mockups evolves the rough concept wireframes from Ideation Stage 1.7
 into mid-to-high fidelity mockups informed by formal requirements and user
 stories. It produces detailed interaction specifications, design system
 mappings, responsive behavior definitions, and accessibility compliance
@@ -691,11 +691,11 @@ checklists.
 For non-UI initiatives (API-only, backend), the stage refines interaction
 diagrams into an API developer experience specification.
 
-This stage is typically skipped if Stage 1.6 (Rough Mockups) was also skipped.
+This stage is typically skipped if Stage 1.7 (Rough Mockups) was also skipped.
 
 ### Inputs
 
-- Rough mockups from Stage 1.6 (`<record>/ideation/rough-mockups/`), if
+- Rough mockups from Stage 1.7 (`<record>/ideation/rough-mockups/`), if
   exists
 - User stories from Stage 2.4 (`<record>/inception/user-stories/`)
 - Requirements from Stage 2.3
@@ -759,7 +759,7 @@ Standard 2-option gate: **Approve** / **Request Changes**.
 ### Notes
 
 - Skip condition: non-UI, API-only, or infrastructure-only initiatives. Also
-  typically skipped if Stage 1.6 (Rough Mockups) was skipped.
+  typically skipped if Stage 1.7 (Rough Mockups) was skipped.
 - For mvp scope, this stage executes only if the project has UI.
 - The mockups produced here feed into Application Design (2.6) and ultimately
   into Construction's Code Generation (3.5) for UI components.
@@ -1087,7 +1087,7 @@ All Inception phase artifacts:
 - Application design from Stage 2.6
   (`<record>/inception/application-design/`)
 - Units from Stage 2.7 (`<record>/inception/units-generation/`)
-- Team formation from Stage 1.5
+- Team formation from Stage 1.6
   (`<record>/ideation/team-formation/`), if exists
 
 ### Steps
@@ -1111,7 +1111,7 @@ All Inception phase artifacts:
    - Bundling of Units of Work into Bolts
    - Definition of Done for each Bolt
    - Confidence hypothesis per Bolt — what will shipping it prove
-   - Mob-to-Bolt assignment (references teams from 1.5 when available;
+   - Mob-to-Bolt assignment (references teams from 1.6 when available;
      AI-only when it did not run)
    - External dependencies (APIs, data, approvals) that gate specific Bolts
    - Key risk items to tackle earliest
@@ -1159,7 +1159,7 @@ All artifacts written to `<record>/inception/delivery-planning/`:
 | File                                  | Contents                                                    |
 |---------------------------------------|-------------------------------------------------------------|
 | `bolt-plan.md`                        | Ordered Bolt sequence; per-Bolt Units of Work, walking-skeleton marker, Definition of Done, confidence hypothesis, expected demo |
-| `team-allocation.md`                  | Bolt-to-mob assignment; Program Board analog when team count > 1; AI-only assignment when 1.5 did not run |
+| `team-allocation.md`                  | Bolt-to-mob assignment; Program Board analog when team count > 1; AI-only assignment when 1.6 did not run |
 | `risk-and-sequencing-rationale.md`    | WSJF / risk-first / walking-skeleton-first / value-first justification for the Bolt ordering |
 | `external-dependency-map.md`          | Gated items (external APIs, data availability, approval lead times, external-team hand-offs) mapped to consuming Bolts |
 | `delivery-planning-questions.md`      | Clarifying questions with `[Answer]:` tags (input artifact) |
@@ -1178,7 +1178,7 @@ Changes**. The user can override stage inclusion/exclusion at this gate.
 ### Notes
 
 - **Phase boundary stage.** This is the second of three phase boundary stages
-  (after 1.7 and before 3.7). The verification check validates
+  (after 1.8 and before 3.7). The verification check validates
   Requirements-to-Stories-to-Architecture alignment.
 - **Economic vs topological sequencing.** Stage 2.7 produces the dependency
   DAG (topological order falls out as descriptive geometry). Stage 2.8
@@ -1199,8 +1199,8 @@ Changes**. The user can override stage inclusion/exclusion at this gate.
 - The aidlc-architect-agent validates that the proposed Bolt sequence respects
   dependencies defined in the component-dependency and
   unit-of-work-dependency artifacts.
-- Team allocation draws from the Team Formation artifacts (Stage 1.5) if
-  they exist; when 1.5 is SKIP (mvp, workshop), all Bolts are executed by
+- Team allocation draws from the Team Formation artifacts (Stage 1.6) if
+  they exist; when 1.6 is SKIP (mvp, workshop), all Bolts are executed by
   aidlc-developer-agent (AI).
 
 ---

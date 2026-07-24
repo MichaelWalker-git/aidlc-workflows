@@ -1,6 +1,6 @@
 // covers: function:parseStageFrontmatter, function:emitStageFrontmatter, function:loadAgents
 //
-// t65 — end-to-end stage-file migration integrity across all 32 committed
+// t65 — end-to-end stage-file migration integrity across all 33 committed
 // stage .md files. Mechanism: none (pure functions over read-only on-disk
 // stage files + the committed stage-graph.json; zero CLI spawns, zero LLM,
 // zero tokens).
@@ -313,10 +313,18 @@ beforeAll(() => {
           }
         }
       }
+      // Tie-break independent stages by their stage-graph.json numbering, so
+      // the assertion pins the real invariant — the numbering is a VALID
+      // topological order over requires_stage — without demanding a fake
+      // dependency edge between independent siblings (e.g. precedent-research
+      // 1.2 and market-research 1.3 share no edge per ADR-004).
+      const rank = new Map(jsonOrder.map((slug, i) => [slug, i]));
+      const byRank = (a: string, b: string) =>
+        (rank.get(a) ?? Infinity) - (rank.get(b) ?? Infinity);
       const ready = group
         .filter((n) => inDeg[n.slug] === 0)
         .map((n) => n.slug)
-        .sort();
+        .sort(byRank);
       while (ready.length) {
         const s = ready.shift()!;
         result.push(s);
@@ -324,7 +332,7 @@ beforeAll(() => {
           inDeg[next]--;
           if (inDeg[next] === 0) {
             let i = 0;
-            while (i < ready.length && ready[i] < next) i++;
+            while (i < ready.length && byRank(ready[i], next) < 0) i++;
             ready.splice(i, 0, next);
           }
         }
@@ -412,10 +420,10 @@ beforeAll(() => {
 // Parse + schema validation (.sh assertions 1-3)
 // ============================================================
 describe("t65 parse + schema validation (in-process)", () => {
-  // .sh #1: "all 32 stage files parse via parseStageFrontmatter"
-  test("all 32 stage files parse via parseStageFrontmatter (total=32, no errors)", () => {
+  // .sh #1: "all 33 stage files parse via parseStageFrontmatter"
+  test("all 33 stage files parse via parseStageFrontmatter (total=33, no errors)", () => {
     expect(agg.parseErrors).toEqual([]);
-    expect(agg.totalParsed).toBe(32);
+    expect(agg.totalParsed).toBe(33);
   });
 
   // .sh #2: "non-init stages validate against milestone 5 schema with ctx.agents"
@@ -441,7 +449,7 @@ describe("t65 per-phase stage counts (in-process)", () => {
   // .sh #4-8: init=3, ideation=7, inception=8, construction=7, operation=7.
   const expected: Array<[string, number]> = [
     ["initialization", 3],
-    ["ideation", 7],
+    ["ideation", 8],
     ["inception", 8],
     ["construction", 7],
     ["operation", 7],
@@ -560,8 +568,8 @@ describe("t65 shape guards (in-process)", () => {
   });
 
   // .sh #20: "round-trip (parse → emit → parse) yields deep-equal object for
-  // all 32 stages"
-  test("round-trip (parse -> emit -> parse) deep-equals original for all 32 stages", () => {
+  // all 33 stages"
+  test("round-trip (parse -> emit -> parse) deep-equals original for all 33 stages", () => {
     expect(agg.roundTripMismatches).toEqual([]);
   });
 

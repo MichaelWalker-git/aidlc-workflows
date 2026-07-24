@@ -24,7 +24,7 @@ while keeping you in control at every decision point.
 - **You decide, AI executes.** Every material decision goes through an approval gate.
 - **Adaptive scope.** Choose a scope or let AI auto-detect from your intent.
 - **Traceable artifacts.** Every stage produces versioned documents in the intent's record dir.
-- **11 domain experts.** Specialized agent personas guide each stage.
+- **12 domain experts.** Specialized agent personas guide each stage.
 ```
 
 ---
@@ -56,7 +56,7 @@ The orchestrator writes the intent's `aidlc-state.md` (under its record dir) wit
 
 ```
 ─── Scope Detection ───────────────────────────────────────────────────────────
-Detected scope: feature (Standard depth, Standard test strategy, all 32 stages)
+Detected scope: feature (Standard depth, Standard test strategy, all 33 stages)
 ▸ Approve scope? [Yes / Change scope / Change depth / Change test strategy]
 > Yes
 ```
@@ -118,7 +118,7 @@ Choose **Approve** to continue, or **Request Changes** to provide feedback. See 
 After approval, a progress line appears:
 
 ```
-Progress: 4/32 overall | 1/7 IDEATION stages complete. Next: Market Research
+Progress: 4/33 overall | 1/8 IDEATION stages complete. Next: Market Research
 ```
 
 ### Remaining Ideation Stages
@@ -273,7 +273,7 @@ Throughout the workflow, the terminal status line shows your current position:
 ## Next Steps
 
 - [Spaces and Intents](03-spaces-and-intents.md) — how the workspace holds many runs, and how to start and switch between them
-- [Phases and Stages](04-phases-and-stages.md) — detailed breakdown of all 5 phases and 32 stages
+- [Phases and Stages](04-phases-and-stages.md) — detailed breakdown of all 5 phases and 33 stages
 - [Interaction Modes](07-interaction-modes.md) — Guide Me, Edit File, and Chat explained
 - [Session Management](11-session-management.md) — resuming, redoing, and jumping between stages
 - [Glossary](glossary.md) — terminology reference

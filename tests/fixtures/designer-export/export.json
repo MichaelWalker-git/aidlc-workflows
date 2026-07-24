@@ -196,8 +196,71 @@
       ]
     },
     {
-      "slug": "market-research",
+      "slug": "precedent-research",
       "number": "1.2",
+      "name": "Precedent Research",
+      "phase": "ideation",
+      "execution": "CONDITIONAL",
+      "condition": "Execute when the Org BoK index exists with at least one exemplar profile entry. Skip when the install ships no BoK or the index lists no exemplars (deterministic file check at routing time).",
+      "lead_agent": "aidlc-research-agent",
+      "support_agents": [],
+      "mode": "inline",
+      "produces": [
+        "reference-brief"
+      ],
+      "consumes": [
+        {
+          "artifact": "intent-statement",
+          "required": true
+        }
+      ],
+      "requires_stage": [
+        "intent-capture"
+      ],
+      "sensors": [
+        "required-sections",
+        "upstream-coverage"
+      ],
+      "scopes": [
+        "enterprise",
+        "feature"
+      ],
+      "inputs": "Intent statement from intent-capture stage; the Org BoK index and matching exemplar profiles",
+      "outputs": "reference-brief.md (under this stage's record dir, engine-resolved)",
+      "rules_in_context": [
+        {
+          "path": "aidlc/spaces/default/memory/org.md",
+          "scope": "org"
+        },
+        {
+          "path": "aidlc/spaces/default/memory/team.md",
+          "scope": "team"
+        },
+        {
+          "path": "aidlc/spaces/default/memory/project.md",
+          "scope": "project"
+        },
+        {
+          "path": "aidlc/spaces/default/memory/phases/ideation.md",
+          "scope": "phase"
+        }
+      ],
+      "sensors_applicable": [
+        {
+          "id": "required-sections",
+          "path": ".claude/sensors/aidlc-required-sections.md",
+          "matches": "**/{aidlc-docs,intents}/**"
+        },
+        {
+          "id": "upstream-coverage",
+          "path": ".claude/sensors/aidlc-upstream-coverage.md",
+          "matches": "**/{aidlc-docs,intents}/**"
+        }
+      ]
+    },
+    {
+      "slug": "market-research",
+      "number": "1.3",
       "name": "Market Research",
       "phase": "ideation",
       "execution": "CONDITIONAL",
@@ -263,7 +326,7 @@
     },
     {
       "slug": "feasibility",
-      "number": "1.3",
+      "number": "1.4",
       "name": "Feasibility & Constraints",
       "phase": "ideation",
       "execution": "CONDITIONAL",
@@ -346,7 +409,7 @@
     },
     {
       "slug": "scope-definition",
-      "number": "1.4",
+      "number": "1.5",
       "name": "Scope Definition",
       "phase": "ideation",
       "execution": "ALWAYS",
@@ -423,7 +486,7 @@
     },
     {
       "slug": "team-formation",
-      "number": "1.5",
+      "number": "1.6",
       "name": "Team Formation",
       "phase": "ideation",
       "execution": "CONDITIONAL",
@@ -497,7 +560,7 @@
     },
     {
       "slug": "rough-mockups",
-      "number": "1.6",
+      "number": "1.7",
       "name": "Rough Mockups",
       "phase": "ideation",
       "execution": "CONDITIONAL",
@@ -576,7 +639,7 @@
     },
     {
       "slug": "approval-handoff",
-      "number": "1.7",
+      "number": "1.8",
       "name": "Approval & Handoff",
       "phase": "ideation",
       "execution": "ALWAYS",
@@ -2801,6 +2864,7 @@
         "workspace-detection": "EXECUTE",
         "state-init": "EXECUTE",
         "intent-capture": "SKIP",
+        "precedent-research": "SKIP",
         "market-research": "SKIP",
         "feasibility": "SKIP",
         "scope-definition": "SKIP",
@@ -2846,6 +2910,7 @@
         "workspace-detection": "EXECUTE",
         "state-init": "EXECUTE",
         "intent-capture": "EXECUTE",
+        "precedent-research": "EXECUTE",
         "market-research": "EXECUTE",
         "feasibility": "EXECUTE",
         "scope-definition": "EXECUTE",
@@ -2886,6 +2951,7 @@
         "workspace-detection": "EXECUTE",
         "state-init": "EXECUTE",
         "intent-capture": "EXECUTE",
+        "precedent-research": "EXECUTE",
         "market-research": "EXECUTE",
         "feasibility": "EXECUTE",
         "scope-definition": "EXECUTE",
@@ -2927,6 +2993,7 @@
         "workspace-detection": "EXECUTE",
         "state-init": "EXECUTE",
         "intent-capture": "SKIP",
+        "precedent-research": "SKIP",
         "market-research": "SKIP",
         "feasibility": "SKIP",
         "scope-definition": "SKIP",
@@ -2971,6 +3038,7 @@
         "workspace-detection": "EXECUTE",
         "state-init": "EXECUTE",
         "intent-capture": "EXECUTE",
+        "precedent-research": "SKIP",
         "market-research": "SKIP",
         "feasibility": "EXECUTE",
         "scope-definition": "EXECUTE",
@@ -3015,6 +3083,7 @@
         "workspace-detection": "EXECUTE",
         "state-init": "EXECUTE",
         "intent-capture": "EXECUTE",
+        "precedent-research": "SKIP",
         "market-research": "SKIP",
         "feasibility": "SKIP",
         "scope-definition": "SKIP",
@@ -3060,6 +3129,7 @@
         "workspace-detection": "EXECUTE",
         "state-init": "EXECUTE",
         "intent-capture": "SKIP",
+        "precedent-research": "SKIP",
         "market-research": "SKIP",
         "feasibility": "SKIP",
         "scope-definition": "SKIP",
@@ -3104,6 +3174,7 @@
         "workspace-detection": "EXECUTE",
         "state-init": "EXECUTE",
         "intent-capture": "SKIP",
+        "precedent-research": "SKIP",
         "market-research": "SKIP",
         "feasibility": "SKIP",
         "scope-definition": "SKIP",
@@ -3150,6 +3221,7 @@
         "workspace-detection": "EXECUTE",
         "state-init": "EXECUTE",
         "intent-capture": "SKIP",
+        "precedent-research": "SKIP",
         "market-research": "SKIP",
         "feasibility": "SKIP",
         "scope-definition": "SKIP",
@@ -3272,6 +3344,7 @@
     "practices-discovery-timestamp",
     "quality-gates",
     "raid-log",
+    "reference-brief",
     "refined-mockups-questions",
     "reliability-design",
     "reliability-requirements",
@@ -3415,6 +3488,14 @@
       "examples": [
         "test-strategy.md",
         "coverage-requirements.md"
+      ]
+    },
+    {
+      "slug": "aidlc-research-agent",
+      "display_name": "Research Agent",
+      "examples": [
+        "exemplar-selection-notes.md",
+        "precedent-sources.md"
       ]
     }
   ]

@@ -1,10 +1,10 @@
 # Adding an Agent
 
 An agent is the *who* of the framework — a persona with a domain, a tool
-allowlist, and a tier. The 14 shipped agents comprise 11 domain experts
+allowlist, and a tier. The 15 shipped agents comprise 12 domain experts
 covering product, design, delivery, architecture, AWS platform, compliance,
-DevSecOps, development, quality, pipeline-deploy, and operations; two
-review-only agents; and the adaptive-workflows composer. When your team needs
+DevSecOps, development, quality, pipeline-deploy, operations, and research;
+two review-only agents; and the adaptive-workflows composer. When your team needs
 a domain the framework doesn't cover (a data-governance reviewer or a mobile
 specialist, say), you add a persona by dropping a single Markdown file into
 `core/agents/`. No TypeScript.

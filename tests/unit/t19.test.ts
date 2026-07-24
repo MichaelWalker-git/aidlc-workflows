@@ -423,7 +423,7 @@ describe("t19 aidlc-jump execute (migrated from t19-tool-jump.sh, plan 16)", () 
     expect(readState(p)).toContain("- [ ] code-generation");
   });
 
-  test("12: backward Completed count is 5 (init+2 ideation)", () => {
+  test("12: backward Completed count is 6 (init+3 ideation)", () => {
     const p = proj("state-jumped.md");
     jump(
       [
@@ -437,10 +437,10 @@ describe("t19 aidlc-jump execute (migrated from t19-tool-jump.sh, plan 16)", () 
       ],
       p,
     );
-    // Mirrors `ACTUAL=$(bun "$STATE_TOOL" get "Completed" ...)` -> assert_eq "5".
+    // Mirrors `ACTUAL=$(bun "$STATE_TOOL" get "Completed" ...)` -> assert_eq "6".
     const r = stateGet("Completed", p);
     expect(r.status).toBe(0); // STRONGER
-    expect(r.stdout.trim()).toBe("5");
+    expect(r.stdout.trim()).toBe("6");
   });
 
   test("13a: redo marks target [-] active after reset", () => {

@@ -101,8 +101,8 @@ describe("t194 recompose - flips land as suffix edits and the router honours the
     // Suffix flipped, checkbox marker still pending.
     expect(after).toMatch(/- \[ \] market-research — SKIP/);
     // The router (via lookup next-stage, now state-aware) walks around it:
-    // after intent-capture the next stage is NOT market-research.
-    const next = run(proj, "aidlc-state.ts", ["lookup", "next-stage", "intent-capture", "feature"]);
+    // after precedent-research the next stage is NOT market-research.
+    const next = run(proj, "aidlc-state.ts", ["lookup", "next-stage", "precedent-research", "feature"]);
     expect(next.status).toBe(0);
     expect(next.out.trim()).toBe("feasibility");
   });
@@ -145,7 +145,7 @@ describe("t194 recompose - flips land as suffix edits and the router honours the
     // The untouched birth annotation survives the flip verbatim, and the
     // newly-skipped stage renders the scope-change way: number (slug).
     expect(midRow).toContain("(reverse-engineering — greenfield)");
-    expect(midRow).toContain("1.2 (market-research)");
+    expect(midRow).toContain("1.3 (market-research)");
 
     const add = run(proj, "aidlc-utility.ts", ["recompose", "--add", "market-research"]);
     expect(add.status).toBe(0);

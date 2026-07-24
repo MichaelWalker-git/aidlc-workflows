@@ -137,8 +137,8 @@ describe("every stage references the stage protocol", () => {
   // — including the 3 init stages — reference stage-protocol, so this is the
   // STRONGER form: every stage must reference it (the .sh's only failing branch
   // was a non-init stage missing the reference).
-  test("the shipped tree has exactly 32 stage files [.sh TOTAL_STAGES]", () => {
-    expect(STAGE_FILES.length).toBe(32);
+  test("the shipped tree has exactly 33 stage files [.sh TOTAL_STAGES]", () => {
+    expect(STAGE_FILES.length).toBe(33);
   });
 
   for (const { slug, path } of STAGE_FILES) {
@@ -165,8 +165,8 @@ describe("every agent has a knowledge directory", () => {
     .map((f) => basename(f, ".md"))
     .sort();
 
-  test("there are 14 agent files [structure guard]", () => {
-    expect(agents.length).toBe(14);
+  test("there are 15 agent files [structure guard]", () => {
+    expect(agents.length).toBe(15);
   });
 
   for (const agent of agents) {

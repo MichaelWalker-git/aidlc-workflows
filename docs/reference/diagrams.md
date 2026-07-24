@@ -15,7 +15,7 @@ This document contains all Mermaid diagrams that visualize the AI-DLC (AI-Driven
 
 ## 1. End-to-End Lifecycle
 
-The AI-DLC methodology organizes work into five sequential phases. Each phase has a verification gate at its boundary that must pass before the next phase begins. The full lifecycle spans 32 stages across the five phases, with scope determining which stages actually execute.
+The AI-DLC methodology organizes work into five sequential phases. Each phase has a verification gate at its boundary that must pass before the next phase begins. The full lifecycle spans 33 stages across the five phases, with scope determining which stages actually execute.
 
 ```mermaid
 graph LR
@@ -25,10 +25,10 @@ graph LR
         Z1 -.->|"3 stages"| Z4
     end
 
-    subgraph IDEATION["IDEATION (1.1-1.7)"]
+    subgraph IDEATION["IDEATION (1.1-1.8)"]
         I1["Intent Capture"]
         I7["Approval & Handoff"]
-        I1 -.->|"7 stages"| I7
+        I1 -.->|"8 stages"| I7
     end
 
     subgraph INCEPTION["INCEPTION (2.1-2.8)"]
@@ -66,38 +66,41 @@ graph LR
 
 ## 2. Ideation Flow
 
-The Ideation phase captures business intent, validates feasibility, defines scope, forms the team, creates rough mockups, and produces an initiative brief for approval. Stages marked ALWAYS execute for every scope; CONDITIONAL stages are skipped for certain scopes (e.g., poc, bugfix, refactor skip Market Research). Solid arrows indicate ALWAYS routing; dashed arrows indicate CONDITIONAL routing.
+The Ideation phase captures business intent, researches organizational precedent, validates feasibility, defines scope, forms the team, creates rough mockups, and produces an initiative brief for approval. Stages marked ALWAYS execute for every scope; CONDITIONAL stages are skipped for certain scopes (e.g., poc, bugfix, refactor skip Market Research; Precedent Research is skipped when no Org BoK ships with the install). Solid arrows indicate ALWAYS routing; dashed arrows indicate CONDITIONAL routing.
 
 ```mermaid
 flowchart TD
     S11["1.1 Intent Capture & Framing\n(aidlc-product-agent)"]
-    S12["1.2 Market Research\n(aidlc-product-agent)"]
-    S13["1.3 Feasibility & Constraints\n(aidlc-architect-agent)"]
-    S14["1.4 Scope Definition\n(aidlc-product-agent)"]
-    S15["1.5 Team Formation\n(aidlc-delivery-agent)"]
-    S16["1.6 Rough Mockups\n(aidlc-design-agent)"]
-    S17["1.7 Approval & Handoff\n(aidlc-delivery-agent)"]
+    S12["1.2 Precedent Research\n(aidlc-research-agent)"]
+    S13["1.3 Market Research\n(aidlc-product-agent)"]
+    S14["1.4 Feasibility & Constraints\n(aidlc-architect-agent)"]
+    S15["1.5 Scope Definition\n(aidlc-product-agent)"]
+    S16["1.6 Team Formation\n(aidlc-delivery-agent)"]
+    S17["1.7 Rough Mockups\n(aidlc-design-agent)"]
+    S18["1.8 Approval & Handoff\n(aidlc-delivery-agent)"]
     VG1{{"Verification Gate:\nIdeation --> Inception"}}
 
     S11 ==>|ALWAYS| S12
-    S11 -.->|"skip: poc, bugfix,\nrefactor, infra,\nsecurity-patch"| S14
-    S12 -.->|CONDITIONAL| S13
-    S12 -.->|"skip if no\nfeasibility needed"| S14
+    S11 -.->|"skip: poc, bugfix,\nrefactor, infra,\nsecurity-patch"| S15
+    S12 -.->|"CONDITIONAL\n(skip if no Org BoK)"| S13
     S13 -.->|CONDITIONAL| S14
-    S14 ==>|ALWAYS| S15
-    S14 -.->|"skip: poc,\nbugfix, refactor"| S17
-    S15 -.->|CONDITIONAL| S16
-    S15 -.->|"skip if no UI"| S17
+    S13 -.->|"skip if no\nfeasibility needed"| S15
+    S14 -.->|CONDITIONAL| S15
+    S15 ==>|ALWAYS| S16
+    S15 -.->|"skip: poc,\nbugfix, refactor"| S18
     S16 -.->|CONDITIONAL| S17
-    S17 ==>|ALWAYS| VG1
+    S16 -.->|"skip if no UI"| S18
+    S17 -.->|CONDITIONAL| S18
+    S18 ==>|ALWAYS| VG1
 
     style S11 fill:#c8e6c9,stroke:#388e3c
-    style S14 fill:#c8e6c9,stroke:#388e3c
-    style S17 fill:#c8e6c9,stroke:#388e3c
+    style S15 fill:#c8e6c9,stroke:#388e3c
+    style S18 fill:#c8e6c9,stroke:#388e3c
     style S12 fill:#fff9c4,stroke:#f9a825
     style S13 fill:#fff9c4,stroke:#f9a825
-    style S15 fill:#fff9c4,stroke:#f9a825
+    style S14 fill:#fff9c4,stroke:#f9a825
     style S16 fill:#fff9c4,stroke:#f9a825
+    style S17 fill:#fff9c4,stroke:#f9a825
     style VG1 fill:#ef9a9a,stroke:#c62828
 ```
 
@@ -246,8 +249,8 @@ flowchart TD
 
 ## 6. Agent Collaboration Map
 
-The full 14-agent roster comprises 11 domain agents, 2 review-only agents, and
-the adaptive-workflows composer. This diagram intentionally covers the 11
+The full 15-agent roster comprises 12 domain agents, 2 review-only agents, and
+the adaptive-workflows composer. This diagram intentionally covers the 12
 domain agents and their primary artifact flows. The review-only agents perform
 independent product and architecture checks, while the composer proposes and
 reshapes adaptive stage plans; see the [Agent Reference](agents/README.md) and
@@ -264,6 +267,7 @@ flowchart TD
     ORCH(["SKILL.md (Conductor)"])
 
     PA["aidlc-product-agent\n(Product Manager)"]
+    RA["aidlc-research-agent\n(Precedent Research)"]
     DA["aidlc-design-agent\n(UX Designer)"]
     DLA["aidlc-delivery-agent\n(Delivery Manager)"]
     AA["aidlc-architect-agent\n(Solutions Architect)"]
@@ -276,6 +280,7 @@ flowchart TD
     OA["aidlc-operations-agent\n(SRE)"]
 
     ORCH -->|delegates| PA
+    ORCH -->|delegates| RA
     ORCH -->|delegates| DA
     ORCH -->|delegates| DLA
     ORCH -->|delegates| AA
@@ -287,6 +292,10 @@ flowchart TD
     ORCH -->|delegates| PDA
     ORCH -->|delegates| OA
 
+    PA -->|"intent statement"| RA
+    RA -->|"reference brief:\nprecedent, patterns,\nUI directives"| AA
+    RA -->|"UI directives"| DA
+    RA -->|"patterns,\ndeep-dive pointers"| DEVA
     PA -->|"requirements,\nstories, scope"| AA
     PA -->|"intent, scope"| DA
     PA -->|"prioritized backlog"| DLA
@@ -633,12 +642,13 @@ This reference table maps every stage to its execution mode and lead agent for q
 | 0.2 | Workspace Detection | inline (auto-proceed, deterministic scanner) | orchestrator |
 | 0.3 | State Init | inline (auto-proceed) | orchestrator |
 | 1.1 | Intent Capture | inline | aidlc-product-agent |
-| 1.2 | Market Research | inline | aidlc-product-agent |
-| 1.3 | Feasibility | inline | aidlc-architect-agent |
-| 1.4 | Scope Definition | inline | aidlc-product-agent |
-| 1.5 | Team Formation | inline | aidlc-delivery-agent |
-| 1.6 | Rough Mockups | inline | aidlc-design-agent |
-| 1.7 | Approval & Handoff | inline | aidlc-delivery-agent |
+| 1.2 | Precedent Research | inline | aidlc-research-agent |
+| 1.3 | Market Research | inline | aidlc-product-agent |
+| 1.4 | Feasibility | inline | aidlc-architect-agent |
+| 1.5 | Scope Definition | inline | aidlc-product-agent |
+| 1.6 | Team Formation | inline | aidlc-delivery-agent |
+| 1.7 | Rough Mockups | inline | aidlc-design-agent |
+| 1.8 | Approval & Handoff | inline | aidlc-delivery-agent |
 | 2.1 | Reverse Engineering | pipeline (2-link) | aidlc-developer-agent + aidlc-architect-agent |
 | 2.2 | Practices Discovery | subagent | aidlc-pipeline-deploy-agent |
 | 2.3 | Requirements Analysis | inline | aidlc-product-agent |

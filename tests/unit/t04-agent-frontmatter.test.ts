@@ -62,9 +62,10 @@ import { REPO_ROOT } from "../harness/fixtures.ts";
 // dist/claude tree; this test pins what harness engineers actually edit.)
 const AGENTS_DIR = join(REPO_ROOT, "core", "agents");
 
-// The 11 domain-expert agents, in the order the .sh's `AGENTS=` list named them.
+// The 12 domain-expert agents, in the order the .sh's `AGENTS=` list named them.
 const AGENTS = [
   "product",
+  "research",
   "design",
   "delivery",
   "architect",
@@ -81,9 +82,10 @@ const AGENTS = [
 // mirroring the .sh's expected_model() case (L13-19). judgment =
 // multi-constraint reasoning / high blast radius; templated = pattern-
 // following config/scaffolding. (balanced covers the two review-only agents,
-// which are outside this 11-agent roster - see t216 for the full 14.)
+// which are outside this 12-agent roster - see t216 for the full 15.)
 const EXPECTED_TIER: Record<(typeof AGENTS)[number], "judgment" | "balanced" | "templated"> = {
   product: "judgment",
+  research: "judgment",
   design: "judgment",
   delivery: "templated",
   architect: "judgment",
@@ -198,12 +200,12 @@ describe("t04 agent-persona frontmatter contract (migrated from t04-agent-frontm
   });
 
   // .sh L21: plan 55. Re-count to pin the plan and guard against an agent being
-  // silently dropped from the roster (5 invariants x 11 agents = 55 rows).
-  test("covers EXACTLY 11 agents x 5 invariants = 55 frontmatter assertions (TAP plan parity)", () => {
-    expect(AGENTS.length).toBe(11);
-    expect(Object.keys(EXPECTED_TIER).length).toBe(11);
+  // silently dropped from the roster (5 invariants x 12 agents = 60 rows).
+  test("covers EXACTLY 12 agents x 5 invariants = 60 frontmatter assertions (TAP plan parity)", () => {
+    expect(AGENTS.length).toBe(12);
+    expect(Object.keys(EXPECTED_TIER).length).toBe(12);
     const INVARIANTS_PER_AGENT = 5;
-    expect(AGENTS.length * INVARIANTS_PER_AGENT).toBe(55);
+    expect(AGENTS.length * INVARIANTS_PER_AGENT).toBe(60);
     // Every agent in the roster must have an expected-tier entry (no orphan).
     for (const agent of AGENTS) {
       expect(EXPECTED_TIER[agent], `no expected tier for ${agent}`).toBeDefined();

@@ -1,6 +1,6 @@
 # Phases and Stages
 
-The AI-DLC lifecycle is organized into 5 phases containing 32 stages. This chapter explains each phase, lists its stages, and shows how they connect.
+The AI-DLC lifecycle is organized into 5 phases containing 33 stages. This chapter explains each phase, lists its stages, and shows how they connect.
 
 > **Harness note.** The methodology — the phases, stages, agents, and gates this
 > guide describes — is identical on every harness. Where a mechanic differs by
@@ -21,10 +21,10 @@ graph LR
         Z1 -.->|"3 stages"| Z4
     end
 
-    subgraph IDEATION["IDEATION (1.1-1.7)"]
+    subgraph IDEATION["IDEATION (1.1-1.8)"]
         I1["Intent Capture"]
         I7["Approval & Handoff"]
-        I1 -.->|"7 stages"| I7
+        I1 -.->|"8 stages"| I7
     end
 
     subgraph INCEPTION["INCEPTION (2.1-2.8)"]
@@ -58,7 +58,7 @@ graph LR
     style OPERATION fill:#fce4ec,stroke:#e91e63
 ```
 
-<!-- Text fallback: Linear flow: INITIALIZATION (0.1-0.3) auto-proceeds to IDEATION (1.1-1.7), which passes through Verification Gate 1 to INCEPTION (2.1-2.8), through Verification Gate 2 to CONSTRUCTION (3.1-3.7), through Verification Gate 3 to OPERATION (4.1-4.7). A feedback loop returns from 4.7 back to 1.1. -->
+<!-- Text fallback: Linear flow: INITIALIZATION (0.1-0.3) auto-proceeds to IDEATION (1.1-1.8), which passes through Verification Gate 1 to INCEPTION (2.1-2.8), through Verification Gate 2 to CONSTRUCTION (3.1-3.7), through Verification Gate 3 to OPERATION (4.1-4.7). A feedback loop returns from 4.7 back to 1.1. -->
 
 Phases execute sequentially. At each phase boundary (except Initialization → Ideation), a **verification gate** runs automated traceability checks to catch missing links, orphaned artifacts, or inconsistencies before downstream stages build on them.
 
@@ -90,49 +90,55 @@ Initialization stages run **automatically** without approval gates. All three ex
 ```mermaid
 flowchart TD
     S11["1.1 Intent Capture & Framing\n(aidlc-product-agent)"]
-    S12["1.2 Market Research\n(aidlc-product-agent)"]
-    S13["1.3 Feasibility & Constraints\n(aidlc-architect-agent)"]
-    S14["1.4 Scope Definition\n(aidlc-product-agent)"]
-    S15["1.5 Team Formation\n(aidlc-delivery-agent)"]
-    S16["1.6 Rough Mockups\n(aidlc-design-agent)"]
-    S17["1.7 Approval & Handoff\n(aidlc-delivery-agent)"]
+    S12["1.2 Precedent Research\n(aidlc-research-agent)"]
+    S13["1.3 Market Research\n(aidlc-product-agent)"]
+    S14["1.4 Feasibility & Constraints\n(aidlc-architect-agent)"]
+    S15["1.5 Scope Definition\n(aidlc-product-agent)"]
+    S16["1.6 Team Formation\n(aidlc-delivery-agent)"]
+    S17["1.7 Rough Mockups\n(aidlc-design-agent)"]
+    S18["1.8 Approval & Handoff\n(aidlc-delivery-agent)"]
     VG1{{"Verification Gate:\nIdeation → Inception"}}
 
     S11 ==>|ALWAYS| S12
-    S11 -.->|"skip: bugfix, refactor,\ninfra, security-patch"| S14
-    S12 -.->|CONDITIONAL| S13
-    S12 -.->|"skip if no\nfeasibility needed"| S14
+    S11 -.->|"skip: bugfix, refactor,\ninfra, security-patch"| S15
+    S12 -.->|"CONDITIONAL\n(skip if no Org BoK)"| S13
     S13 -.->|CONDITIONAL| S14
-    S14 ==>|ALWAYS| S15
-    S14 -.->|"skip: poc,\nbugfix, refactor"| S17
-    S15 -.->|CONDITIONAL| S16
-    S15 -.->|"skip if no UI"| S17
+    S13 -.->|"skip if no\nfeasibility needed"| S15
+    S14 -.->|CONDITIONAL| S15
+    S15 ==>|ALWAYS| S16
+    S15 -.->|"skip: poc,\nbugfix, refactor"| S18
     S16 -.->|CONDITIONAL| S17
-    S17 ==>|ALWAYS| VG1
+    S16 -.->|"skip if no UI"| S18
+    S17 -.->|CONDITIONAL| S18
+    S18 ==>|ALWAYS| VG1
 
     style S11 fill:#c8e6c9,stroke:#388e3c
-    style S14 fill:#c8e6c9,stroke:#388e3c
-    style S17 fill:#c8e6c9,stroke:#388e3c
+    style S15 fill:#c8e6c9,stroke:#388e3c
+    style S18 fill:#c8e6c9,stroke:#388e3c
     style S12 fill:#fff9c4,stroke:#f9a825
     style S13 fill:#fff9c4,stroke:#f9a825
-    style S15 fill:#fff9c4,stroke:#f9a825
+    style S14 fill:#fff9c4,stroke:#f9a825
     style S16 fill:#fff9c4,stroke:#f9a825
+    style S17 fill:#fff9c4,stroke:#f9a825
     style VG1 fill:#ef9a9a,stroke:#c62828
 ```
 
-<!-- Text fallback: 1.1 Intent Capture (ALWAYS) flows to 1.2 Market Research (CONDITIONAL) or directly to 1.4. 1.2 flows to 1.3 Feasibility (CONDITIONAL) or to 1.4. 1.3 flows to 1.4 Scope Definition (ALWAYS). 1.4 flows to 1.5 Team Formation (CONDITIONAL) or to 1.7. 1.5 flows to 1.6 Rough Mockups (CONDITIONAL, skip if no UI) or to 1.7. 1.6 flows to 1.7 Approval & Handoff (ALWAYS), then Verification Gate 1. -->
+<!-- Text fallback: 1.1 Intent Capture (ALWAYS) flows to 1.2 Precedent Research (CONDITIONAL, skip if no Org BoK) or directly to 1.5. 1.2 flows to 1.3 Market Research (CONDITIONAL). 1.3 flows to 1.4 Feasibility (CONDITIONAL) or to 1.5. 1.4 flows to 1.5 Scope Definition (ALWAYS). 1.5 flows to 1.6 Team Formation (CONDITIONAL) or to 1.8. 1.6 flows to 1.7 Rough Mockups (CONDITIONAL, skip if no UI) or to 1.8. 1.7 flows to 1.8 Approval & Handoff (ALWAYS), then Verification Gate 1. -->
 
 | # | Stage | Lead | Supporting | Key Artifacts | Condition |
 |---|-------|------|-----------|---------------|-----------|
 | 1.1 | Intent Capture & Framing | aidlc-product-agent | aidlc-architect-agent | Intent statement, stakeholder map | ALWAYS |
-| 1.2 | Market Research | aidlc-product-agent | — | Competitive analysis, build-vs-buy | CONDITIONAL |
-| 1.3 | Feasibility & Constraints | aidlc-architect-agent | aidlc-aws-platform-agent, aidlc-compliance-agent | Feasibility assessment, constraint register, RAID log | CONDITIONAL |
-| 1.4 | Scope Definition | aidlc-product-agent | aidlc-delivery-agent | Scope definition, intent backlog | ALWAYS |
-| 1.5 | Team Formation | aidlc-delivery-agent | — | Team assessment, mob composition plan | CONDITIONAL |
-| 1.6 | Rough Mockups | aidlc-design-agent | aidlc-product-agent | Wireframes, user flows, concept deck | CONDITIONAL |
-| 1.7 | Approval & Handoff | aidlc-delivery-agent | aidlc-product-agent | Initiative brief, decision log | ALWAYS |
+| 1.2 | Precedent Research | aidlc-research-agent | — | Reference brief | CONDITIONAL |
+| 1.3 | Market Research | aidlc-product-agent | — | Competitive analysis, build-vs-buy | CONDITIONAL |
+| 1.4 | Feasibility & Constraints | aidlc-architect-agent | aidlc-aws-platform-agent, aidlc-compliance-agent | Feasibility assessment, constraint register, RAID log | CONDITIONAL |
+| 1.5 | Scope Definition | aidlc-product-agent | aidlc-delivery-agent | Scope definition, intent backlog | ALWAYS |
+| 1.6 | Team Formation | aidlc-delivery-agent | — | Team assessment, mob composition plan | CONDITIONAL |
+| 1.7 | Rough Mockups | aidlc-design-agent | aidlc-product-agent | Wireframes, user flows, concept deck | CONDITIONAL |
+| 1.8 | Approval & Handoff | aidlc-delivery-agent | aidlc-product-agent | Initiative brief, decision log | ALWAYS |
 
 **Stage colors:** Green = ALWAYS (runs for every scope). Yellow = CONDITIONAL (skipped for some scopes).
+
+**Precedent Research (1.2)** runs when the install ships an Org BoK with at least one exemplar: the research agent reads the intent, selects matching exemplar profiles from the curated index, and writes a reference brief naming precedent, patterns to follow, and UI directives. It is skipped automatically when no BoK is present.
 
 ---
 
@@ -403,18 +409,18 @@ If verification fails, the conductor reports the issues and asks whether to proc
 | Mode | Stages | User Interaction | Description |
 |------|--------|-----------------|-------------|
 | Inline (auto-proceed) | 0.1, 0.2, 0.3 | None | Run deterministically inside `aidlc-utility intent-birth`, no approval gate |
-| Inline | 28 stages | Full | Agent works in conversation, approval gate at end |
+| Inline | 29 stages | Full | Agent works in conversation, approval gate at end |
 | Subagent | 2.2, 3.5 | Practices interview + final gate for 2.2; approval gate for 3.5 | Hub-and-spoke Practices Discovery; focused Code Generation |
 | Pipeline (2-link) | 2.1 | Approval gate only | Developer scan, then architect synthesis-and-write |
 | Mob | 2.4 | Mid-stage judgment questions + approval gate | Lead drafts; design/developer/quality collaborate in parallel via contribution files |
 
-Across all 32 stages, the topology count is **28 inline / 2 subagent / 1 pipeline / 1 mob**.
+Across all 33 stages, the topology count is **29 inline / 2 subagent / 1 pipeline / 1 mob**.
 
 ---
 
 ## Next Steps
 
 - [Scopes, Depth, and Test Strategy](05-scopes-and-depth.md) — how scopes control which stages execute
-- [Agents](06-agents.md) — the 14-agent roster and its domain, review, and composition roles
+- [Agents](06-agents.md) — the 15-agent roster and its domain, review, and composition roles
 - [Your First Workflow](02-your-first-workflow.md) — annotated walkthrough
 - [Glossary](glossary.md) — terminology reference

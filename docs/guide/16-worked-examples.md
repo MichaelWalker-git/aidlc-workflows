@@ -175,7 +175,7 @@ Application code in workspace root:
 
 ## Feature Walkthrough
 
-This example builds a notification service for a task management application. The **feature** scope runs all 32 stages at Standard depth. This walkthrough highlights key stages across all phases.
+This example builds a notification service for a task management application. The **feature** scope runs all 33 stages at Standard depth. This walkthrough highlights key stages across all phases.
 
 ### Invocation
 
@@ -191,9 +191,9 @@ This example builds a notification service for a task management application. Th
 
 The 3 Initialization stages run automatically inside `aidlc-utility intent-birth`. Workspace Detection identifies: TypeScript, Node.js 20, Express, PostgreSQL, brownfield project with existing task and user services.
 
-> Progress: 3/32 overall | Scope: feature, Depth: Standard
+> Progress: 3/33 overall | Scope: feature, Depth: Standard
 
-### Ideation Phase (stages 1.1-1.7)
+### Ideation Phase (stages 1.1-1.8)
 
 **Stage 1.1 — Intent Capture** (aidlc-product-agent)
 
@@ -210,15 +210,15 @@ X. Other
 
 You answer B (in-app + email). After approval, the stage produces a structured intent statement linking notification types to user triggers.
 
-**Stage 1.4 — Scope Definition** (aidlc-product-agent)
+**Stage 1.5 — Scope Definition** (aidlc-product-agent)
 
 Defines scope boundaries: in-scope (3 trigger types, user preferences, email digest), out-of-scope (push notifications, SMS, real-time WebSocket). Produces `scope-document.md` and `intent-backlog.md` with prioritized items.
 
-**Stage 1.7 — Approval & Handoff** (aidlc-delivery-agent)
+**Stage 1.8 — Approval & Handoff** (aidlc-delivery-agent)
 
 Compiles the initiative brief aggregating all Ideation outputs. Phase boundary verification confirms intent-to-scope traceability.
 
-> Progress: 10/32 overall | IDEATION complete. Verification Gate passed.
+> Progress: 11/33 overall | IDEATION complete. Verification Gate passed.
 
 ### Inception Phase (stages 2.1-2.8)
 
@@ -262,7 +262,7 @@ Produces `unit-of-work.md` with dependency map: notification-core first, then pr
 
 Bolt sequence: Bolt 1 ships notification-core (walking skeleton — proves the event-handler pipeline end-to-end). Bolt 2 ships notification-preferences and notification-email in parallel. Per-Bolt DoDs captured in `bolt-plan.md`; WSJF-style rationale in `risk-and-sequencing-rationale.md`; external SES/SQS dependencies mapped in `external-dependency-map.md`. Phase boundary verification confirms requirements-to-architecture alignment.
 
-> Progress: 18/32 overall | INCEPTION complete. Verification Gate passed.
+> Progress: 19/33 overall | INCEPTION complete. Verification Gate passed.
 
 ### Construction Phase (stages 3.1-3.7)
 
@@ -323,7 +323,7 @@ Generates build instructions, runs the full test suite across all 3 Units: 47 te
 
 Configures CI pipeline with lint, build, test, and security scan stages. Quality gates: coverage >= 75%, no critical vulnerabilities.
 
-> Progress: 25/32 overall | CONSTRUCTION complete. Verification Gate passed.
+> Progress: 26/33 overall | CONSTRUCTION complete. Verification Gate passed.
 
 ### Operation Phase (stages 4.1-4.7)
 
@@ -335,13 +335,13 @@ Configures CI pipeline with lint, build, test, and security scan stages. Quality
 
 **Stage 4.7 — Feedback & Optimization** — SLO targets (99.9% in-app delivery, 99% email delivery within 30s), cost analysis, feedback loop document.
 
-> Progress: 32/32 overall | OPERATION complete. Feature workflow complete.
+> Progress: 33/33 overall | OPERATION complete. Feature workflow complete.
 
 ### Key differences from bugfix
 
 | Aspect | Bugfix | Feature |
 |--------|--------|---------|
-| Stages executed | 7 | 32 |
+| Stages executed | 7 | 33 |
 | Depth | Minimal | Standard |
 | Phases | Initialization + Inception + Construction | All 5 |
 | Units of work | 1 | 3 |

@@ -112,14 +112,14 @@ describe("t39 scope EXECUTE-count validation — loadScopeMapping (migrated from
     }
   });
 
-  // 1. Enterprise: all 32 stages EXECUTE.
-  test("1: enterprise executes all 32 stages", () => {
-    expect(execCount("enterprise")).toBe(32);
+  // 1. Enterprise: all 33 stages EXECUTE.
+  test("1: enterprise executes all 33 stages", () => {
+    expect(execCount("enterprise")).toBe(33);
   });
 
-  // 2. Feature: all 32 stages EXECUTE.
-  test("2: feature executes all 32 stages", () => {
-    expect(execCount("feature")).toBe(32);
+  // 2. Feature: all 33 stages EXECUTE.
+  test("2: feature executes all 33 stages", () => {
+    expect(execCount("feature")).toBe(33);
   });
 
   // 3. MVP: range 15-25 (operations skipped; inception+construction+init).

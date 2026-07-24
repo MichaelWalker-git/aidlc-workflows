@@ -12,7 +12,7 @@ Core ships 9 named scopes. Each scope defines a stage set and a default depth le
 
 **Use when:** Building a regulated enterprise feature that requires full audit trail, compliance review, and production-grade operations.
 
-- **Stages:** All 32
+- **Stages:** All 33
 - **Default depth:** Comprehensive
 - **Includes:** Full compliance, security, and operations stages
 
@@ -20,7 +20,7 @@ Core ships 9 named scopes. Each scope defines a stage set and a default depth le
 
 **Use when:** Building a new feature of any size. This is the default scope when AI-DLC cannot determine a more specific match.
 
-- **Stages:** All 32
+- **Stages:** All 33
 - **Default depth:** Standard
 - **Includes:** All stages, standard artifact detail
 
@@ -28,15 +28,15 @@ Core ships 9 named scopes. Each scope defines a stage set and a default depth le
 
 **Use when:** Building a greenfield minimum viable product. Skips late-stage operations but retains full design and construction.
 
-- **Stages:** 22 of 32
+- **Stages:** 22 of 33
 - **Default depth:** Standard
-- **Skips:** All 7 Operation stages (deployment pipeline, environment provisioning, deployment execution, observability, incident response, performance validation, feedback) plus Market Research, Team Formation, and Approval Handoff from Ideation (10 skipped, 22 executed)
+- **Skips:** All 7 Operation stages (deployment pipeline, environment provisioning, deployment execution, observability, incident response, performance validation, feedback) plus Precedent Research, Market Research, Team Formation, and Approval Handoff from Ideation (11 skipped, 22 executed)
 
 ### poc
 
 **Use when:** Proving feasibility quickly. Skips most Ideation and Inception stages, focuses on getting to code fast.
 
-- **Stages:** 8 of 32
+- **Stages:** 8 of 33
 - **Default depth:** Minimal
 - **Skips:** Market Research, Feasibility, Team Formation, Mockups, User Stories, most Operation stages
 
@@ -44,7 +44,7 @@ Core ships 9 named scopes. Each scope defines a stage set and a default depth le
 
 **Use when:** Fixing a specific bug. Streamlined path from intent capture through code generation and testing.
 
-- **Stages:** 7 of 32
+- **Stages:** 7 of 33
 - **Default depth:** Minimal
 - **Skips:** Market Research, Feasibility, Team Formation, Mockups, most design and architecture stages, all Operation stages
 
@@ -52,7 +52,7 @@ Core ships 9 named scopes. Each scope defines a stage set and a default depth le
 
 **Use when:** Cleaning up or restructuring existing code without changing functionality.
 
-- **Stages:** 8 of 32
+- **Stages:** 8 of 33
 - **Default depth:** Minimal
 - **Skips:** Similar to bugfix — focused on code analysis, design, and implementation
 
@@ -60,7 +60,7 @@ Core ships 9 named scopes. Each scope defines a stage set and a default depth le
 
 **Use when:** Making infrastructure changes (new environments, CDK/CloudFormation updates, cost optimization).
 
-- **Stages:** 13 of 32
+- **Stages:** 13 of 33
 - **Default depth:** Standard
 - **Skips:** User-facing stages (stories, mockups, user flows) — focuses on architecture, infrastructure, and deployment
 
@@ -68,7 +68,7 @@ Core ships 9 named scopes. Each scope defines a stage set and a default depth le
 
 **Use when:** Responding to a CVE or security vulnerability. Fast path through security-relevant stages.
 
-- **Stages:** 10 of 32
+- **Stages:** 10 of 33
 - **Default depth:** Minimal
 - **Skips:** Market Research, Team Formation, Mockups, non-security design stages
 
@@ -76,10 +76,10 @@ Core ships 9 named scopes. Each scope defines a stage set and a default depth le
 
 **Use when:** Running an AI-DLC workshop or training session. The project is pre-decided by the facilitator; participants work through inception, construction, and operation as a mob.
 
-- **Stages:** 25 of 32
+- **Stages:** 25 of 33
 - **Default depth:** Standard
 - **Default test strategy:** Minimal (Nyquist) — keeps workshop pace fast
-- **Skips:** All Ideation stages (1.1-1.7) — project scope is pre-decided
+- **Skips:** All Ideation stages (1.1-1.8) — project scope is pre-decided
 
 See [Workshop Mode](workshop-mode.md) for the multi-developer manual recipe and claim semantics.
 
@@ -91,18 +91,18 @@ Authoritative data lives in the `.claude/scopes/aidlc-<name>.md` files (scope id
 
 | Scope | EXECUTE / Total | Depth | Test Strategy | Use Case |
 |-------|-----------------|-------|---------------|----------|
-| `enterprise` | 32 / 32 | Comprehensive | Comprehensive | Regulated enterprise feature, full audit trail |
-| `feature` | 32 / 32 | Standard | Standard | Default for new features |
-| `mvp` | 22 / 32 | Standard | Standard | Greenfield, skip late operations |
-| `poc` | 8 / 32 | Minimal | Minimal | Prove feasibility fast |
-| `bugfix` | 7 / 32 | Minimal | Minimal | Fix a specific bug |
-| `refactor` | 8 / 32 | Minimal | Minimal | Clean up existing code |
-| `infra` | 13 / 32 | Standard | Standard | Infrastructure change |
-| `security-patch` | 10 / 32 | Minimal | Minimal | CVE response |
-| `workshop` | 25 / 32 | Standard | **Minimal** | AI-DLC workshop or training session |
+| `enterprise` | 33 / 33 | Comprehensive | Comprehensive | Regulated enterprise feature, full audit trail |
+| `feature` | 33 / 33 | Standard | Standard | Default for new features |
+| `mvp` | 22 / 33 | Standard | Standard | Greenfield, skip late operations |
+| `poc` | 8 / 33 | Minimal | Minimal | Prove feasibility fast |
+| `bugfix` | 7 / 33 | Minimal | Minimal | Fix a specific bug |
+| `refactor` | 8 / 33 | Minimal | Minimal | Clean up existing code |
+| `infra` | 13 / 33 | Standard | Standard | Infrastructure change |
+| `security-patch` | 10 / 33 | Minimal | Minimal | CVE response |
+| `workshop` | 25 / 33 | Standard | **Minimal** | AI-DLC workshop or training session |
 | (auto-detect) | Varies | Varies | Varies | AI determines from freeform intent |
 
-Scopes differ by an order of magnitude in ceremony: `poc` runs 8 stages with 5 approval gates, while `feature` runs all 32 with 29 gates and five design stages that fan out per Unit of Work in Construction. So the scope confirmation line always names the exact numbers - stage count, approval-gate count, and any per-unit fan-out - computed from the compiled grid, never estimated. You know what you are consenting to before the workflow starts.
+Scopes differ by an order of magnitude in ceremony: `poc` runs 8 stages with 5 approval gates, while `feature` runs all 33 with 30 gates and five design stages that fan out per Unit of Work in Construction. So the scope confirmation line always names the exact numbers - stage count, approval-gate count, and any per-unit fan-out - computed from the compiled grid, never estimated. You know what you are consenting to before the workflow starts.
 
 > **Per-project default scope:** teams can pre-set the default scope for a project by setting `AWS_AIDLC_DEFAULT_SCOPE` in `.claude/settings.json` — useful for workshops where every participant should start at `workshop` without remembering the flag. See [Customization § Per-Project Default Scope](13-customization.md#per-project-default-scope).
 
@@ -134,7 +134,7 @@ The engine analyzes your intent against keyword patterns:
 After a clear keyword match, you get a one-line confirmation naming the MATCHED scope and the ceremony it carries, straight from the compiled grid:
 
 ```
-Starting a "bugfix" workflow for: "fix login bug" - 7 of 32 stages, 4 approval gates, 1 stage repeats per unit of work in Construction. Confirm to proceed,
+Starting a "bugfix" workflow for: "fix login bug" - 7 of 33 stages, 4 approval gates, 1 stage repeats per unit of work in Construction. Confirm to proceed,
 name a different scope, or say "compose" for a tailored plan.
 ```
 
@@ -348,7 +348,7 @@ You can change the test strategy at three points:
 | Regulated feature requiring compliance | `enterprise` |
 | AI-DLC workshop or training lab | `workshop` |
 
-When in doubt, start with `feature` — it includes all 32 stages, and you can skip individual stages at their approval gates.
+When in doubt, start with `feature` — it includes all 33 stages, and you can skip individual stages at their approval gates.
 
 ---
 

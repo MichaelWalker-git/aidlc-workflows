@@ -49,7 +49,7 @@ Below the frontmatter, the markdown body defines:
 
 ## Shared Configuration
 
-All 14 agents share a common configuration baseline. None declares a `tools:` allowlist, so every agent inherits the **full session toolset** — all of Claude Code's built-in tools plus any MCP tools provisioned to the session. The one shipped restriction is `disallowedTools: Task`.
+All 15 agents share a common configuration baseline. None declares a `tools:` allowlist, so every agent inherits the **full session toolset** — all of Claude Code's built-in tools plus any MCP tools provisioned to the session. The one shipped restriction is `disallowedTools: Task`.
 
 ### The session toolset (inherited by every agent)
 
@@ -85,7 +85,7 @@ The authored dial on every agent is `tier:` -- it names the KIND of work the per
 
 | Tier | Agents | Meaning |
 |------|--------|---------|
-| `judgment` | architect, aws-platform, compliance, composer, design, developer, devsecops, product, quality | Multi-constraint reasoning under ambiguity; output cascades downstream. Never downgraded: inherits the session's model AND effort |
+| `judgment` | architect, aws-platform, compliance, composer, design, developer, devsecops, product, quality, research | Multi-constraint reasoning under ambiguity; output cascades downstream. Never downgraded: inherits the session's model AND effort |
 | `balanced` | architecture-reviewer, product-lead | Reviewer-shaped work -- novel input against explicit criteria. Mid-size model, session effort |
 | `templated` | delivery, operations, pipeline-deploy | Dominantly pattern-following output; methodology already in knowledge (delivery plans, CI/CD YAML, runbooks). Mid-size model at reduced effort -- the one deliberate downgrade |
 
@@ -124,6 +124,7 @@ access grant.
 | Agent | Bash Expected Use | WebSearch Expected Use | Tier | Lead Stages | Support Stages | Total |
 |-------|-------------------|------------------------|------|-------------|----------------|-------|
 | aidlc-product-agent | No | Yes | judgment | 5 | 3 | 8 |
+| aidlc-research-agent | No | No | judgment | 1 | 0 | 1 |
 | aidlc-design-agent | No | Yes | judgment | 2 | 2 | 4 |
 | aidlc-delivery-agent | No | No | templated | 3 | 2 | 5 |
 | aidlc-architect-agent | No | No | judgment | 6 | 3 | 9 |
@@ -137,9 +138,9 @@ access grant.
 
 **Observations:**
 - aidlc-architect-agent has the broadest stage involvement (9 stages across 3 phases).
-- Across the full 14-agent roster, nine agents carry the `judgment` tier and five step down (the two `balanced` reviewers plus the three `templated` planners); the stepped-down agents produce reviews against explicit checklists or dominantly templated planning, CI/CD, and runbook work. The matrix above covers the 11 domain-expert agents.
+- Across the full 15-agent roster, ten agents carry the `judgment` tier and five step down (the two `balanced` reviewers plus the three `templated` planners); the stepped-down agents produce reviews against explicit checklists or dominantly templated planning, CI/CD, and runbook work. The matrix above covers the 12 domain-expert agents.
 - aidlc-compliance-agent operates purely in an advisory capacity (4 support stages, no lead stages).
-- Six of 11 agents are expected to use Bash for CLI interaction.
+- Six of 12 agents are expected to use Bash for CLI interaction.
 - Three agents are expected to use WebSearch for research tasks.
 
 ---
@@ -149,6 +150,7 @@ access grant.
 | Agent | Init (0) | Ideation (1) | Inception (2) | Construction (3) | Operation (4) |
 |-------|----------|--------------|---------------|-------------------|---------------|
 | aidlc-product-agent | -- | L (intent-capture, market-research, scope-definition), S (rough-mockups, approval-handoff) | L (requirements-analysis, user-stories), S (refined-mockups) | -- | -- |
+| aidlc-research-agent | -- | L (precedent-research) | -- | -- | -- |
 | aidlc-design-agent | -- | L (rough-mockups) | L (refined-mockups), S (user-stories, application-design) | -- | -- |
 | aidlc-delivery-agent | -- | L (team-formation, approval-handoff), S (scope-definition) | L (delivery-planning), S (units-generation) | -- | -- |
 | aidlc-architect-agent | -- | L (feasibility), S (intent-capture) | L (application-design, units-generation), S (reverse-engineering, delivery-planning) | L (functional-design, nfr-requirements, nfr-design) | -- |

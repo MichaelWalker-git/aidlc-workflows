@@ -50,6 +50,7 @@ const AGENTS = [
   "product",
   "product-lead",
   "quality",
+  "research",
 ] as const;
 
 type Agent = (typeof AGENTS)[number];
@@ -72,6 +73,7 @@ const EXPECTED: Record<Agent, { model: "inherit" | "sonnet"; effort: "medium" | 
   product: { model: "inherit", effort: null },
   "product-lead": { model: "sonnet", effort: null },
   quality: { model: "inherit", effort: null },
+  research: { model: "inherit", effort: null },
 };
 
 const agentFile = (agent: Agent): string =>
@@ -89,7 +91,7 @@ function keyValues(fm: string, key: string): string[] {
 }
 
 describe("t216 complete Claude agent tier-projection contract", () => {
-  test("shipped Claude roster is exactly the expected 14 agent files", () => {
+  test("shipped Claude roster is exactly the expected 15 agent files", () => {
     const shipped = readdirSync(AGENTS_DIR)
       .filter((name) => name.endsWith("-agent.md"))
       .sort();

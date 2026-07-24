@@ -52,7 +52,7 @@
 //   - .sh Tests 24-30 (CONDITIONAL_STAGES skip)               -> "conditional
 //       skip" block, 7 cases. STRONGER: each ALSO asserts is_conditional === true
 //       (execution === "CONDITIONAL") before the skip grep — the .sh's `if`
-//       branch is pinned, not assumed. All 7 are CONDITIONAL on disk.
+//       branch is pinned, not assumed. All 8 are CONDITIONAL on disk.
 //   - .sh Tests 31-34 (construction output dir)               -> 4 cases.
 //   - .sh Tests 35-37 (operation output dir)                  -> 3 cases.
 //   - .sh Test 38 assert_gt APPROVAL_COUNT 4                   -> "approval
@@ -241,6 +241,7 @@ describe("t44 stage-instruction completeness — parseStageFrontmatter (migrated
   // ============================================================
 
   const CONDITIONAL_STAGES = [
+    "precedent-research",
     "reverse-engineering",
     "practices-discovery",
     "feasibility",
@@ -255,7 +256,7 @@ describe("t44 stage-instruction completeness — parseStageFrontmatter (migrated
     test(`conditional skip: ${slug} (CONDITIONAL) documents skip condition`, () => {
       const f = findStageFile(slug);
       // STRONGER: pin the CONDITIONAL branch (execution === "CONDITIONAL") the
-      // .sh's `if is_conditional` only implicitly took. All 7 are CONDITIONAL.
+      // .sh's `if is_conditional` only implicitly took. All 8 are CONDITIONAL.
       expect(isConditional(f)).toBe(true);
       expect(fileMatches(f, SKIP_RE)).toBe(true);
     });

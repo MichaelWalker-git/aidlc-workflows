@@ -55,6 +55,7 @@ const manifest: HarnessManifest = {
     // Ensemble collaborator configs (2.5.0 roster closure): lean read+shell
     // delegation targets so any stage can flip to an ensemble topology here.
     { src: "agents/aidlc-product-agent.json", dst: "agents/aidlc-product-agent.json" },
+    { src: "agents/aidlc-research-agent.json", dst: "agents/aidlc-research-agent.json" },
     { src: "agents/aidlc-design-agent.json", dst: "agents/aidlc-design-agent.json" },
     { src: "agents/aidlc-delivery-agent.json", dst: "agents/aidlc-delivery-agent.json" },
     { src: "agents/aidlc-aws-platform-agent.json", dst: "agents/aidlc-aws-platform-agent.json" },

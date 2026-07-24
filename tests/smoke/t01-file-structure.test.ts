@@ -50,11 +50,12 @@ const at = (...parts: string[]): string => join(AIDLC_SRC, ...parts);
 const mem = (...parts: string[]): string =>
   join(AIDLC_SRC, "..", "aidlc", "spaces", "default", "memory", ...parts);
 
-// The 14 agents (11 original domain-expert personas + the two reviewer
+// The 15 agents (12 domain-expert personas + the two reviewer
 // personas product-lead and architecture-reviewer + the adaptive-workflows
 // composer), in roster order (SKILL.md / CLAUDE.md agent roster order).
 const AGENTS = [
   "product",
+  "research",
   "design",
   "delivery",
   "architect",
@@ -87,12 +88,13 @@ const HOOKS = [
   "aidlc-stop.ts",
 ] as const;
 
-// The 32 stage files, partitioned by phase exactly as the .sh's per-phase loops
-// did (3 + 7 + 8 + 7 + 7 = 32).
+// The 33 stage files, partitioned by phase exactly as the .sh's per-phase loops
+// did (3 + 8 + 8 + 7 + 7 = 33).
 const STAGES: Record<string, readonly string[]> = {
   initialization: ["workspace-scaffold", "workspace-detection", "state-init"],
   ideation: [
     "intent-capture",
+    "precedent-research",
     "market-research",
     "feasibility",
     "scope-definition",
@@ -161,19 +163,19 @@ describe("t01 — shipped-tree file-structure invariant (mechanism: none)", () =
     expect(shipped).toEqual([...HOOKS].sort());
   });
 
-  test("ships each of the 14 agent personas [.sh L32-34]", () => {
+  test("ships each of the 15 agent personas [.sh L32-34]", () => {
     for (const a of AGENTS) {
       expect(existsSync(at("agents", `aidlc-${a}-agent.md`))).toBe(true);
     }
   });
 
-  // STRONGER than the .sh: the agents dir holds EXACTLY 14 aidlc-*-agent.md
+  // STRONGER than the .sh: the agents dir holds EXACTLY 15 aidlc-*-agent.md
   // files — pins the roster size, not only the named members.
-  test("ships EXACTLY 14 aidlc-*-agent.md files [.sh L32-34 — count strengthening]", () => {
+  test("ships EXACTLY 15 aidlc-*-agent.md files [.sh L32-34 — count strengthening]", () => {
     const shipped = readdirSync(at("agents")).filter(
       (f) => f.startsWith("aidlc-") && f.endsWith("-agent.md"),
     );
-    expect(shipped.length).toBe(14);
+    expect(shipped.length).toBe(15);
     const expected = AGENTS.map((a) => `aidlc-${a}-agent.md`).sort();
     expect(shipped.sort()).toEqual(expected);
   });
@@ -186,7 +188,7 @@ describe("t01 — shipped-tree file-structure invariant (mechanism: none)", () =
     }
   });
 
-  test("ships the 7 ideation stages [.sh L43-45]", () => {
+  test("ships the 8 ideation stages [.sh L43-45]", () => {
     for (const s of STAGES.ideation) {
       expect(existsSync(at("aidlc-common", "stages", "ideation", `${s}.md`))).toBe(true);
     }
@@ -212,10 +214,10 @@ describe("t01 — shipped-tree file-structure invariant (mechanism: none)", () =
     }
   });
 
-  // STRONGER: the 5 phase dirs together hold EXACTLY 32 .md stage files, and
+  // STRONGER: the 5 phase dirs together hold EXACTLY 33 .md stage files, and
   // each phase dir holds exactly its expected count. The .sh's per-phase loops
   // asserted membership; this also pins that no extra stage file ships.
-  test("ships EXACTLY 32 stage files across the 5 phases [.sh all stages — count strengthening]", () => {
+  test("ships EXACTLY 33 stage files across the 5 phases [.sh all stages — count strengthening]", () => {
     let total = 0;
     for (const [phase, stages] of Object.entries(STAGES)) {
       const dir = at("aidlc-common", "stages", phase);
@@ -225,7 +227,7 @@ describe("t01 — shipped-tree file-structure invariant (mechanism: none)", () =
       expect(shipped).toEqual([...stages].map((s) => `${s}.md`).sort());
       total += shipped.length;
     }
-    expect(total).toBe(32);
+    expect(total).toBe(33);
   });
 
   test("ships settings.json and settings.local.json.example [.sh L63-64]", () => {
@@ -255,20 +257,21 @@ describe("t01 — shipped-tree file-structure invariant (mechanism: none)", () =
   // assert_file_exists calls. The roster later grew by two reviewer agent
   // personas (product-lead, architecture-reviewer) to 65, then by the
   // human-turn mint hook to 66, then by the composer persona to 67, then by
-  // the reviewer-scope hook to 68, then the state-transition guard to 69.
-  // data the loops drove and pin its length, so the migrated suite cannot
+  // the reviewer-scope hook to 68, then the state-transition guard to 69,
+  // then the research agent + precedent-research stage to 71. The list re-walks
+  // the data the loops drove and pins its length, so the migrated suite cannot
   // silently shrink the structural surface the .sh enforced.
-  test("asserts EXACTLY 69 shipped paths (TAP plan 63 + 2 reviewer agents + 3 hooks + the composer) [.sh L9]", () => {
+  test("asserts EXACTLY 71 shipped paths (TAP plan 63 + 2 reviewer agents + 3 hooks + the composer + the research agent and its stage) [.sh L9]", () => {
     const paths: string[] = [
       at("skills", "aidlc", "SKILL.md"), // 1
       at("aidlc-common", "protocols", "stage-protocol.md"), // 2
       at("aidlc-common", "protocols", "stage-protocol-recovery.md"), // 3
       at("aidlc-common", "protocols", "stage-protocol-governance.md"), // 4
       ...HOOKS.map((h) => at("hooks", h)), // 5-17 (13)
-      ...AGENTS.map((a) => at("agents", `aidlc-${a}-agent.md`)), // 16-29 (14)
+      ...AGENTS.map((a) => at("agents", `aidlc-${a}-agent.md`)), // 16-30 (15)
       ...Object.entries(STAGES).flatMap(([phase, stages]) =>
         stages.map((s) => at("aidlc-common", "stages", phase, `${s}.md`)),
-      ), // 30-61 (32)
+      ), // 31-63 (33)
       at("settings.json"), // 62
       at("settings.local.json.example"), // 63
       at("knowledge", "aidlc-shared", "state-template.md"), // 64
@@ -276,8 +279,8 @@ describe("t01 — shipped-tree file-structure invariant (mechanism: none)", () =
       mem("project.md"), // 66
       at("CLAUDE.md"), // 67
     ];
-    expect(paths.length).toBe(69);
-    // Every one of the 69 must exist — the .sh's full TAP plan, re-proven as a
+    expect(paths.length).toBe(71);
+    // Every one of the 71 must exist — the .sh's full TAP plan, re-proven as a
     // single set so the count and the existence checks cannot drift apart.
     for (const p of paths) {
       expect(existsSync(p)).toBe(true);

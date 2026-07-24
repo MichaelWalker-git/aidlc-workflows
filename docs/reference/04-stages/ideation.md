@@ -1,14 +1,14 @@
-# Ideation Phase -- Stage Reference (1.1-1.7)
+# Ideation Phase -- Stage Reference (1.1-1.8)
 
 ## Phase Overview
 
 The Ideation phase is the second of five phases in the AI-DLC lifecycle. It
 establishes the foundation for the entire initiative by capturing intent,
 validating feasibility, defining scope, and securing approval before any
-technical work begins. The phase runs stages 1.1 through 1.7 and concludes
+technical work begins. The phase runs stages 1.1 through 1.8 and concludes
 with a go/no-go gate that controls entry into the Inception phase.
 
-All seven stages execute inline (no subagent delegation) and follow the
+All eight stages execute inline (no subagent delegation) and follow the
 standard stage-protocol.md for approval gates, question format, and completion
 messages. The orchestrator routes through them sequentially, skipping
 CONDITIONAL stages that do not apply to the current scope.
@@ -18,19 +18,19 @@ CONDITIONAL stages that do not apply to the current scope.
 - Every stage uses inline execution mode (direct conversation with the user).
 - Stages produce artifacts under the intent's record dir at `<record>/ideation/<stage-name>/`, where `<record>` is `aidlc/spaces/<space>/intents/<YYMMDD>-<label>/` (the `audit/` shard dir, the per-stage `memory.md`, and the verification reports live under the same record dir).
 - All stages except Stage 1.1 depend on outputs from earlier stages.
-- Stage 1.7 runs a phase boundary verification check before handing off to
+- Stage 1.8 runs a phase boundary verification check before handing off to
   Inception.
-- The phase is bookended by two ALWAYS stages (1.1 Intent Capture and 1.7
-  Approval & Handoff); the five middle stages are CONDITIONAL and may be
+- The phase is bookended by two ALWAYS stages (1.1 Intent Capture and 1.8
+  Approval & Handoff); the six middle stages are CONDITIONAL and may be
   skipped depending on scope.
 
 **Scope-driven stage inclusion:**
 
 | Scope            | Stages Included                             |
 |------------------|---------------------------------------------|
-| enterprise       | All 1.1-1.7                                |
-| feature          | All 1.1-1.7                                |
-| mvp              | 1.1, 1.3 (light), 1.4, 1.6                  |
+| enterprise       | All 1.1-1.8                                |
+| feature          | All 1.1-1.8                                |
+| mvp              | 1.1, 1.4 (light), 1.5, 1.7                  |
 | poc              | 1.1 (minimal)                               |
 | bugfix           | None (Ideation skipped entirely)            |
 | refactor         | None (Ideation skipped entirely)            |
@@ -45,12 +45,13 @@ CONDITIONAL stages that do not apply to the current scope.
 | Stage | Name                        | Condition   | Lead Agent      | Support Agents                              | Mode   |
 |-------|-----------------------------|-------------|-----------------|---------------------------------------------|--------|
 | 1.1   | Intent Capture & Framing    | ALWAYS      | aidlc-product-agent   | aidlc-architect-agent                             | inline |
-| 1.2   | Market Research             | CONDITIONAL | aidlc-product-agent   | --                                          | inline |
-| 1.3   | Feasibility & Constraints   | CONDITIONAL | aidlc-architect-agent | aidlc-aws-platform-agent, aidlc-compliance-agent        | inline |
-| 1.4   | Scope Definition            | ALWAYS      | aidlc-product-agent   | aidlc-delivery-agent                              | inline |
-| 1.5   | Team Formation              | CONDITIONAL | aidlc-delivery-agent  | --                                          | inline |
-| 1.6   | Rough Mockups               | CONDITIONAL | aidlc-design-agent    | aidlc-product-agent                               | inline |
-| 1.7   | Approval & Handoff          | ALWAYS      | aidlc-delivery-agent  | aidlc-product-agent                               | inline |
+| 1.2   | Precedent Research          | CONDITIONAL | aidlc-research-agent  | --                                          | inline |
+| 1.3   | Market Research             | CONDITIONAL | aidlc-product-agent   | --                                          | inline |
+| 1.4   | Feasibility & Constraints   | CONDITIONAL | aidlc-architect-agent | aidlc-aws-platform-agent, aidlc-compliance-agent        | inline |
+| 1.5   | Scope Definition            | ALWAYS      | aidlc-product-agent   | aidlc-delivery-agent                              | inline |
+| 1.6   | Team Formation              | CONDITIONAL | aidlc-delivery-agent  | --                                          | inline |
+| 1.7   | Rough Mockups               | CONDITIONAL | aidlc-design-agent    | aidlc-product-agent                               | inline |
+| 1.8   | Approval & Handoff          | ALWAYS      | aidlc-delivery-agent  | aidlc-product-agent                               | inline |
 
 ---
 
@@ -112,7 +113,7 @@ as seed context so the stage does not re-ask "what do you want to build?"
 
 ---
 
-## Stage 1.2: Market Research & Competitive Analysis
+## Stage 1.2: Precedent Research
 
 ### Metadata
 
@@ -120,6 +121,43 @@ as seed context so the stage does not re-ask "what do you want to build?"
 |------------------|------------------------------------------------------------------------|
 | Phase            | Ideation                                                               |
 | Stage #          | 1.2                                                                    |
+| Condition        | CONDITIONAL -- execute when the Org BoK index exists with at least one exemplar profile entry; skip otherwise |
+| Lead Agent       | aidlc-research-agent                                                         |
+| Support Agents   | (none)                                                                 |
+| Mode             | inline                                                                 |
+| Completion Emoji | :books:                                                                |
+
+### Purpose
+
+Grounds the new initiative in organizational precedent. The research agent reads the captured intent, selects matching exemplar profiles from the curated Org BoK index, and writes a reference brief naming precedent, patterns to follow, and UI directives for downstream stages.
+
+### Inputs
+
+- Intent statement from Stage 1.1
+- The Org BoK index at `<harness-dir>/knowledge/org-bok/index.md` and matching exemplar profiles
+
+### Outputs
+
+| File                  | Contents                                                              |
+|-----------------------|-----------------------------------------------------------------------|
+| `reference-brief.md`  | Selected exemplars and rationale, patterns to follow, UI directives, precedence rule, deep-dive pointers |
+
+### Notes
+
+- Gate condition: the routing gate is deterministic -- the stage executes only when `<harness-dir>/knowledge/org-bok/index.md` exists and links at least one exemplar profile; installs without a usable Org BoK skip it automatically at plan-build time.
+- Scopes: enterprise and feature only; all other scopes SKIP this stage.
+- Feeds the reference brief into the mockup and code-generation stages; on brownfield work, locally discovered and affirmed practices take precedence over BoK guidance.
+
+---
+
+## Stage 1.3: Market Research & Competitive Analysis
+
+### Metadata
+
+| Field            | Value                                                                  |
+|------------------|------------------------------------------------------------------------|
+| Phase            | Ideation                                                               |
+| Stage #          | 1.3                                                                    |
 | Condition        | CONDITIONAL -- skip for internal tools, bug fixes, refactors           |
 | Lead Agent       | aidlc-product-agent                                                          |
 | Support Agents   | (none)                                                                 |
@@ -146,18 +184,18 @@ Validates the initiative against the external competitive landscape. Produces co
 ### Notes
 
 - Skip conditions: internal tools, bug fixes, refactors, infrastructure-only, security patches, poc scopes.
-- Feeds into Stage 1.3 Feasibility (if executed) and Stage 1.4 Scope Definition.
+- Feeds into Stage 1.4 Feasibility (if executed) and Stage 1.5 Scope Definition.
 
 ---
 
-## Stage 1.3: Feasibility & Constraint Analysis
+## Stage 1.4: Feasibility & Constraint Analysis
 
 ### Metadata
 
 | Field            | Value                                                                  |
 |------------------|------------------------------------------------------------------------|
 | Phase            | Ideation                                                               |
-| Stage #          | 1.3                                                                    |
+| Stage #          | 1.4                                                                    |
 | Condition        | CONDITIONAL -- skip for trivial changes; execute for technical risk or compliance needs |
 | Lead Agent       | aidlc-architect-agent (technical feasibility)                                |
 | Support Agents   | aidlc-aws-platform-agent (AWS landscape), aidlc-compliance-agent (regulatory scanning) |
@@ -171,7 +209,7 @@ Evaluates technical viability, identifies constraints, and establishes a RAID lo
 ### Inputs
 
 - Intent statement from Stage 1.1
-- Market research from Stage 1.2 (if executed)
+- Market research from Stage 1.3 (if executed)
 
 ### Outputs
 
@@ -189,14 +227,14 @@ Evaluates technical viability, identifies constraints, and establishes a RAID lo
 
 ---
 
-## Stage 1.4: Scope Definition & Prioritization
+## Stage 1.5: Scope Definition & Prioritization
 
 ### Metadata
 
 | Field            | Value                                                                  |
 |------------------|------------------------------------------------------------------------|
 | Phase            | Ideation                                                               |
-| Stage #          | 1.4                                                                    |
+| Stage #          | 1.5                                                                    |
 | Condition        | ALWAYS -- depth adapts to scope                                        |
 | Lead Agent       | aidlc-product-agent                                                          |
 | Support Agents   | aidlc-delivery-agent (capacity reality-check)                                |
@@ -210,7 +248,7 @@ Establishes the scope boundary. Produces a prioritized intent backlog (proto-uni
 ### Inputs
 
 - Intent statement from Stage 1.1
-- Feasibility assessment from Stage 1.3 (if exists)
+- Feasibility assessment from Stage 1.4 (if exists)
 
 ### Outputs
 
@@ -227,14 +265,14 @@ Establishes the scope boundary. Produces a prioritized intent backlog (proto-uni
 
 ---
 
-## Stage 1.5: Team Formation & Mob Planning
+## Stage 1.6: Team Formation & Mob Planning
 
 ### Metadata
 
 | Field            | Value                                                                  |
 |------------------|------------------------------------------------------------------------|
 | Phase            | Ideation                                                               |
-| Stage #          | 1.5                                                                    |
+| Stage #          | 1.6                                                                    |
 | Condition        | CONDITIONAL -- skip for solo developer or small team projects          |
 | Lead Agent       | aidlc-delivery-agent                                                         |
 | Mode             | inline                                                                 |
@@ -246,8 +284,8 @@ Assesses team availability, maps skills, identifies gaps, and produces mob compo
 
 ### Inputs
 
-- Scope definition from Stage 1.4
-- Feasibility assessment from Stage 1.3 (if exists)
+- Scope definition from Stage 1.5
+- Feasibility assessment from Stage 1.4 (if exists)
 
 ### Outputs
 
@@ -265,14 +303,14 @@ Assesses team availability, maps skills, identifies gaps, and produces mob compo
 
 ---
 
-## Stage 1.6: Rough Mockups & Concept Visualization
+## Stage 1.7: Rough Mockups & Concept Visualization
 
 ### Metadata
 
 | Field            | Value                                                                  |
 |------------------|------------------------------------------------------------------------|
 | Phase            | Ideation                                                               |
-| Stage #          | 1.6                                                                    |
+| Stage #          | 1.7                                                                    |
 | Condition        | CONDITIONAL -- skip for non-UI, API-only, or infrastructure-only       |
 | Lead Agent       | aidlc-design-agent                                                           |
 | Support Agents   | aidlc-product-agent (validates against intent)                               |
@@ -286,7 +324,7 @@ Produces early concept visualizations. For UI: low-fidelity wireframes and user 
 ### Inputs
 
 - Intent statement from Stage 1.1
-- Scope definition from Stage 1.4
+- Scope definition from Stage 1.5
 
 ### Outputs
 
@@ -303,14 +341,14 @@ Produces early concept visualizations. For UI: low-fidelity wireframes and user 
 
 ---
 
-## Stage 1.7: Initiative Approval & Handoff
+## Stage 1.8: Initiative Approval & Handoff
 
 ### Metadata
 
 | Field            | Value                                                                  |
 |------------------|------------------------------------------------------------------------|
 | Phase            | Ideation                                                               |
-| Stage #          | 1.7                                                                    |
+| Stage #          | 1.8                                                                    |
 | Condition        | ALWAYS -- final Ideation gate before Inception                         |
 | Lead Agent       | aidlc-delivery-agent                                                         |
 | Support Agents   | aidlc-product-agent (validates completeness)                                 |
@@ -323,7 +361,7 @@ Compiles all Ideation artifacts into a single initiative brief, records all deci
 
 ### Inputs
 
-All Ideation phase artifacts from stages 1.1-1.6.
+All Ideation phase artifacts from stages 1.1-1.7.
 
 ### Steps
 
@@ -372,17 +410,18 @@ Special 3-option gate:
 
 1. **Intent Statement** (1.1) -- Problem statement, target customer, success metrics, project classification.
 2. **Stakeholder Map** (1.1) -- Key stakeholders, decision-makers, communication requirements.
-3. **Competitive Analysis** (1.2) -- Market positioning, build-vs-buy (when applicable).
-4. **Feasibility Assessment and RAID Log** (1.3) -- Technical viability, risk register, constraints (when applicable).
-5. **Scope Document and Intent Backlog** (1.4) -- Authoritative scope boundary, prioritized proto-unit list.
-6. **Team Plan** (1.5) -- Skill matrix, mob composition, capacity allocation (when applicable).
-7. **Concept Mockups** (1.6) -- Wireframes/user flows or system context diagrams (when applicable).
-8. **Initiative Brief** (1.7) -- Executive one-pager synthesizing all Ideation outputs.
-9. **Phase Boundary Verification** (1.7) -- Traceability check results.
+3. **Reference Brief** (1.2) -- Selected Org BoK exemplars, patterns to follow, UI directives (when applicable).
+4. **Competitive Analysis** (1.3) -- Market positioning, build-vs-buy (when applicable).
+5. **Feasibility Assessment and RAID Log** (1.4) -- Technical viability, risk register, constraints (when applicable).
+6. **Scope Document and Intent Backlog** (1.5) -- Authoritative scope boundary, prioritized proto-unit list.
+7. **Team Plan** (1.6) -- Skill matrix, mob composition, capacity allocation (when applicable).
+8. **Concept Mockups** (1.7) -- Wireframes/user flows or system context diagrams (when applicable).
+9. **Initiative Brief** (1.8) -- Executive one-pager synthesizing all Ideation outputs.
+10. **Phase Boundary Verification** (1.8) -- Traceability check results.
 
 ### Handoff to Inception
 
-Upon approval at Stage 1.7, the framework transitions to the Inception
+Upon approval at Stage 1.8, the framework transitions to the Inception
 phase. Inception begins with Stage 2.1 Reverse Engineering (for brownfield
 projects) or Stage 2.3 Requirements Analysis (for greenfield projects).
 

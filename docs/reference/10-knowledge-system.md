@@ -45,7 +45,10 @@ AI-DLC uses a two-tier knowledge system that separates framework methodology fro
 |   +-- api-design-guide.md
 |   +-- data-modelling-patterns.md
 |   +-- re-artifacts.md
-+-- [... 8 more agent knowledge dirs]
++-- [... 12 more agent knowledge dirs]
++-- org-bok/                       # Org Body of Knowledge (curated, distilled)
+|   +-- index.md                   # Curated exemplar decision tree (routing gate for precedent-research)
+|   +-- exemplars/<slug>/profile.md  # One few-shot exemplar profile per reference repo
 ```
 
 ### Tier 2 Structure

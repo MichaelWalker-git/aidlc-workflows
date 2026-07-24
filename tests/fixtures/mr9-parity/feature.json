@@ -20,6 +20,11 @@
     "action": "EXECUTE"
   },
   {
+    "slug": "precedent-research",
+    "phase": "ideation",
+    "action": "EXECUTE"
+  },
+  {
     "slug": "market-research",
     "phase": "ideation",
     "action": "EXECUTE"

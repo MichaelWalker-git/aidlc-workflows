@@ -17,7 +17,7 @@ The aidlc-aws-platform-agent leads two stages and supports four others. It has B
 
 | Stage | Phase | Contribution |
 |-------|-------|-------------|
-| 1.3 Feasibility & Constraints | Ideation | AWS service availability and constraint assessment |
+| 1.4 Feasibility & Constraints | Ideation | AWS service availability and constraint assessment |
 | 2.6 Application Design | Inception | Cloud-native patterns and service integration advice |
 | 3.3 NFR Design | Construction | Translates NFRs into infrastructure specs and scaling policies |
 | 4.7 Feedback & Optimization | Operation | Cost optimization and infrastructure tuning |

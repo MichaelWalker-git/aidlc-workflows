@@ -22,6 +22,7 @@ Files placed in these directories are loaded by agents during every stage (after
 | `aidlc-quality-agent/` | Testing standards | test-strategy.md, coverage-requirements.md |
 | `aidlc-design-agent/` | UX/UI guidelines | design-system.md, accessibility.md |
 | `aidlc-product-agent/` | Product context | roadmap.md, personas.md |
+| `aidlc-research-agent/` | Precedent research | exemplar-selection-notes.md, precedent-sources.md |
 | `aidlc-devsecops-agent/` | Security policies | security-baseline.md, compliance-rules.md |
 | `aidlc-operations-agent/` | Ops runbooks | monitoring.md, incident-response.md |
 | `aidlc-compliance-agent/` | Compliance standards | data-governance.md, audit-requirements.md |

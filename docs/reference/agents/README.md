@@ -1,6 +1,6 @@
 # Agent Reference
 
-Technical reference for AI-DLC's 14-agent roster: 11 domain experts, 2
+Technical reference for AI-DLC's 15-agent roster: 12 domain experts, 2
 review-only agents, and the adaptive-workflows composer.
 
 For design philosophy and rationale, see the
@@ -8,30 +8,31 @@ For design philosophy and rationale, see the
 
 ---
 
-## The 14 Agents (11 domain experts + 2 reviewers + composer)
+## The 15 Agents (12 domain experts + 2 reviewers + composer)
 
 | # | Agent | Domain |
 |---|-------|--------|
 | 1 | [aidlc-product-agent](product-agent.md) | Requirements, scope, user stories, market research |
-| 2 | [aidlc-design-agent](design-agent.md) | UX/UI, wireframes, interaction design, accessibility |
-| 3 | [aidlc-delivery-agent](delivery-agent.md) | Team formation, capacity planning, delivery sequencing |
-| 4 | [aidlc-architect-agent](architect-agent.md) | Application design, domain modelling, NFRs, decomposition |
-| 5 | [aidlc-aws-platform-agent](aws-platform-agent.md) | AWS infrastructure, IaC, FinOps, environment provisioning |
-| 6 | [aidlc-compliance-agent](compliance-agent.md) | GRC, regulatory mapping, data classification, risk |
-| 7 | [aidlc-devsecops-agent](devsecops-agent.md) | Threat modelling, security pipeline, secure design review |
-| 8 | [aidlc-developer-agent](developer-agent.md) | Code generation, reverse engineering, implementation guidance |
-| 9 | [aidlc-quality-agent](quality-agent.md) | Test strategy, acceptance criteria, performance validation |
-| 10 | [aidlc-pipeline-deploy-agent](pipeline-deploy-agent.md) | CI/CD pipelines, deployment strategy, release execution |
-| 11 | [aidlc-operations-agent](operations-agent.md) | Observability, incident response, feedback loops |
-| 12 | aidlc-product-lead-agent | Review-only: requirements / user-story / UX quality gate (balanced tier) |
-| 13 | aidlc-architecture-reviewer-agent | Review-only: technical-design soundness / implementability gate (balanced tier) |
-| 14 | aidlc-composer-agent | Adaptive workflow composition: proposes tailored stage plans and pending-stage reshapes |
+| 2 | [aidlc-research-agent](research-agent.md) | Organizational precedent: Org BoK index walk, exemplar selection, reference brief |
+| 3 | [aidlc-design-agent](design-agent.md) | UX/UI, wireframes, interaction design, accessibility |
+| 4 | [aidlc-delivery-agent](delivery-agent.md) | Team formation, capacity planning, delivery sequencing |
+| 5 | [aidlc-architect-agent](architect-agent.md) | Application design, domain modelling, NFRs, decomposition |
+| 6 | [aidlc-aws-platform-agent](aws-platform-agent.md) | AWS infrastructure, IaC, FinOps, environment provisioning |
+| 7 | [aidlc-compliance-agent](compliance-agent.md) | GRC, regulatory mapping, data classification, risk |
+| 8 | [aidlc-devsecops-agent](devsecops-agent.md) | Threat modelling, security pipeline, secure design review |
+| 9 | [aidlc-developer-agent](developer-agent.md) | Code generation, reverse engineering, implementation guidance |
+| 10 | [aidlc-quality-agent](quality-agent.md) | Test strategy, acceptance criteria, performance validation |
+| 11 | [aidlc-pipeline-deploy-agent](pipeline-deploy-agent.md) | CI/CD pipelines, deployment strategy, release execution |
+| 12 | [aidlc-operations-agent](operations-agent.md) | Observability, incident response, feedback loops |
+| 13 | aidlc-product-lead-agent | Review-only: requirements / user-story / UX quality gate (balanced tier) |
+| 14 | aidlc-architecture-reviewer-agent | Review-only: technical-design soundness / implementability gate (balanced tier) |
+| 15 | aidlc-composer-agent | Adaptive workflow composition: proposes tailored stage plans and pending-stage reshapes |
 
 ---
 
 ## Shared Configuration
 
-All 14 agents share a common configuration baseline defined in their frontmatter. None declares a `tools:` allowlist, so every agent inherits the **full session toolset** — all of Claude Code's built-in tools plus any MCP tools provisioned to the session. The one shipped restriction is `disallowedTools: Task`.
+All 15 agents share a common configuration baseline defined in their frontmatter. None declares a `tools:` allowlist, so every agent inherits the **full session toolset** — all of Claude Code's built-in tools plus any MCP tools provisioned to the session. The one shipped restriction is `disallowedTools: Task`.
 
 ### The session toolset (inherited by every agent)
 
@@ -96,6 +97,7 @@ effort suffices. See the projection table and the `tier_cap` override in
 | Agent | Lead Stages | Support Stages | Tier | Tools Expected to Exercise |
 |-------|-------------|----------------|-------|------------------------------|
 | [aidlc-product-agent](product-agent.md) | intent-capture, market-research, scope-definition, requirements-analysis, user-stories | rough-mockups, approval-handoff, refined-mockups | judgment | WebSearch |
+| [aidlc-research-agent](research-agent.md) | precedent-research | (none) | judgment | -- |
 | [aidlc-design-agent](design-agent.md) | rough-mockups, refined-mockups | user-stories, application-design | judgment | WebSearch |
 | [aidlc-delivery-agent](delivery-agent.md) | team-formation, approval-handoff, delivery-planning | scope-definition, units-generation | templated | -- |
 | [aidlc-architect-agent](architect-agent.md) | feasibility, application-design, units-generation, functional-design, nfr-requirements, nfr-design | intent-capture, reverse-engineering (synthesis), delivery-planning | judgment | -- |
@@ -117,6 +119,7 @@ that inherited tool; it does not grant or withhold access.
 | Agent | Bash Expected Use | WebSearch Expected Use | Tier | Lead Stages | Support Stages | Total Stage Involvement |
 |-------|-------------------|------------------------|------|-------------|----------------|-------------------------|
 | aidlc-product-agent | No | Yes | judgment | 5 | 3 | 8 |
+| aidlc-research-agent | No | No | judgment | 1 | 0 | 1 |
 | aidlc-design-agent | No | Yes | judgment | 2 | 2 | 4 |
 | aidlc-delivery-agent | No | No | templated | 3 | 2 | 5 |
 | aidlc-architect-agent | No | No | judgment | 6 | 3 | 9 |
@@ -130,9 +133,9 @@ that inherited tool; it does not grant or withhold access.
 
 **Observations:**
 - The aidlc-architect-agent has the broadest stage involvement (9 stages across 3 phases), reflecting its role as the central design authority.
-- Across the full 14-agent roster, nine agents carry the `judgment` tier and five step down (the two `balanced` reviewers plus the three `templated` planners); the stepped-down agents produce reviews against explicit checklists or dominantly templated planning, CI/CD, and runbook work. The matrix above covers the 11 domain-expert agents.
+- Across the full 15-agent roster, ten agents carry the `judgment` tier and five step down (the two `balanced` reviewers plus the three `templated` planners); the stepped-down agents produce reviews against explicit checklists or dominantly templated planning, CI/CD, and runbook work. The matrix above covers the 12 domain-expert agents.
 - The aidlc-compliance-agent operates purely in an advisory capacity (4 support stages across Ideation, Construction, and Operation; no lead stages).
-- Six of 11 agents are expected to use Bash for CLI interaction (infrastructure, security, development, testing, deployment, operations).
+- Six of 12 agents are expected to use Bash for CLI interaction (infrastructure, security, development, testing, deployment, operations).
 - Three agents are expected to use WebSearch for research tasks (product, design, compliance).
 
 ---
@@ -145,6 +148,7 @@ serve as lead (L) or support (S) in that phase.
 | Agent | Initialization (Phase 0) | Ideation (Phase 1) | Inception (Phase 2) | Construction (Phase 3) | Operation (Phase 4) |
 |-------|--------------------------|---------------------|---------------------|------------------------|---------------------|
 | aidlc-product-agent | -- | L (intent-capture, market-research, scope-definition), S (rough-mockups, approval-handoff) | L (requirements-analysis, user-stories), S (refined-mockups) | -- | -- |
+| aidlc-research-agent | -- | L (precedent-research) | -- | -- | -- |
 | aidlc-design-agent | -- | L (rough-mockups) | L (refined-mockups), S (user-stories, application-design) | -- | -- |
 | aidlc-delivery-agent | -- | L (team-formation, approval-handoff), S (scope-definition) | L (delivery-planning), S (units-generation) | -- | -- |
 | aidlc-architect-agent | -- | L (feasibility), S (intent-capture) | L (application-design, units-generation), S (reverse-engineering, delivery-planning) | L (functional-design, nfr-requirements, nfr-design) | -- |
