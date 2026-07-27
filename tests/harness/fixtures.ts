@@ -47,6 +47,16 @@ const requireHere = createRequire(import.meta.url);
 export const REPO_ROOT = join(HARNESS_DIR, "..", "..");
 export const AIDLC_SRC = join(REPO_ROOT, "dist", "claude", ".claude");
 
+// ADR-008's greenfield/brownfield precedence rule, verbatim. One copy so the
+// reference-brief contract (t245) and the Org BoK guides (t246) are pinned
+// against the SAME string and cannot drift from each other. Both halves plus
+// the trailing clause: the clause is what stops an agent reading "local wins"
+// as "ignore the BoK".
+export const ORG_BOK_PRECEDENCE_RULE =
+  "on greenfield work, BoK guidance is the default; on brownfield work, " +
+  "locally discovered and affirmed practices win — consistency with the " +
+  "codebase you are in beats org ideals";
+
 // The per-intent WORKSPACE layout the fixtures seed (P9 — the flat aidlc-docs/
 // layout is retired). A fixture project gets a SEED-style shell (aidlc/active-space
 // + spaces/default/) plus ONE default intent record so the path helpers resolve

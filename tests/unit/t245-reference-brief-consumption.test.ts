@@ -27,7 +27,7 @@ import {
   producersOf,
   validateGrid,
 } from "../../dist/claude/.claude/tools/aidlc-graph.ts";
-import { AIDLC_SRC } from "../harness/fixtures.ts";
+import { AIDLC_SRC, ORG_BOK_PRECEDENCE_RULE } from "../harness/fixtures.ts";
 
 const STAGES_DIR = join(AIDLC_SRC, "aidlc-common", "stages");
 
@@ -302,12 +302,9 @@ describe("t245 the reference-brief contract in the producer's stage prose", () =
     "## Deep-Dive Pointers",
   ];
 
-  // ADR-008's rule, verbatim. Both halves plus the trailing clause: the
-  // clause is what stops an agent reading "local wins" as "ignore the BoK".
-  const PRECEDENCE_RULE =
-    "on greenfield work, BoK guidance is the default; on brownfield work, " +
-    "locally discovered and affirmed practices win — consistency with the " +
-    "codebase you are in beats org ideals";
+  // ADR-008's rule, verbatim — the shared pin (see fixtures.ts) that also
+  // holds the Org BoK guides (t246) to the same sentence.
+  const PRECEDENCE_RULE = ORG_BOK_PRECEDENCE_RULE;
 
   test("the brief-writing step names every contract section as an H2 the brief must carry", () => {
     for (const heading of CONTRACT_SECTIONS) {

@@ -31,7 +31,10 @@
 import { describe, expect, test } from "bun:test";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { AIDLC_SRC } from "../harness/fixtures.ts";
+import {
+  AIDLC_SRC,
+  ORG_BOK_PRECEDENCE_RULE as PRECEDENCE_RULE,
+} from "../harness/fixtures.ts";
 
 const BOK_DIR = join(AIDLC_SRC, "knowledge", "org-bok");
 const AGENTS_DIR = join(AIDLC_SRC, "agents");
@@ -41,13 +44,6 @@ function readBoth(path: string): [string, string] {
   const raw = readFileSync(path, "utf-8");
   return [raw, raw.replace(/\s+/g, " ")];
 }
-
-// The verbatim precedence rule — identical to t245's PRECEDENCE_RULE, the
-// reference-brief contract wording. Guides must carry the same sentence.
-const PRECEDENCE_RULE =
-  "on greenfield work, BoK guidance is the default; on brownfield work, " +
-  "locally discovered and affirmed practices win — consistency with the " +
-  "codebase you are in beats org ideals";
 
 // ADR-008 wiring table: guide file → the exact set of agents that load it.
 const GUIDE_WIRING: ReadonlyArray<readonly [string, ReadonlyArray<string>]> = [
