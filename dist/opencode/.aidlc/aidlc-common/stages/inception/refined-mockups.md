@@ -16,16 +16,16 @@ produces:
   - accessibility-checklist
   - refined-mockups-questions
 consumes:
-  - artifact: reference-brief
-    required: false
   - artifact: wireframes
     required: true
   - artifact: user-flow
     required: true
-  - artifact: stories
-    required: false
   - artifact: requirements
     required: true
+  - artifact: reference-brief
+    required: false
+  - artifact: stories
+    required: false
   - artifact: team-practices
     required: false
 requires_stage:
@@ -38,7 +38,7 @@ scopes:
   - feature
   - mvp
   - workshop
-inputs: Reference brief from precedent-research stage (if produced), rough mockups from rough-mockups stage, user stories from user-stories stage, requirements from requirements-analysis stage
+inputs: Rough mockups from rough-mockups stage, user stories from user-stories stage, requirements from requirements-analysis stage, reference brief from precedent-research stage (if produced)
 outputs: mockups.md, interaction-spec.md, design-system-mapping.md, accessibility-checklist.md, refined-mockups-questions.md (under this stage's record dir, engine-resolved)
 ---
 
@@ -54,7 +54,7 @@ Load aidlc-design-agent persona from `agents/aidlc-design-agent.md` and knowledg
 
 ### Step 2: Load Prior Context
 
-- Read the reference brief from `<record>/ideation/precedent-research/` (if exists) and follow its exemplar patterns — apply its UI directives (design tokens, spacing and layout conventions, component patterns, copy tone) throughout the refined mockups and interaction spec. If the brief is absent (the stage was skipped), proceed without it.
+- Read the reference brief from `<record>/ideation/precedent-research/` (if exists) and follow its exemplar patterns — apply its UI directives (design tokens, spacing and layout conventions, component patterns, copy tone) throughout the refined mockups and interaction spec, subject to the brief's stated precedence rule. Cite the brief explicitly where its directives shaped the mockups or the design-system mapping. If the brief is absent (the stage was skipped), proceed without it.
 - Read rough mockups from `<record>/ideation/rough-mockups/` (if exists)
 - Read user stories from `<record>/inception/user-stories/`
 - Read requirements from `<record>/inception/requirements-analysis/`
@@ -103,7 +103,7 @@ This stage's outputs are markdown artefacts under `<record>/inception/refined-mo
 The imported sensors check those outputs:
 
 - **`required-sections`** verifies the output contains the registry default (≥2 H2 headings). Failure mode: missing headings emit `SENSOR_FAILED` with detail at `<record>/.aidlc-sensors/<stage-slug>/required-sections-<iso>.md`.
-- **`upstream-coverage`** verifies the output prose references each artefact declared in this stage's `consumes:` frontmatter. Failure mode: missing upstream references emit `SENSOR_FAILED` listing each unreferenced artefact (this stage consumes `reference-brief`, `wireframes`, `user-flow`, `stories`, `requirements`, `team-practices`).
+- **`upstream-coverage`** verifies the output prose references each artefact declared in this stage's `consumes:` frontmatter. Failure mode: missing upstream references emit `SENSOR_FAILED` listing each unreferenced artefact (this stage consumes `wireframes`, `user-flow`, `requirements`, `reference-brief`, `stories`, `team-practices`).
 
 ## Learn
 

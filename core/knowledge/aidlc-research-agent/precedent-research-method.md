@@ -60,12 +60,16 @@ It carries exactly these H2 sections:
 - **`## Deep-Dive Pointers`** — the selected profiles' repo URLs and notable
   paths, so downstream agents can fetch real files when fidelity helps.
 
-When no exemplar matched, replace the first three sections with a single
-`## No Matching Precedent` section: name the index entries you considered and
-why none fit, and explicitly instruct downstream agents to design from first
-principles and the org guides rather than force-fit an exemplar. Keep
-`## Precedence Rule` — it applies with or without a precedent. Omit
-`## Deep-Dive Pointers` rather than padding it.
+When no exemplar matched, replace `## Selected Exemplars & Rationale` and
+`## Patterns to Follow` with a single `## No Matching Precedent` section: name
+the index entries you considered and why none fit, and explicitly instruct
+downstream agents to design from first principles and the org guides rather
+than force-fit an exemplar. Keep `## UI Directives` whenever the UI
+design-language guide gives you material — the org design language is a
+standing default that does not depend on an exemplar match, and dropping it is
+exactly how generic LLM styling gets back in. Keep `## Precedence Rule` — it
+applies with or without a precedent. Omit `## Deep-Dive Pointers` rather than
+padding it.
 
 ## Deep dives
 

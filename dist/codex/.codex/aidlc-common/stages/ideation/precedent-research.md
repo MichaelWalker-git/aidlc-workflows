@@ -73,17 +73,20 @@ H2 sections:
 
 - `## Selected Exemplars & Rationale` — each selected exemplar and why it matches this intent
 - `## Patterns to Follow` — the selected profiles' key patterns, phrased as imperatives for this project, not as history
-- `## UI Directives` — concrete, imperative styling instructions (design tokens, spacing and layout conventions, component patterns, copy tone) for the mockup and code-generation stages
+- `## UI Directives` — concrete, imperative styling instructions (design tokens, spacing and layout conventions, component patterns, copy tone) for the mockup and code-generation stages, drawn from the selected exemplar and from the org's UI design-language guide when the install ships one
 - `## Precedence Rule` — stated verbatim: on greenfield work, BoK guidance is the default; on brownfield work, locally discovered and affirmed practices win — consistency with the codebase you are in beats org ideals
 - `## Deep-Dive Pointers` — the selected profiles' repo URLs and notable file paths, so downstream agents can fetch real files when fidelity helps
 
 Reference the consumed intent statement explicitly in the rationale.
 
-**When no exemplar matched**, write the honest form instead: replace the first
-three sections with a single `## No Matching Precedent` section that names the
-index entries considered and why none fit, and explicitly instructs downstream
-agents to design from first principles and the org guides rather than force-fit
-an exemplar. Keep `## Precedence Rule` — it applies with or without a
+**When no exemplar matched**, write the honest form instead: replace
+`## Selected Exemplars & Rationale` and `## Patterns to Follow` with a single
+`## No Matching Precedent` section that names the index entries considered and
+why none fit, and explicitly instructs downstream agents to design from first
+principles and the org guides rather than force-fit an exemplar. Keep
+`## UI Directives` whenever the org's UI design-language guide gives you
+material — the design language is an org default that does not depend on an
+exemplar match — and keep `## Precedence Rule`, which applies with or without a
 precedent. Omit `## Deep-Dive Pointers` rather than padding it.
 
 ### Step 7: Completion Handoff

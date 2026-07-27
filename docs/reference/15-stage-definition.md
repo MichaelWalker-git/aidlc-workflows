@@ -97,6 +97,18 @@ The compile step's slug-alphabetical tiebreak is a safety net. For stages
 that must land in a specific order, author the edge explicitly rather than
 relying on alphabetical accident.
 
+**Role 1 applies within a phase, not across phases.** Phase order already
+sequences stages, so a `consumes:` edge whose producer sits in an earlier
+phase needs no `requires_stage` entry — `refined-mockups` (inception) consumes
+`wireframes` from ideation, and `code-generation` (construction) consumes
+`requirements` from inception, both with no cross-phase edge. Adding one is
+redundant at best; on an optional consume whose producer is `CONDITIONAL` it
+also asserts a dependency that does not hold when the producer is skipped.
+The convention: enumerate same-phase producers, let the phase boundary carry
+the rest. `tests/integration/t65-*.test.ts` enforces only transitive
+reachability, so both forms stay green — this is an authoring convention, not
+a machine-checked one.
+
 ### `for_each`
 
 Names an artifact whose instances drive iteration. The stage runs once per

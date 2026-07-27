@@ -61,7 +61,7 @@ Load aidlc-design-agent persona from `agents/aidlc-design-agent.md` and knowledg
 ### Step 2: Load Prior Context
 
 - Read `<record>/inception/requirements-analysis/requirements.md`
-- Read the reference brief from `<record>/ideation/precedent-research/` (if exists) and follow its exemplar patterns — the selected precedent's architecture and rationale inform component boundaries and design decisions, subject to the brief's stated precedence rule. If the brief is absent (the stage was skipped), proceed without it.
+- Read the reference brief from `<record>/ideation/precedent-research/` (if exists) and follow its exemplar patterns — the selected precedent's architecture and rationale inform component boundaries and design decisions, subject to the brief's stated precedence rule. Cite the brief explicitly in `decisions.md` where it shaped a decision. If the brief is absent (the stage was skipped), proceed without it.
 - Read `<record>/inception/user-stories/stories.md` (if produced)
 - If brownfield: Read relevant RE artifacts (especially architecture.md, component-inventory.md, dependencies.md)
 

@@ -586,16 +586,16 @@
           "required": true
         },
         {
-          "artifact": "reference-brief",
-          "required": false
-        },
-        {
           "artifact": "scope-document",
           "required": true
         },
         {
           "artifact": "intent-backlog",
           "required": true
+        },
+        {
+          "artifact": "reference-brief",
+          "required": false
         }
       ],
       "requires_stage": [
@@ -614,7 +614,7 @@
       ],
       "reviewer": "aidlc-product-lead-agent",
       "reviewer_max_iterations": 2,
-      "inputs": "Intent statement, reference brief (if produced), scope definition, intent backlog",
+      "inputs": "Intent statement, scope definition, intent backlog, reference brief (if produced)",
       "outputs": "wireframes.md, user-flow.md, rough-mockups-questions.md (under this stage's record dir, engine-resolved)",
       "rules_in_context": [
         {
@@ -1125,10 +1125,6 @@
       ],
       "consumes": [
         {
-          "artifact": "reference-brief",
-          "required": false
-        },
-        {
           "artifact": "wireframes",
           "required": true
         },
@@ -1137,12 +1133,16 @@
           "required": true
         },
         {
-          "artifact": "stories",
+          "artifact": "requirements",
+          "required": true
+        },
+        {
+          "artifact": "reference-brief",
           "required": false
         },
         {
-          "artifact": "requirements",
-          "required": true
+          "artifact": "stories",
+          "required": false
         },
         {
           "artifact": "team-practices",
@@ -1164,7 +1164,7 @@
       ],
       "reviewer": "aidlc-product-lead-agent",
       "reviewer_max_iterations": 2,
-      "inputs": "Reference brief from precedent-research stage (if produced), rough mockups from rough-mockups stage, user stories from user-stories stage, requirements from requirements-analysis stage",
+      "inputs": "Rough mockups from rough-mockups stage, user stories from user-stories stage, requirements from requirements-analysis stage, reference brief from precedent-research stage (if produced)",
       "outputs": "mockups.md, interaction-spec.md, design-system-mapping.md, accessibility-checklist.md, refined-mockups-questions.md (under this stage's record dir, engine-resolved)",
       "rules_in_context": [
         {
@@ -2015,6 +2015,14 @@
       ],
       "consumes": [
         {
+          "artifact": "unit-of-work",
+          "required": true
+        },
+        {
+          "artifact": "requirements",
+          "required": true
+        },
+        {
           "artifact": "reference-brief",
           "required": false
         },
@@ -2041,14 +2049,6 @@
         {
           "artifact": "deployment-architecture",
           "required": false
-        },
-        {
-          "artifact": "unit-of-work",
-          "required": true
-        },
-        {
-          "artifact": "requirements",
-          "required": true
         }
       ],
       "requires_stage": [

@@ -16,12 +16,12 @@ produces:
 consumes:
   - artifact: intent-statement
     required: true
-  - artifact: reference-brief
-    required: false
   - artifact: scope-document
     required: true
   - artifact: intent-backlog
     required: true
+  - artifact: reference-brief
+    required: false
 requires_stage:
   - precedent-research
   - scope-definition
@@ -33,7 +33,7 @@ scopes:
   - enterprise
   - feature
   - mvp
-inputs: Intent statement, reference brief (if produced), scope definition, intent backlog
+inputs: Intent statement, scope definition, intent backlog, reference brief (if produced)
 outputs: wireframes.md, user-flow.md, rough-mockups-questions.md (under this stage's record dir, engine-resolved)
 ---
 
@@ -50,7 +50,7 @@ Load aidlc-design-agent persona from `agents/aidlc-design-agent.md` and knowledg
 ### Step 2: Load Prior Context
 
 - Read intent statement from `<record>/ideation/intent-capture/`
-- Read the reference brief from `<record>/ideation/precedent-research/` (if exists) and follow its exemplar patterns — apply its UI directives (design tokens, spacing and layout conventions, component patterns, copy tone) so even low-fidelity work is on the org design language. If the brief is absent (the stage was skipped), proceed without it.
+- Read the reference brief from `<record>/ideation/precedent-research/` (if exists) and follow its exemplar patterns — apply its UI directives (design tokens, spacing and layout conventions, component patterns, copy tone) so even low-fidelity work is on the org design language, subject to the brief's stated precedence rule. Cite the brief explicitly where its directives shaped the wireframes. If the brief is absent (the stage was skipped), proceed without it.
 - Read scope definition and intent backlog from `<record>/ideation/scope-definition/`
 
 ### Step 3: Generate Clarifying Questions
@@ -97,7 +97,7 @@ This stage's outputs are markdown artefacts under `<record>/ideation/rough-mocku
 The imported sensors check those outputs:
 
 - **`required-sections`** verifies the output contains the registry default (≥2 H2 headings). Failure mode: missing headings emit `SENSOR_FAILED` with detail at `<record>/.aidlc-sensors/<stage-slug>/required-sections-<iso>.md`.
-- **`upstream-coverage`** verifies the output prose references each artefact declared in this stage's `consumes:` frontmatter. Failure mode: missing upstream references emit `SENSOR_FAILED` listing each unreferenced artefact (this stage consumes `intent-statement`, `reference-brief`, `scope-document`, `intent-backlog`).
+- **`upstream-coverage`** verifies the output prose references each artefact declared in this stage's `consumes:` frontmatter. Failure mode: missing upstream references emit `SENSOR_FAILED` listing each unreferenced artefact (this stage consumes `intent-statement`, `scope-document`, `intent-backlog`, `reference-brief`).
 
 ## Learn
 

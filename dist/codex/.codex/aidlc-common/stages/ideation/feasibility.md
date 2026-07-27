@@ -53,7 +53,7 @@ Orchestrator will separately invoke aidlc-aws-platform-agent and aidlc-complianc
 ### Step 2: Load Prior Context
 
 - Read intent statement from `<record>/ideation/intent-capture/`
-- Read the reference brief from `<record>/ideation/precedent-research/` (if exists) and follow its exemplar patterns — the selected precedent's architecture and constraints ground the viability assessment. If the brief is absent (the stage was skipped), proceed without it.
+- Read the reference brief from `<record>/ideation/precedent-research/` (if exists) and follow its exemplar patterns — the selected precedent's architecture and constraints ground the viability assessment, subject to the brief's stated precedence rule. Cite the brief explicitly where it shaped the assessment. If the brief is absent (the stage was skipped), proceed without it.
 - Read market research from `<record>/ideation/market-research/` (if exists)
 - Load guardrails from
   `aidlc/spaces/<active-space>/memory/{org,team,project}.md`

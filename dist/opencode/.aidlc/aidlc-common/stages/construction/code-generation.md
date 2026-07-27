@@ -14,6 +14,10 @@ produces:
   - code-generation-plan
   - code-summary
 consumes:
+  - artifact: unit-of-work
+    required: true
+  - artifact: requirements
+    required: true
   - artifact: reference-brief
     required: false
   - artifact: business-logic-model
@@ -28,10 +32,6 @@ consumes:
     required: false
   - artifact: deployment-architecture
     required: false
-  - artifact: unit-of-work
-    required: true
-  - artifact: requirements
-    required: true
 requires_stage:
   - units-generation
   - functional-design

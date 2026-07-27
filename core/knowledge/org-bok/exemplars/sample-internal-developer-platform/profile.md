@@ -20,7 +20,8 @@ the `## Selected Exemplars & Rationale` and `## Patterns to Follow` material,
 the UI-relevant Key Patterns (design tokens, component conventions, copy tone)
 become `## UI Directives` phrased as imperatives, and the frontmatter's repo
 URL and notable paths become `## Deep-Dive Pointers`. Write each section with
-that consumption in mind.
+that consumption in mind. The brief's `## Precedence Rule` is stated by the
+agent, not drawn from here — a profile never states its own precedence.
 
 ## Ask / Context
 

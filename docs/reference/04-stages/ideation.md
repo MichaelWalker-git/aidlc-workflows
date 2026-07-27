@@ -147,7 +147,7 @@ Grounds the new initiative in organizational precedent. The research agent reads
 - Gate condition: the routing gate is deterministic -- the stage executes only when `<harness-dir>/knowledge/org-bok/index.md` exists and links at least one exemplar profile; installs without a usable Org BoK skip it automatically at plan-build time.
 - Scopes: enterprise and feature only; all other scopes SKIP this stage.
 - Feeds the reference brief into feasibility, rough-mockups, refined-mockups, application-design, and code-generation — each consumes it as an optional input and follows its exemplar patterns, proceeding without it when this stage was skipped. On brownfield work, locally discovered and affirmed practices take precedence over BoK guidance.
-- When no exemplar matches, the brief carries an explicit "No Matching Precedent" section instead of force-fitting one; downstream agents then design from first principles and the org guides.
+- When no exemplar matches, the brief carries an explicit "No Matching Precedent" section instead of force-fitting one; downstream agents then design from first principles and the org guides. The UI directives and precedence rule still ride along — the org design language is a standing default that does not depend on an exemplar match.
 
 ---
 
