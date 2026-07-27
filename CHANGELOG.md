@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.2] - 2026-07-27
+
+The Org BoK's three cross-cutting guides now ship as real template content with targeted per-agent loading. `knowledge/org-bok/guides/` gains `architecture-principles.md`, `code-style.md`, and `ui-design-language.md` — each a structured template with org-default guidance and *Fill in* placeholders a solution architect completes — loaded as standing Tier-1 knowledge by exactly the agents they concern. Because guides are standing knowledge, org defaults (including the "not LLM-looking" UI baseline) apply even on projects where Precedent Research was skipped. **Upgrade:** re-copy your `dist/<harness>/` shell into the project; if you maintain a fork, author your guide content under `core/knowledge/org-bok/guides/`.
+
+* Guide wiring follows the targeted placement table: `architecture-principles.md` loads for the architect agent; `code-style.md` for the developer and quality agents; `ui-design-language.md` for the design and developer agents — via a standing-org-defaults line appended to each persona's Knowledge Loading section. The BoK index and raw exemplar profiles remain research-agent-only, and agents outside the table (compliance, operations, …) load none of the BoK.
+* Each guide states the precedence rule verbatim (matching the reference-brief contract): on greenfield work, BoK guidance is the default; on brownfield work, locally discovered and affirmed practices win.
+* The UI design-language guide ships a concrete "Baseline: Not LLM-Looking" section (no stock gradients/card-shadow look, tokens for every value, functional motion, verb-first copy) that applies to all generated UI as a standing floor.
+* Docs: the knowledge-system reference and User Guide document the `org-bok/guides/` subtree and its wiring; the Harness Engineer Guide's Team Knowledge chapter gains "The Org BoK exception" — authoring guidance for solution architects filling in the index, profiles, and guides.
+
 ## [2.6.1] - 2026-07-27
 
 The reference brief written by Precedent Research (1.2) is now actually consumed downstream. Feasibility, Rough Mockups, Refined Mockups, Application Design, and Code Generation each declare the brief as an optional input and carry an explicit step to load it and follow its exemplar patterns — mockup and code-generation work applies the brief's concrete UI directives (design tokens, spacing/layout conventions, component patterns, copy tone) so generated UI follows the org design language instead of generic LLM styling. When the brief is absent because the stage was skipped, every consumer proceeds without it — no hunting, no failure. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.

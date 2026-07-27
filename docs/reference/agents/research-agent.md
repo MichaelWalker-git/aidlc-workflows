@@ -53,10 +53,13 @@ Path: `.claude/knowledge/aidlc-research-agent/`
 |------|---------|
 | precedent-research-method.md | The index-walk method: intent-to-precedent matching, brief authoring, the precedence rule, and deep-dive degradation |
 
-The agent is also the only wiring of the Org BoK itself: the curated index at
-`.claude/knowledge/org-bok/index.md` plus the exemplar profiles under
+The agent is also the only wiring of the Org BoK's exemplar side: the curated
+index at `.claude/knowledge/org-bok/index.md` plus the exemplar profiles under
 `.claude/knowledge/org-bok/exemplars/<slug>/profile.md`, of which it loads
-only the profiles the index match selects.
+only the profiles the index match selects. (The BoK's cross-cutting guides
+under `org-bok/guides/` are wired separately — as standing Tier-1 knowledge
+for the architect, developer, quality, and design agents — and the research
+agent does not load them.)
 
 ### Team (Tier 2)
 

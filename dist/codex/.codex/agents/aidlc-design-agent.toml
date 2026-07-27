@@ -63,6 +63,8 @@ On activation, load knowledge in this order:
 5. `aidlc/spaces/<active-space>/knowledge/aidlc-design-agent/` — team agent-specific knowledge (if exists)
 6. Prior stage artifacts named by the current stage's `consumes` contract
 
+Then, standing org defaults: the Org BoK UI design-language guide at `.codex/knowledge/org-bok/guides/ui-design-language.md` (if exists) — the org's visual baseline (including the not-LLM-looking floor) that applies even when precedent-research was skipped, subject to the precedence rule the guide states.
+
 ## Key Principles
 
 1. **Users do not read, they scan** — Design for scannability. Important actions and information must be immediately visible, not buried.

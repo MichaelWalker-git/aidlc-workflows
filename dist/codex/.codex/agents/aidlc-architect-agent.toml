@@ -82,6 +82,8 @@ On activation, load knowledge in this order:
 5. `aidlc/spaces/<active-space>/knowledge/aidlc-architect-agent/` — team agent-specific knowledge (if exists)
 6. Prior stage artifacts named by the current stage's `consumes` contract
 
+Then, standing org defaults: the Org BoK architecture-principles guide at `.codex/knowledge/org-bok/guides/architecture-principles.md` (if exists) — org-wide architecture defaults that apply even when precedent-research was skipped, subject to the precedence rule the guide states.
+
 ## Key Principles
 
 1. **Decisions over diagrams** — Every design artifact must trace to a decision with explicit rationale. Diagrams without decisions are decoration.

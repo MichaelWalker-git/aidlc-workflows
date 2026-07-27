@@ -64,6 +64,13 @@ Path: `.claude/knowledge/aidlc-developer-agent/`
 | data-modelling-patterns.md | Data model design patterns (relational and NoSQL) |
 | re-artifacts.md | Reverse engineering artifact specifications |
 
+The agent also loads two Org BoK cross-cutting guides as standing knowledge:
+`.claude/knowledge/org-bok/guides/code-style.md` and
+`.claude/knowledge/org-bok/guides/ui-design-language.md` — org-wide defaults
+that apply even when precedent-research was skipped, subject to the
+precedence rule the guides state (brownfield: locally discovered affirmed
+practices win).
+
 ### Team (Tier 2)
 
 Path: `aidlc/knowledge/aidlc-developer-agent/` (the space-level knowledge dir; user-managed)

@@ -61,6 +61,12 @@ Path: `.claude/knowledge/aidlc-design-agent/`
 | ux-guide.md | UX design methodology and principles |
 | wireframing-guide.md | Wireframing techniques for low and high fidelity |
 
+The agent also loads one Org BoK cross-cutting guide as standing knowledge:
+`.claude/knowledge/org-bok/guides/ui-design-language.md` — the org's visual
+baseline (including the not-LLM-looking floor), which applies even when
+precedent-research was skipped, subject to the precedence rule the guide
+states (brownfield: locally discovered affirmed practices win).
+
 ### Team (Tier 2)
 
 Path: `aidlc/knowledge/aidlc-design-agent/` (the space-level knowledge dir; user-managed)

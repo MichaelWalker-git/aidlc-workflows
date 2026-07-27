@@ -49,7 +49,22 @@ AI-DLC uses a two-tier knowledge system that separates framework methodology fro
 +-- org-bok/                       # Org Body of Knowledge (curated, distilled)
 |   +-- index.md                   # Curated exemplar decision tree (routing gate for precedent-research)
 |   +-- exemplars/<slug>/profile.md  # One few-shot exemplar profile per reference repo
+|   +-- guides/                    # Cross-cutting org guides (standing Tier-1 defaults, targeted wiring)
+|       +-- architecture-principles.md  # Loaded by aidlc-architect-agent
+|       +-- code-style.md               # Loaded by aidlc-developer-agent + aidlc-quality-agent
+|       +-- ui-design-language.md       # Loaded by aidlc-design-agent + aidlc-developer-agent
 ```
+
+The Org BoK subtree has targeted wiring, not the all-agents loading the rest
+of Tier 1 uses. The index and raw exemplar profiles are loaded by the
+research agent only — every other agent receives exemplar content through
+the reference brief. The three cross-cutting guides load as standing
+knowledge for exactly the agents named above (each agent's `## Knowledge
+Loading` section is the wiring), so org defaults — including the UI
+design-language baseline — apply even on projects where precedent-research
+was skipped. Agents outside that table load none of the BoK. Each guide
+states its own precedence posture: org default on greenfield; on brownfield,
+locally discovered and affirmed practices win.
 
 ### Tier 2 Structure
 

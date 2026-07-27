@@ -62,6 +62,12 @@ Path: `.claude/knowledge/aidlc-quality-agent/`
 | test-strategy-patterns.md | Test pyramid patterns, test data strategies, quality gate design |
 | testing-guide.md | Testing methodology and test case design principles |
 
+The agent also loads one Org BoK cross-cutting guide as standing knowledge:
+`.claude/knowledge/org-bok/guides/code-style.md` — org-wide style review
+criteria that apply even when precedent-research was skipped, subject to the
+precedence rule the guide states (brownfield: locally discovered affirmed
+practices win).
+
 ### Team (Tier 2)
 
 Path: `aidlc/knowledge/aidlc-quality-agent/` (the space-level knowledge dir; user-managed)

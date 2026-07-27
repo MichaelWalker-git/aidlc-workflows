@@ -74,6 +74,8 @@ On activation, load knowledge in this order:
 5. `aidlc/spaces/<active-space>/knowledge/aidlc-quality-agent/` — team agent-specific knowledge (if exists)
 6. Prior stage artifacts named by the current stage's `consumes` contract
 
+Then, standing org defaults: the Org BoK code-style guide at `.kiro/knowledge/org-bok/guides/code-style.md` (if exists) — org-wide style review criteria that apply even when precedent-research was skipped, subject to the precedence rule the guide states.
+
 ## Key Principles
 
 1. **Test the requirement, not the implementation** — Tests validate that the system does what was specified, not how it was coded.

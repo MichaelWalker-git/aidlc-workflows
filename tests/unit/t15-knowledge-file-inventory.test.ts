@@ -143,6 +143,20 @@ describe("t15 — knowledge-file inventory + non-emptiness (mechanism: none)", (
     expect(profiles[0].endsWith("profile.md")).toBe(true);
   });
 
+  // The Org BoK cross-cutting guides (issue #03): exactly the three ADR-003
+  // guides ship under org-bok/guides/ — nothing more (a fourth guide needs a
+  // wiring-table decision first), nothing less.
+  test("org-bok/guides/ ships EXACTLY the 3 cross-cutting guides", () => {
+    const guides = findMd(join(KNOWLEDGE_DIR, "org-bok", "guides"))
+      .map((f) => f.split("/").pop())
+      .sort();
+    expect(guides).toEqual([
+      "architecture-principles.md",
+      "code-style.md",
+      "ui-design-language.md",
+    ]);
+  });
+
   // .sh Part 3 (L41-47): the 7 named aidlc-shared/ files exist.
   test("ships each of the 7 named aidlc-shared/ files [.sh L45-47]", () => {
     for (const f of SHARED_FILES) {
@@ -166,13 +180,13 @@ describe("t15 — knowledge-file inventory + non-emptiness (mechanism: none)", (
 
   // .sh L11-14: dynamic TAP plan = 11 + 11 + 7 + TOTAL_FILES. Re-derive that
   // arithmetic from the live tree so the migrated suite cannot silently shrink
-  // the surface: pin the total .md count at 62 (59 + the research agent's
-  // method file + the org-bok index and fixture exemplar profile) and the
-  // summed plan at 99.
-  test("TAP-plan parity: 15 + 15 + 7 + TOTAL == 99 with TOTAL == 62 [.sh L11-14]", () => {
+  // the surface: pin the total .md count at 65 (59 + the research agent's
+  // method file + the org-bok index, fixture exemplar profile, and 3
+  // cross-cutting guides) and the summed plan at 102.
+  test("TAP-plan parity: 15 + 15 + 7 + TOTAL == 102 with TOTAL == 65 [.sh L11-14]", () => {
     const total = findMd(KNOWLEDGE_DIR).length;
-    expect(total).toBe(62);
+    expect(total).toBe(65);
     const plan = 15 + 15 + 7 + total;
-    expect(plan).toBe(99);
+    expect(plan).toBe(102);
   });
 });

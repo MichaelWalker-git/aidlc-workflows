@@ -60,8 +60,25 @@ Ships with the framework. Contains shared principles and per-agent methodology r
 ├── aidlc-architect-agent/                 # Loaded when aidlc-architect-agent is active
 ├── aidlc-developer-agent/                 # Loaded when aidlc-developer-agent is active
 ├── aidlc-product-agent/                   # Loaded when aidlc-product-agent is active
-└── ...                              # One directory per agent
+├── ...                              # One directory per agent
+└── org-bok/                         # Org Body of Knowledge (targeted loading, not all-agents)
+    ├── index.md                     # Exemplar decision tree — research agent only
+    ├── exemplars/<slug>/profile.md  # Few-shot exemplar profiles — research agent only
+    └── guides/                      # Cross-cutting org guides, loaded by the agents they concern:
+                                     #   architecture-principles.md → architect
+                                     #   code-style.md → developer + quality
+                                     #   ui-design-language.md → design + developer
 ```
+
+The `org-bok/` subtree is your organization's Body of Knowledge. Unlike the
+rest of Tier 1 it is *meant* to be filled in by your organization's solution
+architect — the shipped index, fixture exemplar, and guide skeletons are
+templates to replace with your own distilled content (see
+[Team Knowledge](../harness-engineering/07-team-knowledge.md) for authoring
+guidance). The guides are standing defaults: they load for their target
+agents on every project, even when the Precedent Research stage was skipped,
+and each states the precedence rule — org default on greenfield; on
+brownfield, locally discovered affirmed practices win.
 
 > **Do NOT edit Tier 1 files to inject your team's knowledge.** `.claude/knowledge/` and `.claude/agents/*.md` are framework files — they are overwritten on every upgrade, and your changes will disappear. If you want to add company standards, architectural preferences, or domain context, add them to **Tier 2** (below). If you want to constrain agent behavior, add a **rule** (see [Rules and the Learning Loop](09-rules-and-the-learning-loop.md)).
 

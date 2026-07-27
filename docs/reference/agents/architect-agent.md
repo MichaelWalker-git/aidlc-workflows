@@ -74,6 +74,12 @@ Path: `.claude/knowledge/aidlc-architect-agent/`
 | nfr-design-guide.md | Non-functional requirements design methodology |
 | nfr-design-patterns.md | Technical patterns for NFR implementation (caching, circuit breakers, resilience) |
 
+The agent also loads one Org BoK cross-cutting guide as standing knowledge:
+`.claude/knowledge/org-bok/guides/architecture-principles.md` — org-wide
+architecture defaults that apply even when precedent-research was skipped,
+subject to the precedence rule the guide states (brownfield: locally
+discovered affirmed practices win).
+
 ### Team (Tier 2)
 
 Path: `aidlc/knowledge/aidlc-architect-agent/` (the space-level knowledge dir; user-managed)

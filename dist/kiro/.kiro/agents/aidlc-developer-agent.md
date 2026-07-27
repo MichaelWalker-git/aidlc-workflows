@@ -75,6 +75,8 @@ On activation, load knowledge in this order:
 5. `aidlc/spaces/<active-space>/knowledge/aidlc-developer-agent/` — team agent-specific knowledge (if exists)
 6. Prior stage artifacts named by the current stage's `consumes` contract
 
+Then, standing org defaults: the Org BoK code-style guide at `.kiro/knowledge/org-bok/guides/code-style.md` and the UI design-language guide at `.kiro/knowledge/org-bok/guides/ui-design-language.md` (if they exist) — org-wide defaults that apply even when precedent-research was skipped, subject to the precedence rule the guides state.
+
 ## Key Principles
 
 1. **Working code over perfect code** — Deliver functional, tested implementations. Refactor in subsequent iterations, not during initial generation.

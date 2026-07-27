@@ -46,6 +46,46 @@ full directory shapes for both tiers are in
 
 ---
 
+## The Org BoK exception: Tier-1 content you author
+
+One Tier-1 subtree breaks the "leave it alone" rule by design:
+`.claude/knowledge/org-bok/`, the Org Body of Knowledge. It ships as a
+skeleton — a stub index, one fixture exemplar profile, and three
+cross-cutting guide templates — precisely so a solution architect maintaining
+a fork can replace the placeholders with the organization's own distilled
+content. If you fork this repo, the authored home is
+`core/knowledge/org-bok/` and the packager ships it to every harness; if you
+customize a single install, edit the dist copy and re-apply on upgrade.
+
+Three artifact kinds, each with a fixed shape (content-shape tests pin the
+headings, so keep them):
+
+- **`index.md`** — the curated decision tree over your exemplar projects.
+  One table row per exemplar: profile link, project-type tags, tech stack,
+  and concrete "use when…" guidance. The research agent reasons over this
+  during Precedent Research; the routing gate counts its profile links.
+- **`exemplars/<slug>/profile.md`** — one few-shot profile per reference
+  repo: the original ask/context, the architecture chosen and why, key
+  patterns worth imitating, and a repo URL + notable paths in frontmatter.
+  Loaded by the research agent only.
+- **`guides/`** — conventions distilled *across* repos, loaded as standing
+  knowledge by exactly the agents they concern: `architecture-principles.md`
+  by the architect; `code-style.md` by the developer and quality agents;
+  `ui-design-language.md` by the design and developer agents. Fill in the
+  `*Fill in*` placeholders under the existing headings; because guides load
+  on every project, they apply even when Precedent Research was skipped.
+  Keep them tight — every line spends context in each target agent's window.
+
+When you author a guide, keep its stated precedence rule intact: on
+greenfield work BoK guidance is the default; on brownfield, locally
+discovered and affirmed practices win. A guide that claims to outrank the
+codebase it runs in will churn brownfield projects toward org ideals — the
+failure mode the rule exists to prevent. Team-specific (rather than
+org-wide) conventions still belong in Tier 2 below, which loads for your
+space without touching framework files.
+
+---
+
 ## Team-wide versus agent-specific placement
 
 Tier 2 follows the agent layout by convention: a `aidlc-shared/` directory plus
