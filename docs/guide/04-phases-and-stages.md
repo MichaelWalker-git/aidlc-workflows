@@ -138,7 +138,7 @@ flowchart TD
 
 **Stage colors:** Green = ALWAYS (runs for every scope). Yellow = CONDITIONAL (skipped for some scopes).
 
-**Precedent Research (1.2)** runs when the install ships an Org BoK with at least one exemplar: the research agent reads the intent, selects matching exemplar profiles from the curated index, and writes a reference brief naming precedent, patterns to follow, and UI directives. It is skipped automatically when no BoK is present.
+**Precedent Research (1.2)** runs when the install ships an Org BoK with at least one exemplar: the research agent reads the intent, selects matching exemplar profiles from the curated index, and writes a reference brief naming precedent, patterns to follow, and UI directives. It is skipped automatically when no BoK is present. Downstream, feasibility, rough-mockups, refined-mockups, application-design, and code-generation each load the brief and follow its exemplar patterns — and proceed without it when the stage was skipped.
 
 ---
 

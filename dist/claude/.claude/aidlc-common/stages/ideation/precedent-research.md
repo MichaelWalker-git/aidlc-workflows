@@ -66,15 +66,25 @@ When a selected profile's notable file paths would materially improve the brief 
 
 ### Step 6: Write the Reference Brief
 
-Create `<record>/ideation/precedent-research/reference-brief.md` carrying:
+Create `<record>/ideation/precedent-research/reference-brief.md`. The brief is
+the single statement of precedent downstream agents receive — they never read
+the index or raw profiles — so it must stand alone. It carries exactly these
+H2 sections:
 
-- **Selected exemplars & rationale** — each selected exemplar and why it matches this intent, or an explicit "no matching precedent" statement when nothing matched
-- **Patterns to follow** — the selected profiles' key patterns, phrased as instructions for this project
-- **UI directives** — concrete, imperative styling instructions (design tokens, spacing and layout conventions, component patterns, copy tone) for the mockup and code-generation stages
-- **Precedence rule** — stated verbatim: on greenfield work, BoK guidance is the default; on brownfield work, locally discovered and affirmed practices win — consistency with the codebase you are in beats org ideals
-- **Deep-dive pointers** — the selected profiles' repo URLs and notable file paths for downstream agents
+- `## Selected Exemplars & Rationale` — each selected exemplar and why it matches this intent
+- `## Patterns to Follow` — the selected profiles' key patterns, phrased as imperatives for this project, not as history
+- `## UI Directives` — concrete, imperative styling instructions (design tokens, spacing and layout conventions, component patterns, copy tone) for the mockup and code-generation stages
+- `## Precedence Rule` — stated verbatim: on greenfield work, BoK guidance is the default; on brownfield work, locally discovered and affirmed practices win — consistency with the codebase you are in beats org ideals
+- `## Deep-Dive Pointers` — the selected profiles' repo URLs and notable file paths, so downstream agents can fetch real files when fidelity helps
 
-Reference the consumed intent statement explicitly in the brief's rationale.
+Reference the consumed intent statement explicitly in the rationale.
+
+**When no exemplar matched**, write the honest form instead: replace the first
+three sections with a single `## No Matching Precedent` section that names the
+index entries considered and why none fit, and explicitly instructs downstream
+agents to design from first principles and the org guides rather than force-fit
+an exemplar. Keep `## Precedence Rule` — it applies with or without a
+precedent. Omit `## Deep-Dive Pointers` rather than padding it.
 
 ### Step 7: Completion Handoff
 

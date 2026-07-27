@@ -614,6 +614,12 @@ the execution plan. Code is written to the workspace root, never to
   `<record>/inception/units-generation/unit-of-work.md`
 - Story map from
   `<record>/inception/units-generation/unit-of-work-story-map.md`
+- Reference brief from Ideation Stage 1.2
+  (`<record>/ideation/precedent-research/reference-brief.md`), if exists —
+  generated UI code follows its UI directives (design tokens, spacing/layout
+  conventions, component patterns, copy tone) and exemplar patterns, subject
+  to the brief's precedence rule; when the brief is absent the stage
+  proceeds without it
 
 ### Steps
 

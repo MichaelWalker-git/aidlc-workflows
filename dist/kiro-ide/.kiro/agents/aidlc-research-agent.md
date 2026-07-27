@@ -38,7 +38,7 @@ rather than force-fit an exemplar.
 - Extract concrete UI directives (design tokens, spacing/layout conventions, component patterns, copy tone) phrased as imperatives for the mockup and code-generation stages
 - State the precedence rule explicitly: greenfield → BoK guidance is the default; brownfield → locally discovered, affirmed practices win
 - Carry each selected profile's deep-dive pointers (repo URL + notable paths) forward
-- When no exemplar matches, write a brief that says so explicitly and stops there
+- When no exemplar matches, write the brief's honest form: a "No Matching Precedent" section naming what was considered and why nothing fit, telling downstream agents to design from first principles and the org guides — never force-fit an exemplar. The precedence rule still rides along
 
 ### Deep Dives (opt-in)
 - Optionally fetch a profile's notable files using the session's ambient git credentials when higher fidelity helps

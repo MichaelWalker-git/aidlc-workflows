@@ -349,6 +349,10 @@
           "required": true
         },
         {
+          "artifact": "reference-brief",
+          "required": false
+        },
+        {
           "artifact": "competitive-analysis",
           "required": false
         },
@@ -363,6 +367,7 @@
       ],
       "requires_stage": [
         "intent-capture",
+        "precedent-research",
         "market-research"
       ],
       "sensors": [
@@ -374,7 +379,7 @@
         "feature",
         "mvp"
       ],
-      "inputs": "Intent statement from intent-capture stage, market research from market-research stage (if executed)",
+      "inputs": "Intent statement from intent-capture stage, reference brief from precedent-research stage (if executed), market research from market-research stage (if executed)",
       "outputs": "feasibility-assessment.md, constraint-register.md, raid-log.md, feasibility-questions.md (under this stage's record dir, engine-resolved)",
       "rules_in_context": [
         {
@@ -581,6 +586,10 @@
           "required": true
         },
         {
+          "artifact": "reference-brief",
+          "required": false
+        },
+        {
           "artifact": "scope-document",
           "required": true
         },
@@ -590,6 +599,7 @@
         }
       ],
       "requires_stage": [
+        "precedent-research",
         "scope-definition",
         "team-formation"
       ],
@@ -604,7 +614,7 @@
       ],
       "reviewer": "aidlc-product-lead-agent",
       "reviewer_max_iterations": 2,
-      "inputs": "Intent statement, scope definition, intent backlog",
+      "inputs": "Intent statement, reference brief (if produced), scope definition, intent backlog",
       "outputs": "wireframes.md, user-flow.md, rough-mockups-questions.md (under this stage's record dir, engine-resolved)",
       "rules_in_context": [
         {
@@ -1115,6 +1125,10 @@
       ],
       "consumes": [
         {
+          "artifact": "reference-brief",
+          "required": false
+        },
+        {
           "artifact": "wireframes",
           "required": true
         },
@@ -1150,7 +1164,7 @@
       ],
       "reviewer": "aidlc-product-lead-agent",
       "reviewer_max_iterations": 2,
-      "inputs": "Rough mockups from rough-mockups stage, user stories from user-stories stage, requirements from requirements-analysis stage",
+      "inputs": "Reference brief from precedent-research stage (if produced), rough mockups from rough-mockups stage, user stories from user-stories stage, requirements from requirements-analysis stage",
       "outputs": "mockups.md, interaction-spec.md, design-system-mapping.md, accessibility-checklist.md, refined-mockups-questions.md (under this stage's record dir, engine-resolved)",
       "rules_in_context": [
         {
@@ -1209,6 +1223,10 @@
           "required": true
         },
         {
+          "artifact": "reference-brief",
+          "required": false
+        },
+        {
           "artifact": "stories",
           "required": false
         },
@@ -1243,7 +1261,7 @@
       ],
       "reviewer": "aidlc-architecture-reviewer-agent",
       "reviewer_max_iterations": 2,
-      "inputs": "<record>/inception/requirements-analysis/requirements.md, <record>/inception/user-stories/stories.md (if produced), RE artifacts (if brownfield)",
+      "inputs": "<record>/inception/requirements-analysis/requirements.md, reference brief from precedent-research stage (if produced), <record>/inception/user-stories/stories.md (if produced), RE artifacts (if brownfield)",
       "outputs": "components.md, component-methods.md, services.md, component-dependency.md, decisions.md (under this stage's record dir, engine-resolved)",
       "rules_in_context": [
         {
@@ -1996,6 +2014,10 @@
         "code-summary"
       ],
       "consumes": [
+        {
+          "artifact": "reference-brief",
+          "required": false
+        },
         {
           "artifact": "business-logic-model",
           "required": false

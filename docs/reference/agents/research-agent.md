@@ -17,7 +17,7 @@
 
 | Stage | Name | What This Agent Does |
 |-------|------|----------------------|
-| precedent-research | Precedent Research | Walks the Org BoK's curated exemplar index against the captured intent, loads only the matching exemplar profiles, and writes the reference brief (selected exemplars + rationale, patterns to follow, UI directives, deep-dive pointers — or an honest "no matching precedent") |
+| precedent-research | Precedent Research | Walks the Org BoK's curated exemplar index against the captured intent, loads only the matching exemplar profiles, and writes the reference brief (selected exemplars + rationale, patterns to follow, UI directives, precedence rule, deep-dive pointers — or an honest "no matching precedent") |
 
 ### Support Stages
 

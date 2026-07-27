@@ -695,6 +695,10 @@ This stage is typically skipped if Stage 1.7 (Rough Mockups) was also skipped.
 
 ### Inputs
 
+- Reference brief from Ideation Stage 1.2
+  (`<record>/ideation/precedent-research/`), if exists — its UI directives
+  (design tokens, spacing/layout conventions, component patterns, copy tone)
+  apply throughout the refined mockups and interaction spec
 - Rough mockups from Stage 1.7 (`<record>/ideation/rough-mockups/`), if
   exists
 - User stories from Stage 2.4 (`<record>/inception/user-stories/`)
@@ -800,6 +804,10 @@ upstream reference, documented in SKILL.md's "Deliberate Deviations" section.
 ### Inputs
 
 - `<record>/inception/requirements-analysis/requirements.md`
+- Reference brief from Ideation Stage 1.2
+  (`<record>/ideation/precedent-research/`), if exists — the selected
+  precedent's architecture and rationale inform component boundaries and
+  design decisions, subject to the brief's precedence rule
 - `<record>/inception/user-stories/stories.md` (if produced)
 - RE artifacts from Stage 2.1 (especially `architecture.md`,
   `component-inventory.md`, `dependencies.md`), if brownfield

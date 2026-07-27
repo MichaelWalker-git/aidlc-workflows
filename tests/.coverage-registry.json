@@ -1231,6 +1231,10 @@
         {
           "file": "tests/integration/t66.test.ts",
           "mechanism": "cli"
+        },
+        {
+          "file": "tests/unit/t245-reference-brief-consumption.test.ts",
+          "mechanism": "none"
         }
       ],
       "status": "covered"
@@ -2336,6 +2340,10 @@
         {
           "file": "tests/unit/t205-optional-produces-frontmatter.test.ts",
           "mechanism": "none"
+        },
+        {
+          "file": "tests/unit/t245-reference-brief-consumption.test.ts",
+          "mechanism": "none"
         }
       ],
       "status": "covered"
@@ -3081,6 +3089,10 @@
         },
         {
           "file": "tests/unit/t213-scope-cost-summary.test.ts",
+          "mechanism": "none"
+        },
+        {
+          "file": "tests/unit/t245-reference-brief-consumption.test.ts",
           "mechanism": "none"
         }
       ],

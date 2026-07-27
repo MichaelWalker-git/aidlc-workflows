@@ -40,22 +40,32 @@ captured intent. Context discipline is the point of the index.
 ## Writing the reference brief
 
 The brief is the single statement of precedent that downstream agents and
-humans share. It must carry:
+humans share. Its consumers — feasibility, rough-mockups, refined-mockups,
+application-design, and code-generation — each carry a step that loads it and
+follows its exemplar patterns, so the section names below are the contract.
+It carries exactly these H2 sections:
 
-- **Selected exemplars and rationale** — which profiles you chose and why
-  they match this intent (or an explicit "no matching precedent" statement).
-- **Patterns to follow** — the key patterns from the selected profiles,
+- **`## Selected Exemplars & Rationale`** — which profiles you chose and why
+  they match this intent.
+- **`## Patterns to Follow`** — the key patterns from the selected profiles,
   phrased as instructions for this project, not as history.
-- **UI directives** — concrete, imperative styling instructions (design
+- **`## UI Directives`** — concrete, imperative styling instructions (design
   tokens, spacing and layout conventions, component patterns, copy tone)
   for the mockup and code-generation stages. Extract them from the selected
   exemplar and the UI design-language guide when present.
-- **The precedence rule** — state it verbatim so downstream agents don't
+- **`## Precedence Rule`** — state it verbatim so downstream agents don't
   ping-pong: on greenfield work, BoK guidance is the default; on brownfield
   work, locally discovered and affirmed practices win — consistency with
   the codebase you are in beats org ideals.
-- **Deep-dive pointers** — the selected profiles' repo URLs and notable
+- **`## Deep-Dive Pointers`** — the selected profiles' repo URLs and notable
   paths, so downstream agents can fetch real files when fidelity helps.
+
+When no exemplar matched, replace the first three sections with a single
+`## No Matching Precedent` section: name the index entries you considered and
+why none fit, and explicitly instruct downstream agents to design from first
+principles and the org guides rather than force-fit an exemplar. Keep
+`## Precedence Rule` — it applies with or without a precedent. Omit
+`## Deep-Dive Pointers` rather than padding it.
 
 ## Deep dives
 

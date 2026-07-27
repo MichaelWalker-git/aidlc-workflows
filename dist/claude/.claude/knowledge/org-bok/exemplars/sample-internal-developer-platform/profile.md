@@ -14,6 +14,14 @@ exemplar profile — every section below must be present and populated in a real
 profile. Replace it with your organization's first distilled exemplar (run
 `/aidlc-distill` against the reference repo, or author by hand).
 
+When the research agent selects this profile, its sections feed the reference
+brief's contract sections directly: Ask/Context and Architecture & Why become
+the `## Selected Exemplars & Rationale` and `## Patterns to Follow` material,
+the UI-relevant Key Patterns (design tokens, component conventions, copy tone)
+become `## UI Directives` phrased as imperatives, and the frontmatter's repo
+URL and notable paths become `## Deep-Dive Pointers`. Write each section with
+that consumption in mind.
+
 ## Ask / Context
 
 An engineering organization of ~40 teams asked for an internal developer

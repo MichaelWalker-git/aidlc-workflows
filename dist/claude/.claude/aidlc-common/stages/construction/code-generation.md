@@ -14,6 +14,8 @@ produces:
   - code-generation-plan
   - code-summary
 consumes:
+  - artifact: reference-brief
+    required: false
   - artifact: business-logic-model
     required: false
   - artifact: business-rules
@@ -75,6 +77,7 @@ Read all design artifacts for the current unit:
 - Unit definition from `<record>/inception/units-generation/unit-of-work.md` (if exists)
 - Story map from `<record>/inception/units-generation/unit-of-work-story-map.md` (if exists)
 - Requirements from `<record>/inception/requirements-analysis/requirements.md` (if exists)
+- Reference brief from `<record>/ideation/precedent-research/reference-brief.md` (if exists) — follow its exemplar patterns, and apply its UI directives (design tokens, spacing and layout conventions, component patterns, copy tone) to all generated UI code so the output follows the org design language, subject to the brief's stated precedence rule. If the brief is absent (the stage was skipped), proceed without it.
 
 Incremental scopes (bugfix, poc, refactor, security-patch) skip units-generation and application-design by design; when those inputs are absent, scope the work from the requirements and, on brownfield, the reverse-engineered code knowledge base at `aidlc/spaces/<active-space>/codekb/<repo>/` — never invent the content of a missing artifact.
 
@@ -156,6 +159,7 @@ The aidlc-developer-agent persona and its knowledge are loaded automatically by 
 Include in the delegation prompt:
 - Design artifacts for the CURRENT UNIT ONLY (not all units)
 - A 1-2 line summary of each inception-phase artifact with its file path (requirements summary, stories summary, app design summary) — the subagent can Read specific files if it needs full content
+- The reference brief's UI directives and patterns to follow with the brief's file path (when the brief exists — omit when precedent-research was skipped)
 - The approved code-generation-plan.md (full content)
 - Project workspace details (languages, frameworks, conventions from aidlc-state.md)
 - Instructions to execute each plan step sequentially and mark checkboxes as completed

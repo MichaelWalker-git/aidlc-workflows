@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.1] - 2026-07-27
+
+The reference brief written by Precedent Research (1.2) is now actually consumed downstream. Feasibility, Rough Mockups, Refined Mockups, Application Design, and Code Generation each declare the brief as an optional input and carry an explicit step to load it and follow its exemplar patterns — mockup and code-generation work applies the brief's concrete UI directives (design tokens, spacing/layout conventions, component patterns, copy tone) so generated UI follows the org design language instead of generic LLM styling. When the brief is absent because the stage was skipped, every consumer proceeds without it — no hunting, no failure. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.
+
+* The five downstream stages add `reference-brief` to `consumes:` (optional — the producer is CONDITIONAL) plus a prose step: load the brief from `<record>/ideation/precedent-research/`, follow its exemplar patterns, proceed without it when absent. The four markdown-producing consumers' `upstream-coverage` sensor listings now include the brief (code-generation produces code and imports no markdown sensors).
+* The reference-brief contract is finalized in the stage prose and the research agent's method: exactly five H2 sections — `Selected Exemplars & Rationale`, `Patterns to Follow`, `UI Directives`, `Precedence Rule` (greenfield: BoK guidance is the default; brownfield: locally discovered and affirmed practices win), and `Deep-Dive Pointers`.
+* The brief's honest "no matching precedent" form is specified: a single `No Matching Precedent` section naming what was considered and why nothing fit, instructing downstream agents to design from first principles and the org guides rather than force-fit an exemplar; the precedence rule still rides along.
+* Code Generation forwards the brief's UI directives and patterns into the developer-subagent delegation prompt (omitted when Precedent Research was skipped).
+* The compiled stage graph gains the five consumes edges plus `precedent-research` ordering edges into feasibility and rough-mockups; grid validation (lenient and strict) stays green with the producer executed or skipped.
+
 ## [2.6.0] - 2026-07-24
 
 The workflow can now route each new intent to your organization's own precedent. A new CONDITIONAL ideation stage, **Precedent Research** (displayed 1.2, directly after Intent Capture), is led by the new **research agent**: it reads the captured intent, reasons over the curated Org Body of Knowledge index at `<harness-dir>/knowledge/org-bok/index.md`, loads only the matching exemplar profiles, and writes a **reference brief** naming the selected precedent, the patterns to follow, and concrete UI directives — or honestly states that no precedent matches. On an install with no BoK (or an index with no exemplar entries) the stage is skipped automatically by a deterministic file check — no configuration needed. The BoK ships as a skeleton: a stub index plus one fixture exemplar profile demonstrating the required shape; distill your own exemplars to make the stage earn its keep. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.

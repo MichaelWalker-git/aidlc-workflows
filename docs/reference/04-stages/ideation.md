@@ -146,7 +146,8 @@ Grounds the new initiative in organizational precedent. The research agent reads
 
 - Gate condition: the routing gate is deterministic -- the stage executes only when `<harness-dir>/knowledge/org-bok/index.md` exists and links at least one exemplar profile; installs without a usable Org BoK skip it automatically at plan-build time.
 - Scopes: enterprise and feature only; all other scopes SKIP this stage.
-- Feeds the reference brief into the mockup and code-generation stages; on brownfield work, locally discovered and affirmed practices take precedence over BoK guidance.
+- Feeds the reference brief into feasibility, rough-mockups, refined-mockups, application-design, and code-generation — each consumes it as an optional input and follows its exemplar patterns, proceeding without it when this stage was skipped. On brownfield work, locally discovered and affirmed practices take precedence over BoK guidance.
+- When no exemplar matches, the brief carries an explicit "No Matching Precedent" section instead of force-fitting one; downstream agents then design from first principles and the org guides.
 
 ---
 
@@ -209,6 +210,7 @@ Evaluates technical viability, identifies constraints, and establishes a RAID lo
 ### Inputs
 
 - Intent statement from Stage 1.1
+- Reference brief from Stage 1.2 (if executed)
 - Market research from Stage 1.3 (if executed)
 
 ### Outputs
@@ -324,6 +326,7 @@ Produces early concept visualizations. For UI: low-fidelity wireframes and user 
 ### Inputs
 
 - Intent statement from Stage 1.1
+- Reference brief from Stage 1.2 (if executed) — its UI directives (design tokens, spacing/layout conventions, component patterns, copy tone) apply from the first wireframe
 - Scope definition from Stage 1.5
 
 ### Outputs

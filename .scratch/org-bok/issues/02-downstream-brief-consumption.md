@@ -6,12 +6,12 @@
 
 **Blocked by:** 01 — Tracer bullet (the stage, agent, and `reference-brief` artifact must exist).
 
-**Status:** ready-for-agent
+**Status:** done (2.6.1)
 
-- [ ] Feasibility, rough-mockups, refined-mockups, application-design, and code-generation each add `reference-brief` to `consumes:` plus one prose step: follow the brief's exemplar patterns; if the brief is absent, proceed without it
-- [ ] Grid validation proves every new consumes edge has an on-path producer, with the conditional shape correct for a CONDITIONAL producer
-- [ ] The reference-brief contract (sections listed above, including UI directives and the stated precedence rule) is defined in the research agent's stage steps and reflected in the fixture exemplar's expected output shape
-- [ ] The brief's "no matching precedent" form is specified so downstream agents are told not to force-fit an exemplar
-- [ ] Dist regenerated; packaging parity, stage-graph drift, and SKILL-table checks green; artifact/edge pins updated
-- [ ] Docs updated where stage inputs/steps are documented; version bump + CHANGELOG per changelog policy
-- [ ] New/changed tests carry `covers:` headers; coverage registry regenerated
+- [x] Feasibility, rough-mockups, refined-mockups, application-design, and code-generation each add `reference-brief` to `consumes:` plus one prose step: follow the brief's exemplar patterns; if the brief is absent, proceed without it
+- [x] Grid validation proves every new consumes edge has an on-path producer, with the conditional shape correct for a CONDITIONAL producer (`required: false` — optional consume; t245 pins lenient + strict grids with the producer executed and skipped)
+- [x] The reference-brief contract (sections listed above, including UI directives and the stated precedence rule) is defined in the research agent's stage steps and reflected in the fixture exemplar's expected output shape
+- [x] The brief's "no matching precedent" form is specified so downstream agents are told not to force-fit an exemplar
+- [x] Dist regenerated; packaging parity, stage-graph drift, and SKILL-table checks green; artifact/edge pins updated (designer-export golden regenerated)
+- [x] Docs updated where stage inputs/steps are documented; version bump + CHANGELOG per changelog policy (2.6.1)
+- [x] New/changed tests carry `covers:` headers; coverage registry regenerated (t245-reference-brief-consumption)

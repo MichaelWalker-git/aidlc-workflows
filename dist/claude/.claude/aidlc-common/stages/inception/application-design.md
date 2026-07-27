@@ -19,6 +19,8 @@ produces:
 consumes:
   - artifact: requirements
     required: true
+  - artifact: reference-brief
+    required: false
   - artifact: stories
     required: false
   - artifact: architecture
@@ -40,7 +42,7 @@ scopes:
   - feature
   - mvp
   - workshop
-inputs: <record>/inception/requirements-analysis/requirements.md, <record>/inception/user-stories/stories.md (if produced), RE artifacts (if brownfield)
+inputs: <record>/inception/requirements-analysis/requirements.md, reference brief from precedent-research stage (if produced), <record>/inception/user-stories/stories.md (if produced), RE artifacts (if brownfield)
 outputs: components.md, component-methods.md, services.md, component-dependency.md, decisions.md (under this stage's record dir, engine-resolved)
 ---
 
@@ -59,6 +61,7 @@ Load aidlc-design-agent persona from `agents/aidlc-design-agent.md` and knowledg
 ### Step 2: Load Prior Context
 
 - Read `<record>/inception/requirements-analysis/requirements.md`
+- Read the reference brief from `<record>/ideation/precedent-research/` (if exists) and follow its exemplar patterns — the selected precedent's architecture and rationale inform component boundaries and design decisions, subject to the brief's stated precedence rule. If the brief is absent (the stage was skipped), proceed without it.
 - Read `<record>/inception/user-stories/stories.md` (if produced)
 - If brownfield: Read relevant RE artifacts (especially architecture.md, component-inventory.md, dependencies.md)
 
@@ -156,7 +159,7 @@ This stage's outputs are markdown artefacts under `<record>/inception/applicatio
 The imported sensors check those outputs:
 
 - **`required-sections`** verifies the output contains the registry default (≥2 H2 headings). Failure mode: missing headings emit `SENSOR_FAILED` with detail at `<record>/.aidlc-sensors/<stage-slug>/required-sections-<iso>.md`.
-- **`upstream-coverage`** verifies the output prose references each artefact declared in this stage's `consumes:` frontmatter. Failure mode: missing upstream references emit `SENSOR_FAILED` listing each unreferenced artefact (this stage consumes `requirements`, `stories`, `team-practices`).
+- **`upstream-coverage`** verifies the output prose references each artefact declared in this stage's `consumes:` frontmatter. Failure mode: missing upstream references emit `SENSOR_FAILED` listing each unreferenced artefact (this stage consumes `requirements`, `reference-brief`, `stories`, `team-practices`).
 
 ## Learn
 

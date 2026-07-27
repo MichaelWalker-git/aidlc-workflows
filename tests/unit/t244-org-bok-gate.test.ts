@@ -25,6 +25,7 @@
 import { afterEach, describe, expect, test } from "bun:test";
 import { spawnSync } from "node:child_process";
 import {
+  existsSync,
   mkdtempSync,
   readdirSync,
   readFileSync,
@@ -36,12 +37,17 @@ import { join } from "node:path";
 import { hasOrgBokPrecedent } from "../../core/tools/aidlc-lib.ts";
 import { setupIntegrationProject } from "../harness/fixtures.ts";
 
-// The state file of the intent birth just created: the single dir under
-// aidlc/spaces/default/intents/. Birth mints exactly one on a fresh project.
+// The state file of the intent birth just created: the record dir under
+// aidlc/spaces/default/intents/ that carries an aidlc-state.md. The seeded
+// fixture record (fixture-<id8>) ships empty, and readdirSync order is
+// filesystem-dependent, so filter on the state file rather than taking the
+// first directory.
 function bornStateFile(proj: string): string {
   const intentsDir = join(proj, "aidlc", "spaces", "default", "intents");
-  const record = readdirSync(intentsDir, { withFileTypes: true }).find((e) =>
-    e.isDirectory(),
+  const record = readdirSync(intentsDir, { withFileTypes: true }).find(
+    (e) =>
+      e.isDirectory() &&
+      existsSync(join(intentsDir, e.name, "aidlc-state.md")),
   );
   expect(record).toBeDefined();
   return readFileSync(
