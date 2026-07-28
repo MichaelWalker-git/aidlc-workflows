@@ -38,13 +38,9 @@ import { describe, expect, test } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { AIDLC_SRC } from "../harness/fixtures.ts";
+import { readFlat } from "../harness/text.ts";
 
 const STAGES_DIR = join(AIDLC_SRC, "aidlc-common", "stages");
-
-/** Read a shipped file and return its whitespace-normalized form. */
-function flat(path: string): string {
-  return readFileSync(path, "utf-8").replace(/\s+/g, " ");
-}
 
 // The degradation triad every deep-dive statement must carry (ADR-007):
 // opt-in fetch with the session's existing git credentials, the note wording,
@@ -52,6 +48,10 @@ function flat(path: string): string {
 const DEGRADE_NOTE = /["“]deep dive unavailable["”]/i;
 const NEVER_FAILS = /never a stage failure/i;
 const AMBIENT_CREDS = /(ambient git credentials|git credentials the session already has)/i;
+// ADR-007: the note lands "in its output" — the stage deliverable, not a
+// chat-only remark. Consumers say "in the deliverable"; the producer's method
+// doc says "where the material would have gone" (the brief itself).
+const NOTE_IN_ARTIFACT = /(in the deliverable|where the material would have)/i;
 
 const FIXTURE_PROFILE = join(
   AIDLC_SRC,
@@ -103,7 +103,7 @@ describe("t247 pointer fields flow end to end (mechanism: none)", () => {
   });
 
   test("the brief contract carries the repo URLs and notable file paths through to consumers", () => {
-    const src = flat(join(STAGES_DIR, "ideation", "precedent-research.md"));
+    const src = readFlat(join(STAGES_DIR, "ideation", "precedent-research.md"));
     // The `## Deep-Dive Pointers` contract bullet names both halves of the
     // pointer — this is what makes the pointers reach consumers who never
     // read raw profiles.
@@ -116,7 +116,7 @@ describe("t247 pointer fields flow end to end (mechanism: none)", () => {
 describe("t247 producer-side degradation wording (ADR-007 triad)", () => {
   for (const [label, path] of PRODUCER_SURFACES) {
     test(`${label} carries the full triad: opt-in creds, the note, never-a-failure`, () => {
-      const src = flat(path);
+      const src = readFlat(path);
       expect(src, `${label}: ambient-credentials wording`).toMatch(
         AMBIENT_CREDS,
       );
@@ -128,7 +128,7 @@ describe("t247 producer-side degradation wording (ADR-007 triad)", () => {
 
 describe("t247 consumer-side opt-in fetch guidance + degradation (never a hard dependency)", () => {
   for (const [slug, phase] of CONSUMERS) {
-    const src = flat(join(STAGES_DIR, phase, `${slug}.md`));
+    const src = readFlat(join(STAGES_DIR, phase, `${slug}.md`));
 
     test(`${slug} names the brief's deep-dive pointers and frames the fetch as opt-in (MAY)`, () => {
       expect(src.toLowerCase()).toContain("deep-dive pointers");
@@ -142,12 +142,15 @@ describe("t247 consumer-side opt-in fetch guidance + degradation (never a hard d
         AMBIENT_CREDS,
       );
       expect(src, `${slug}: the degradation note`).toMatch(DEGRADE_NOTE);
+      expect(src, `${slug}: the note lands in the deliverable`).toMatch(
+        NOTE_IN_ARTIFACT,
+      );
       expect(src, `${slug}: never a stage failure`).toMatch(NEVER_FAILS);
     });
   }
 
   test("code-generation forwards the deep-dive pointers into the developer-subagent delegation prompt", () => {
-    const src = flat(join(STAGES_DIR, "construction", "code-generation.md"));
+    const src = readFlat(join(STAGES_DIR, "construction", "code-generation.md"));
     // The subagent generates the code; pointers it never receives are
     // pointers nobody fetches. Same conditional shape as the UI directives:
     // omitted when precedent-research was skipped.

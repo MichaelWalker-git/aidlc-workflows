@@ -28,6 +28,7 @@ import {
   validateGrid,
 } from "../../dist/claude/.claude/tools/aidlc-graph.ts";
 import { AIDLC_SRC, ORG_BOK_PRECEDENCE_RULE } from "../harness/fixtures.ts";
+import { flat, readFlat } from "../harness/text.ts";
 
 const STAGES_DIR = join(AIDLC_SRC, "aidlc-common", "stages");
 
@@ -211,8 +212,7 @@ describe("t245 the fixture exemplar profile maps its sections onto the contract"
   });
 
   test("it states that the precedence rule is the agent's, not the profile's", () => {
-    const flat = profile.replace(/\s+/g, " ");
-    expect(flat).toMatch(/never states its own precedence/);
+    expect(flat(profile)).toMatch(/never states its own precedence/);
   });
 
   test("the sections the mapping cites actually exist in the profile", () => {
@@ -327,8 +327,7 @@ describe("t245 the reference-brief contract in the producer's stage prose", () =
 
   test("the precedence rule is stated verbatim — both halves and the trailing clause", () => {
     // Normalize whitespace so line wrapping in the .md doesn't matter.
-    const flat = src.replace(/\s+/g, " ");
-    expect(flat).toContain(PRECEDENCE_RULE);
+    expect(flat(src)).toContain(PRECEDENCE_RULE);
   });
 
   test("the no-matching-precedent form is specified — downstream agents are told not to force-fit", () => {
@@ -336,7 +335,7 @@ describe("t245 the reference-brief contract in the producer's stage prose", () =
     expect(src).toContain("force-fit");
     // The honest form still instructs downstream agents explicitly.
     // Normalized: the phrase legitimately wraps across lines in the .md.
-    expect(src.replace(/\s+/g, " ")).toContain("first principles");
+    expect(flat(src)).toContain("first principles");
   });
 
   // ADR-006 §3: the UI directives come from the exemplar AND the org's UI
@@ -345,12 +344,12 @@ describe("t245 the reference-brief contract in the producer's stage prose", () =
   // section rather than dropping it — that omission is how generic LLM
   // styling gets back in.
   test("the no-match form drops only the exemplar-dependent sections, keeping UI Directives and Precedence Rule", () => {
-    const flat = src.replace(/\s+/g, " ");
-    expect(flat).toMatch(
+    const flatSrc = flat(src);
+    expect(flatSrc).toMatch(
       /replace `## Selected Exemplars & Rationale` and `## Patterns to Follow`/,
     );
-    expect(flat).toMatch(/[Kk]eep `## UI Directives`/);
-    expect(flat).toMatch(/`## Precedence Rule`, which applies with or without/);
+    expect(flatSrc).toMatch(/[Kk]eep `## UI Directives`/);
+    expect(flatSrc).toMatch(/`## Precedence Rule`, which applies with or without/);
   });
 
   // The contract is restated in the agent persona and the method knowledge
@@ -374,8 +373,7 @@ describe("t245 the reference-brief contract in the producer's stage prose", () =
 
     test("all three statements carry the precedence rule verbatim", () => {
       for (const path of [PERSONA, METHOD]) {
-        const flat = readFileSync(path, "utf-8").replace(/\s+/g, " ");
-        expect(flat, `${path} states the rule verbatim`).toContain(
+        expect(readFlat(path), `${path} states the rule verbatim`).toContain(
           PRECEDENCE_RULE,
         );
       }
@@ -383,8 +381,7 @@ describe("t245 the reference-brief contract in the producer's stage prose", () =
 
     test("all three statements keep UI Directives in the no-match form", () => {
       for (const path of [PERSONA, METHOD]) {
-        const flat = readFileSync(path, "utf-8").replace(/\s+/g, " ");
-        expect(flat, `${path} keeps the UI directives`).toMatch(
+        expect(readFlat(path), `${path} keeps the UI directives`).toMatch(
           /UI [Dd]irectives|design-language guide/,
         );
       }

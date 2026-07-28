@@ -73,8 +73,9 @@ headings, so keep them):
   fetching (the actual lint config, a canonical component, the design-tokens
   module) — targeted pointers, not an invitation to crawl. Agents fetch them
   with whatever git credentials the session already has; when the repo is
-  unreachable they note "deep dive unavailable" and continue from the
-  profile's markdown, so the profile must stand alone without the fetch.
+  unreachable they note "deep dive unavailable" in their deliverable and
+  continue from the profile's markdown, so the profile must stand alone
+  without the fetch.
 - **`guides/`** — conventions distilled *across* repos, loaded as standing
   knowledge by exactly the agents they concern: `architecture-principles.md`
   by the architect; `code-style.md` by the developer and quality agents;

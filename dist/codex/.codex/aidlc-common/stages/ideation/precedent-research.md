@@ -62,7 +62,7 @@ Load aidlc-research-agent persona from `agents/aidlc-research-agent.md` and know
 
 ### Step 5: Optional Deep Dive
 
-When a selected profile's notable file paths would materially improve the brief (a real lint config, a canonical component), you MAY fetch them from the profile's repo URL using the session's ambient git credentials. If the fetch fails or the repo is unreachable, note "deep dive unavailable" and continue from the profile markdown — a failed fetch is never a stage failure.
+When a selected profile's notable file paths would materially improve the brief (a real lint config, a canonical component), you MAY fetch them from the profile's repo URL using the session's ambient git credentials. If the fetch fails or the repo is unreachable, note "deep dive unavailable" in the brief where the material would have gone and continue from the profile markdown — a failed fetch is never a stage failure.
 
 ### Step 6: Write the Reference Brief
 

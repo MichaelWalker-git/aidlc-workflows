@@ -3,11 +3,11 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { basename, join } from "node:path";
 import codexOnboardingFills from "../../harness/codex/onboarding.fills.ts";
 import { renderOnboarding } from "../../scripts/onboarding.ts";
+import { flat as normalized } from "../harness/text.ts";
 
 const ROOT = join(import.meta.dir, "..", "..");
 const at = (...parts: string[]): string => join(ROOT, ...parts);
 const read = (...parts: string[]): string => readFileSync(at(...parts), "utf8");
-const normalized = (text: string): string => text.replace(/\s+/g, " ").trim();
 
 function sliceBetween(text: string, start: string, end: string): string {
   const from = text.indexOf(start);

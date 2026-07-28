@@ -35,6 +35,7 @@ import {
   AIDLC_SRC,
   ORG_BOK_PRECEDENCE_RULE as PRECEDENCE_RULE,
 } from "../harness/fixtures.ts";
+import { flat } from "../harness/text.ts";
 
 const BOK_DIR = join(AIDLC_SRC, "knowledge", "org-bok");
 const AGENTS_DIR = join(AIDLC_SRC, "agents");
@@ -42,7 +43,7 @@ const AGENTS_DIR = join(AIDLC_SRC, "agents");
 /** Read a shipped file and return [raw, whitespace-normalized] forms. */
 function readBoth(path: string): [string, string] {
   const raw = readFileSync(path, "utf-8");
-  return [raw, raw.replace(/\s+/g, " ")];
+  return [raw, flat(raw)];
 }
 
 // ADR-008 wiring table: guide file → the exact set of agents that load it.

@@ -61,5 +61,5 @@ core, with Terraform modules as the provisioning contract.
 The frontmatter carries the repo URL and notable paths. Fetch them with the
 session's ambient git credentials when higher fidelity helps (copying the
 real lint config, imitating the canonical `ServiceCard` component). If the
-repo is unreachable, note "deep dive unavailable" and continue from this
-profile — a failed fetch is never a stage failure.
+repo is unreachable, note "deep dive unavailable" in your deliverable and
+continue from this profile — a failed fetch is never a stage failure.

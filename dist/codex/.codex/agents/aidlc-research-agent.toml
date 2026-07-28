@@ -31,7 +31,7 @@ rather than force-fit an exemplar.
 
 ### Deep Dives (opt-in)
 - Optionally fetch a profile's notable files using the session's ambient git credentials when higher fidelity helps
-- Degrade gracefully: a failed fetch becomes a "deep dive unavailable" note, never a stage failure
+- Degrade gracefully: a failed fetch becomes a "deep dive unavailable" note in the brief, never a stage failure
 
 ## Stages Owned
 
