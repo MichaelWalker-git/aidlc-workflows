@@ -20,23 +20,23 @@
     "render-surface": "tui"
   },
   "counts": {
-    "total": 480,
+    "total": 483,
     "enumeratedByClass": {
-      "function": 248,
+      "function": 250,
       "audit": 74,
       "scope": 9,
       "stage": 33,
       "hook": 13,
-      "subcommand": 96,
+      "subcommand": 97,
       "render-surface": 7
     },
     "coveredByClass": {
-      "function": 102,
+      "function": 104,
       "audit": 33,
       "scope": 9,
       "stage": 14,
       "hook": 13,
-      "subcommand": 83,
+      "subcommand": 84,
       "render-surface": 7
     }
   },
@@ -1302,6 +1302,18 @@
     },
     {
       "unitClass": "function",
+      "unitId": "function:distillAllowlistPath",
+      "minMechanism": "none",
+      "coveredBy": [
+        {
+          "file": "tests/unit/t248-distill-allowlist.test.ts",
+          "mechanism": "cli"
+        }
+      ],
+      "status": "covered"
+    },
+    {
+      "unitClass": "function",
       "unitId": "function:docsDir",
       "minMechanism": "none",
       "coveredBy": [],
@@ -1714,6 +1726,18 @@
       "minMechanism": "none",
       "coveredBy": [],
       "status": "UNCOVERED"
+    },
+    {
+      "unitClass": "function",
+      "unitId": "function:isDistillTargetAllowed",
+      "minMechanism": "none",
+      "coveredBy": [
+        {
+          "file": "tests/unit/t248-distill-allowlist.test.ts",
+          "mechanism": "cli"
+        }
+      ],
+      "status": "covered"
     },
     {
       "unitClass": "function",
@@ -5183,6 +5207,18 @@
         },
         {
           "file": "tests/unit/t67.test.ts",
+          "mechanism": "cli"
+        }
+      ],
+      "status": "covered"
+    },
+    {
+      "unitClass": "subcommand",
+      "unitId": "aidlc-utility distill-check",
+      "minMechanism": "cli",
+      "coveredBy": [
+        {
+          "file": "tests/unit/t248-distill-allowlist.test.ts",
           "mechanism": "cli"
         }
       ],

@@ -631,7 +631,7 @@ The runtime graph (`runtime-graph.json` in the intent's record dir) is the data-
 |------------|--------------|
 | `compile` | Walk the `audit/` shards and the per-stage `memory.md` files and rewrite `runtime-graph.json`. Fired automatically by a hook on every transition |
 | `read <stage-slug>` | Print one stage's row from `runtime-graph.json` (timestamps, agent, memory breakdown, Sensor firings, outcome) |
-| `summary [--json]` | Print deterministic aggregates over the whole graph — stage/phase outcome tallies, memory-entry counts, Sensor 4-state tallies, learnings captured, workflow duration. The data source the read-only session skills read from |
+| `summary [--json]` | Print deterministic aggregates over the whole graph — stage/phase outcome tallies, memory-entry counts, Sensor 4-state tallies, learnings captured, workflow duration. The data source the read-only reporting session skills read from |
 
 ```
 bun .claude/tools/aidlc-runtime.ts read requirements-analysis
@@ -650,6 +650,16 @@ Three read-only skills surface what `aidlc-runtime summary` reports, wrapped in 
 | `/aidlc-outcomes-pack` | Handover document for the team. Writes `OUTCOMES.md` |
 
 All three are read-only — no stage advance, no audit emit — and source every number from `aidlc-runtime summary --json`. See [Session Management § Session Skills](11-session-management.md#session-skills) for the full walkthrough.
+
+A fourth session skill, `/aidlc-distill`, is the Org BoK authoring session (run in the fork repo, not on a workflow): it checks the target repo against the curated allowlist with `aidlc-utility distill-check`, then drafts an exemplar profile, index entry, and guide additions for human curation. See [Knowledge § Authoring the Org BoK](08-knowledge.md).
+
+### `aidlc-utility distill-check` — the distill allowlist gate
+
+```bash
+bun .claude/tools/aidlc-utility.ts distill-check --target <repo-url-or-path> [--json]
+```
+
+Read-only, direct utility invocation (there is not an `/aidlc distill-check` command). Evaluates the deterministic allowlist match predicate `/aidlc-distill` runs as its step 0: exit `0` means the target is on the curated allowlist (`knowledge/org-bok/distill-allowlist.md`, frontmatter `allowed:` list — exact URLs/paths or `*` globs); exit `1` means denied, and the message names the allowlist file to edit. The check is fail-closed (missing or empty allowlist denies everything) and never reads the target repo.
 
 ---
 

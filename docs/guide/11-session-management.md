@@ -145,7 +145,7 @@ This creates a new workflow with the specified scope and jumps directly to the t
 
 ## Session Skills
 
-Three read-only skills report on the current workflow without changing it. Each is typed like a command and appears in the `/` skill picker:
+Three read-only reporting skills report on the current workflow without changing it. Each is typed like a command and appears in the `/` skill picker:
 
 | Skill | What it does | Output |
 |-------|--------------|--------|
@@ -164,6 +164,8 @@ Three read-only skills report on the current workflow without changing it. Each 
 ```
 
 Each skill needs a compiled `runtime-graph.json` to read. If you run one before a workflow has started its first stage, it prints a short "no session data yet" note and stops.
+
+A fourth session skill exists outside this reporting family: `/aidlc-distill`, the Org BoK authoring session. It reads no workflow data — it distills an allowlisted org repo into knowledge drafts for human curation. See [Knowledge](08-knowledge.md#authoring-the-org-bok-with-aidlc-distill).
 
 ---
 

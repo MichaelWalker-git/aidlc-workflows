@@ -349,7 +349,7 @@ bun .claude/tools/aidlc-runtime.ts read <stage-slug>
 # Print deterministic aggregates over runtime-graph.json: stage/phase
 # outcome tallies, memory-entry counts by category, sensor 4-state
 # tallies, learnings captured, and workflow duration. Read-only; the
-# session skills (session-cost, replay, outcomes-pack) consume the
+# reporting session skills (session-cost, replay, outcomes-pack) consume the
 # --json shape so every number they render comes from here, not from
 # LLM-side counting.
 bun .claude/tools/aidlc-runtime.ts summary [--json]

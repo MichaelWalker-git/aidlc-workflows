@@ -261,7 +261,7 @@ drift-guarded `dist/<harness>/` trees:
 ```
 core/                  # hand-authored, harness-neutral (tools, aidlc-common,
                        #   agents, rules, scopes, sensors, knowledge, hooks,
-                       #   3 session skills); prose uses the {{HARNESS_DIR}} token
+                       #   4 session skills); prose uses the {{HARNESS_DIR}} token
 harness/<name>/        # per-CLI surface: manifest.ts + orchestrator skill +
                        #   harness files (+ emit.ts for codex)
 scripts/package.ts     # the build: copy core (token→.claude/.kiro/.codex) +

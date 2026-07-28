@@ -2,8 +2,11 @@
 //
 // CLI-contract port of tests/integration/t111-session-skills-contract.sh (TAP plan
 // 10), mechanism = cli. The .sh has NO `# covers:` header line; its subject is
-// the behavioural seam between the three read-only session skills and the
-// `aidlc-runtime.ts summary --json` data plane they consume. (The unrelated
+// the behavioural seam between the three REPORTING session skills and the
+// `aidlc-runtime.ts summary --json` data plane they consume. (/aidlc-distill,
+// the 4th session skill, reads no workflow data — its data plane is the
+// distill-check allowlist gate, pinned in t248 — so it stays out of this
+// drift check by design.) (The unrelated
 // tests/unit/t111.none.test.ts is a DIFFERENT subject — the audit-append core —
 // and is ignored per the same-number-different-tier rule.)
 //

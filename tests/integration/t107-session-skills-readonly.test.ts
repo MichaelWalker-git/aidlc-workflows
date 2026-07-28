@@ -1,9 +1,9 @@
 // covers: subcommand:aidlc-runtime:summary
 //
 // Structural + contract port of tests/integration/t107-session-skills-readonly.sh
-// (TAP plan 24). Mechanism = none: the subject is the three shipped read-only
-// session-skill manifests (session-cost / replay / outcomes-pack) as bytes on
-// disk. There is no process to spawn and no LLM in the loop — the test reads
+// (TAP plan 24). Mechanism = none: the subject is the shipped read-only
+// session-skill manifests (session-cost / replay / outcomes-pack, plus the
+// org-bok /aidlc-distill added as the 4th session skill) as bytes on disk. There is no process to spawn and no LLM in the loop — the test reads
 // each SKILL.md straight off the distributable and asserts on its frontmatter
 // and body, exactly as the .sh did via `grep` on the shipped files. Zero
 // tokens, zero subprocess.
@@ -87,6 +87,13 @@ const REPLAY: Skill = {
 const PACK: Skill = {
   slug: "aidlc-outcomes-pack",
   path: join(SKILLS_DIR, "aidlc-outcomes-pack", "SKILL.md"),
+};
+// The 4th session skill (org-bok). NOT in the summary-data-plane describe:
+// distill reports no workflow numbers — its deterministic data plane is the
+// allowlist gate (`aidlc-utility.ts distill-check`), pinned below and in t248.
+const DISTILL: Skill = {
+  slug: "aidlc-distill",
+  path: join(SKILLS_DIR, "aidlc-distill", "SKILL.md"),
 };
 
 /** Whole-file bytes of a skill manifest. */
@@ -248,5 +255,44 @@ describe("t107 session skills — write surface (only outcomes-pack writes a fil
   });
   test("outcomes-pack body names OUTCOMES.md as its artefact [.sh 24]", () => {
     expect(read(PACK).includes("OUTCOMES.md")).toBe(true);
+  });
+});
+
+// --- The 4th session skill, /aidlc-distill (org-bok authoring). Same authored
+// contract as the original three EXCEPT the data plane: distill sources no
+// workflow numbers, so instead of `summary --json` its deterministic tool call
+// is the allowlist gate — `aidlc-utility.ts distill-check` — which must run
+// BEFORE any repo access. Its write surface is BoK drafts only: it never
+// names the other skills' artefacts and never commits.
+describe("t107 session skills — /aidlc-distill (4th skill, org-bok data plane)", () => {
+  test("distill SKILL.md exists", () => {
+    expect(existsSync(DISTILL.path)).toBe(true);
+  });
+  test("distill frontmatter name == aidlc-distill", () => {
+    expect(frontmatterValue(DISTILL, "name")).toBe("aidlc-distill");
+  });
+  test("distill frontmatter user-invocable: true", () => {
+    expect(frontmatterValue(DISTILL, "user-invocable")).toBe("true");
+  });
+  test("distill frontmatter classification: read-only", () => {
+    expect(frontmatterValue(DISTILL, "classification")).toBe("read-only");
+  });
+  test("distill body sources its gate from aidlc-utility.ts distill-check (step 0, before repo access)", () => {
+    expect(split(DISTILL).body).toContain("aidlc-utility.ts distill-check");
+  });
+  test("distill carries no chars/4 token heuristic", () => {
+    expect(TOKEN_HEURISTIC.test(read(DISTILL))).toBe(false);
+  });
+  test("distill emits no audit / no state advance", () => {
+    const src = read(DISTILL);
+    expect(AUDIT_EMIT.test(src)).toBe(false);
+    expect(STATE_ADVANCE.test(src)).toBe(false);
+  });
+  test("distill write surface is BoK drafts only — names no report artefact, never commits", () => {
+    const src = read(DISTILL);
+    expect(src.includes("SESSION-REPLAY.md")).toBe(false);
+    expect(src.includes("OUTCOMES.md")).toBe(false);
+    // The curation handoff: the skill drafts, the human commits.
+    expect(src).toContain("never commit");
   });
 });

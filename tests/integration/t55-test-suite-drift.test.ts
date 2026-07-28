@@ -503,7 +503,7 @@ describe("t55 — test-suite metadata drift (migrated from t55-test-suite-drift.
   // (about three DIRECTORY NAMES — harness/, docs/harness-engineering/,
   // tests/harness/ — not the harness count). The regex is harness-scoped so the
   // ~dozen incidental "all three / three X" facts (3 init stages, 3 depth levels,
-  // 3 test-strategy levels, 3 Bolts, 3 compartments, 3 session skills, 3 phases,
+  // 3 test-strategy levels, 3 Bolts, 3 compartments, 4 session skills, 3 phases,
   // 3 interaction modes) and ordinal "fourth" uses (fourth phase, fourth audit
   // stream) never match — they are not the harness count.
   //

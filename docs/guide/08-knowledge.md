@@ -63,6 +63,7 @@ Ships with the framework. Contains shared principles and per-agent methodology r
 ├── ...                              # One directory per agent
 └── org-bok/                         # Org Body of Knowledge (targeted loading, not all-agents)
     ├── index.md                     # Exemplar decision tree — research agent only
+    ├── distill-allowlist.md         # Curated repos /aidlc-distill may analyze (step-0 gate)
     ├── exemplars/<slug>/profile.md  # Few-shot exemplar profiles — research agent only
     └── guides/                      # Cross-cutting org guides, loaded by the agents they concern:
                                      #   architecture-principles.md → architect
@@ -79,6 +80,34 @@ guidance). The guides are standing defaults: they load for their target
 agents on every project, even when the Precedent Research stage was skipped,
 and each states the precedence rule — org default on greenfield; on
 brownfield, locally discovered affirmed practices win.
+
+### Authoring the Org BoK with `/aidlc-distill`
+
+`/aidlc-distill <repo-url-or-path>` is the authoring session for this
+subtree, run **in the fork repo** where the BoK is authored (not in a
+project workspace). The flow:
+
+1. **Allowlist check (step 0).** The skill runs
+   `bun .claude/tools/aidlc-utility.ts distill-check --target <target>`
+   before anything else. Only repos on the curated
+   `org-bok/distill-allowlist.md` (frontmatter `allowed:` list; exact
+   URLs/paths or `*` globs) may be analyzed — a non-matching target stops
+   the session and the repo is never read. Maintain the allowlist like the
+   index: add an entry, review, commit.
+2. **Repo analysis.** Reverse-engineering-style read of the allowed repo —
+   architecture, key patterns, candidate deep-dive file paths.
+3. **Interview.** The skill asks you for what the code can't reveal: the
+   original ask/context and why the architecture was chosen.
+4. **Drafting.** It drafts `exemplars/<slug>/profile.md` in the required
+   shape (frontmatter `repo_url` + `notable_paths`; sections Ask / Context,
+   Architecture & Why, Key Patterns, Deep-Dive Pointers), proposes the
+   `index.md` row (tags, stack, "use when…"), and proposes additions to the
+   cross-cutting guides where it spots org-wide conventions.
+5. **Curation.** You review the git diff, edit, and commit — the skill
+   drafts, the human curates; it never commits.
+
+Re-running against a repo that already has a profile **refreshes it in
+place** — use that to update stale knowledge after an exemplar evolves.
 
 > **Do NOT edit Tier 1 files to inject your team's knowledge.** `.claude/knowledge/` and `.claude/agents/*.md` are framework files — they are overwritten on every upgrade, and your changes will disappear. If you want to add company standards, architectural preferences, or domain context, add them to **Tier 2** (below). If you want to constrain agent behavior, add a **rule** (see [Rules and the Learning Loop](09-rules-and-the-learning-loop.md)).
 

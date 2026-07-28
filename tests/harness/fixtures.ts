@@ -57,6 +57,18 @@ export const ORG_BOK_PRECEDENCE_RULE =
   "locally discovered and affirmed practices win — consistency with the " +
   "codebase you are in beats org ideals";
 
+// ADR-003's exemplar-profile shape: the four required H2 sections. One copy so
+// the shipped fixture profile (t246) and the /aidlc-distill drafting
+// instructions (t248) are pinned against the SAME headings — a profile the
+// skill drafts to its own spec then passes the same shape tests the fixture
+// passes, and neither can drift from the other.
+export const ORG_BOK_PROFILE_SECTIONS: readonly string[] = [
+  "## Ask / Context",
+  "## Architecture & Why",
+  "## Key Patterns",
+  "## Deep-Dive Pointers",
+];
+
 // The per-intent WORKSPACE layout the fixtures seed (P9 — the flat aidlc-docs/
 // layout is retired). A fixture project gets a SEED-style shell (aidlc/active-space
 // + spaces/default/) plus ONE default intent record so the path helpers resolve

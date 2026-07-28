@@ -19,7 +19,7 @@ Every command this implementation ships is a skill under `.claude/skills/`. They
 - **Scope-runners** — `/aidlc-bugfix`, `/aidlc-feature`, `/aidlc-mvp`, `/aidlc-security-patch`. Same full workflow, with a scope fixed and scope detection skipped.
 - **Stage-runners** — `/aidlc-application-design`, `/aidlc-code-generation`, and 27 more. Run one stage in isolation, never touching your main workflow. Plugin-owned stages use their bare plugin-prefixed command name, such as `/test-pro-integration`.
 - **`/aidlc-init`** — birth the first intent (run the whole Initialization phase) in one step; opt-in packaging over the engine's auto-birth.
-- **Session skills** — `/aidlc-session-cost`, `/aidlc-replay`, `/aidlc-outcomes-pack`. Read-only views over a workflow; covered in [Session Management](11-session-management.md).
+- **Session skills** — `/aidlc-session-cost`, `/aidlc-replay`, `/aidlc-outcomes-pack`, `/aidlc-distill`. The first three are read-only views over a workflow, covered in [Session Management](11-session-management.md); `/aidlc-distill` is the Org BoK authoring session, covered in [Knowledge](08-knowledge.md).
 
 Everything a runner does is reachable from `/aidlc` with a flag. The runners are packaging — typing `/aidlc-bugfix` and seeing it in your `/` menu is good ergonomics, nothing more. Delete every runner and the shortcuts go; the capability stays, reachable through `/aidlc` flags.
 
@@ -105,6 +105,7 @@ The three bootstrap **initialization** stages ship no stage-runner — birthing 
 | Stage-runner | `/aidlc-application-design`, `/aidlc-code-generation`, … (30 total) | One stage in isolation, never advances your workflow | `/aidlc --stage <slug> --single` |
 | Init wrapper | `/aidlc-init` | Birth the first intent (run Initialization) | `/aidlc` on a fresh workspace |
 | Session views | `/aidlc-session-cost`, `/aidlc-replay`, `/aidlc-outcomes-pack` | Read-only workflow reports | see [Session Management](11-session-management.md) |
+| BoK authoring | `/aidlc-distill` | Distill an allowlisted org repo into Org BoK drafts (run in the fork repo) | see [Knowledge](08-knowledge.md) |
 
 There's one stage-runner for every runnable stage in the lifecycle. To see the full set, list your skills directory:
 

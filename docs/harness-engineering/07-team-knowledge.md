@@ -84,6 +84,19 @@ headings, so keep them):
   on every project, they apply even when Precedent Research was skipped.
   Keep them tight — every line spends context in each target agent's window.
 
+You don't have to author these by hand: `/aidlc-distill <repo-url-or-path>`,
+run in the fork repo, drafts all three kinds from a reference repository.
+It first gates the target against the curated
+`org-bok/distill-allowlist.md` (a frontmatter `allowed:` list of repo
+URLs/paths, glob entries permitted — maintained by hand like the index; a
+target not on the list stops the session before any repo access). It then
+analyzes the repo, interviews you for the ask and the rationale (the tacit
+knowledge code can't reveal), and drafts the profile, the index row, and
+guide additions. **You curate**: review the git diff, edit, and commit —
+the skill never commits. Re-running against an already-profiled repo
+refreshes the profile in place rather than duplicating it; that is the
+refresh path when an exemplar evolves.
+
 When you author a guide, keep its stated precedence rule intact: on
 greenfield work BoK guidance is the default; on brownfield, locally
 discovered and affirmed practices win. A guide that claims to outrank the

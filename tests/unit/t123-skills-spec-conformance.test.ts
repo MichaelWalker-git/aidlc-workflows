@@ -4,7 +4,7 @@
 // declared skill root, asserted with the complete frontmatter
 // parser (the unit-tier sibling of the smoke-tier structural sweep). Migrated
 // from tests/unit/t123-skills-spec-conformance.sh (TAP plan: 1 dir-count guard
-// + 3 conformance assertions per skill = 1 + 3×38 = 115 assertions).
+// + 3 conformance assertions per skill; 39 skills since /aidlc-distill).
 //
 // Mechanism: none. There is no tool / process / argv / exit-code seam under
 // test — the subject IS the on-disk shape of each shipped skill set and the
@@ -31,7 +31,7 @@
 //
 // Subject under test (each shipped skill set + each SKILL.md's frontmatter):
 //   dist/<harness>/<skill-root>/<skill>/SKILL.md, for the DERIVED expected set:
-//     - 4 base skills (orchestrator + 3 read-only session skills)
+//     - 5 base skills (orchestrator + 4 read-only session skills)
 //     - the generator's default-batch scope-runners (imported here, not
 //       hardcoded)
 //     - one aidlc-<slug> per RUNNABLE compiled stage (every stage whose
@@ -83,9 +83,10 @@ import { defaultScopeBatch } from "../../dist/claude/.claude/tools/aidlc-runner-
 
 const STAGE_GRAPH = join(AIDLC_SRC, "tools", "data", "stage-graph.json");
 
-// --- The four base skills (orchestrator + the three read-only session skills).
+// --- The five base skills (orchestrator + the four read-only session skills).
 const BASE_SKILLS = [
   "aidlc",
+  "aidlc-distill",
   "aidlc-outcomes-pack",
   "aidlc-replay",
   "aidlc-session-cost",

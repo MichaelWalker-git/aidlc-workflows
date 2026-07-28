@@ -34,6 +34,7 @@ import { join } from "node:path";
 import {
   AIDLC_SRC,
   ORG_BOK_PRECEDENCE_RULE as PRECEDENCE_RULE,
+  ORG_BOK_PROFILE_SECTIONS,
 } from "../harness/fixtures.ts";
 import { flat } from "../harness/text.ts";
 
@@ -134,13 +135,9 @@ describe("t246 exemplar profiles — required sections + repo URL frontmatter", 
       expect(fm).toContain("notable_paths:");
       expect(fm).toMatch(/notable_paths:\s*\n(\s*-\s*\S+)/);
       // The four required H2 sections (ask/context, architecture + why,
-      // patterns, pointers — ADR-003's profile shape).
-      for (const heading of [
-        "## Ask / Context",
-        "## Architecture & Why",
-        "## Key Patterns",
-        "## Deep-Dive Pointers",
-      ]) {
+      // patterns, pointers — ADR-003's profile shape, shared with t248's
+      // distill-skill drafting pin via ORG_BOK_PROFILE_SECTIONS).
+      for (const heading of ORG_BOK_PROFILE_SECTIONS) {
         expect(raw).toContain(heading);
       }
     });

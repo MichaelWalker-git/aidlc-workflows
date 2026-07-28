@@ -58,6 +58,8 @@ import {
   RESERVED_RECORD_NAMES,
   gridCostSummary,
   hasOrgBokPrecedent,
+  distillAllowlistPath,
+  isDistillTargetAllowed,
   listIntents,
   listSpaces,
   loadAgents,
@@ -4212,6 +4214,35 @@ function handleCodekbPath(projectDir: string, flags: Record<string, string>): vo
   process.stdout.write(`${dir}/\n`);
 }
 
+// `aidlc-utility.ts distill-check --target <url-or-path> [--json]` — read-only
+// direct utility verb (like codekb-path: stage/skill prose invokes it, there is
+// no `/aidlc distill-check`). Evaluates the deterministic distill-allowlist
+// match predicate for /aidlc-distill's step 0 and prints the verdict; exit
+// code 0 = allowed, 1 = denied. The denial message points at the curated
+// allowlist file so the SA knows where to add the entry. No mutation, no
+// audit, no mkdir — the predicate never reads the target repo itself.
+function handleDistillCheck(flags: Record<string, string>): void {
+  const target = (flags.target ?? "").trim();
+  if (target === "" || target === "true") {
+    die("Usage: aidlc-utility distill-check --target <repo-url-or-path> [--json]");
+  }
+  const allowed = isDistillTargetAllowed(target);
+  const listPath = distillAllowlistPath();
+  if (flags.json === "true") {
+    process.stdout.write(
+      `${JSON.stringify({ target, allowed, allowlist: listPath })}\n`,
+    );
+  } else if (allowed) {
+    process.stdout.write(`allowed: ${target}\n`);
+  } else {
+    process.stdout.write(
+      `denied: ${target} is not on the distill allowlist.\n` +
+        `Add it to ${listPath} (frontmatter \`allowed:\` list) and re-run.\n`,
+    );
+  }
+  if (!allowed) process.exitCode = 1;
+}
+
 // `detect [--json]` - read-only. Runs the workspace scan (detectWorkspace) on
 // the bare project dir - it needs no aidlc/ workspace; it scans the app root -
 // and prints projectType (Greenfield/Brownfield), languages, frameworks, and
@@ -5409,6 +5440,12 @@ export async function main(argv: string[]): Promise<void> {
     case "codekb-path":
       handleCodekbPath(projectDir, flags);
       break;
+    // distill-check — read-only query verb. Evaluates the distill-allowlist
+    // match predicate for /aidlc-distill's step 0. Mirrors codekb-path's
+    // direct-only, no-mutation, no-audit shape.
+    case "distill-check":
+      handleDistillCheck(flags);
+      break;
     // detect - read-only query verb. Prints the workspace scan
     // (greenfield/brownfield, languages) + the resolved scope-registry paths so
     // the composer agent is told where scope data lives. No mutation, no audit.
@@ -5471,7 +5508,7 @@ export async function main(argv: string[]): Promise<void> {
       break;
     default:
       die(
-        `Usage: aidlc-utility <help|version|status|doctor|intent-birth|intent|space|space-create|codekb-path|detect|select-plugins|plugin-list|plugin-sync|recompose|scope-change|config-change|config-get|config-list|set-status|detect-scope|resolve-env-scope|scope-table|stage-table|upgrade> [--project-dir <path>] [--scope <scope>] [--json]`
+        `Usage: aidlc-utility <help|version|status|doctor|intent-birth|intent|space|space-create|codekb-path|distill-check|detect|select-plugins|plugin-list|plugin-sync|recompose|scope-change|config-change|config-get|config-list|set-status|detect-scope|resolve-env-scope|scope-table|stage-table|upgrade> [--project-dir <path>] [--scope <scope>] [--json]`
       );
   }
 }

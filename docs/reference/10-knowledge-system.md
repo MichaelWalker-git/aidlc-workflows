@@ -48,6 +48,7 @@ AI-DLC uses a two-tier knowledge system that separates framework methodology fro
 +-- [... 12 more agent knowledge dirs]
 +-- org-bok/                       # Org Body of Knowledge (curated, distilled)
 |   +-- index.md                   # Curated exemplar decision tree (routing gate for precedent-research)
+|   +-- distill-allowlist.md       # Curated repos /aidlc-distill may analyze (step-0 gate)
 |   +-- exemplars/<slug>/profile.md  # One few-shot exemplar profile per reference repo
 |   +-- guides/                    # Cross-cutting org guides (standing Tier-1 defaults, targeted wiring)
 |       +-- architecture-principles.md  # Loaded by aidlc-architect-agent

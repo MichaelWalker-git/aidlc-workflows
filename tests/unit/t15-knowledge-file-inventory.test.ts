@@ -180,13 +180,13 @@ describe("t15 — knowledge-file inventory + non-emptiness (mechanism: none)", (
 
   // .sh L11-14: dynamic TAP plan = 11 + 11 + 7 + TOTAL_FILES. Re-derive that
   // arithmetic from the live tree so the migrated suite cannot silently shrink
-  // the surface: pin the total .md count at 65 (59 + the research agent's
-  // method file + the org-bok index, fixture exemplar profile, and 3
-  // cross-cutting guides) and the summed plan at 102.
-  test("TAP-plan parity: 15 + 15 + 7 + TOTAL == 102 with TOTAL == 65 [.sh L11-14]", () => {
+  // the surface: pin the total .md count at 66 (59 + the research agent's
+  // method file + the org-bok index, distill allowlist, fixture exemplar
+  // profile, and 3 cross-cutting guides) and the summed plan at 103.
+  test("TAP-plan parity: 15 + 15 + 7 + TOTAL == 103 with TOTAL == 66 [.sh L11-14]", () => {
     const total = findMd(KNOWLEDGE_DIR).length;
-    expect(total).toBe(65);
+    expect(total).toBe(66);
     const plan = 15 + 15 + 7 + total;
-    expect(plan).toBe(102);
+    expect(plan).toBe(103);
   });
 });

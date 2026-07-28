@@ -3633,6 +3633,60 @@ export function hasOrgBokPrecedent(): boolean {
   return /\]\(exemplars\/[^\s()<>]+\/profile\.md\)/.test(content);
 }
 
+// The Org BoK's curated distill allowlist. AIDLC_DISTILL_ALLOWLIST env-var
+// seam mirrors AIDLC_ORG_BOK_INDEX so fixture tests can point the match
+// predicate at an isolated file. Evaluated at call time so tests that
+// set/unset mid-process see the change.
+export function distillAllowlistPath(): string {
+  return (
+    process.env.AIDLC_DISTILL_ALLOWLIST ??
+    resolveHarnessPath(["knowledge", "org-bok", "distill-allowlist.md"])
+  );
+}
+
+// Repo targets and allowlist entries compare after the same normalization:
+// backslashes become forward slashes (Windows paths), trailing slashes drop,
+// and a trailing `.git` clone suffix drops — so `https://host/org/repo.git`,
+// `https://host/org/repo/`, and `https://host/org/repo` all read as one
+// target. Comparison stays byte-exact otherwise (no case folding).
+function normalizeDistillTarget(target: string): string {
+  let t = target.trim().replace(/\\/g, "/");
+  t = t.replace(/\/+$/, "");
+  t = t.replace(/\.git$/, "");
+  return t;
+}
+
+// The deterministic distill-allowlist match predicate for /aidlc-distill's
+// step 0: true iff the curated allowlist exists AND its frontmatter `allowed:`
+// list carries an entry matching the target. Same posture as the Org BoK gate
+// (hasOrgBokPrecedent) — a pure file check, no LLM judgment: the skill runs it
+// via `aidlc-utility distill-check` BEFORE any repo access, so a target not on
+// the curated list is never read. Fail-closed: a missing, unreadable, or
+// entry-less allowlist denies every target. Entries may be exact URLs/paths or
+// globs — `*` matches any run of characters after normalization.
+export function isDistillTargetAllowed(target: string): boolean {
+  if (target.trim() === "") return false;
+  const listPath = distillAllowlistPath();
+  if (!existsSync(listPath)) return false;
+  let content: string;
+  try {
+    content = readFileSync(listPath, "utf-8");
+  } catch {
+    return false;
+  }
+  const fm = frontmatterBlock(content);
+  if (fm === null) return false;
+  const entries = listField(fm, "allowed");
+  if (entries.length === 0) return false;
+  const norm = normalizeDistillTarget(target);
+  return entries.some((entry) => {
+    const pattern = normalizeDistillTarget(entry);
+    if (!pattern.includes("*")) return pattern === norm;
+    const re = new RegExp(`^${escapeRegex(pattern).replace(/\\\*/g, ".*")}$`);
+    return re.test(norm);
+  });
+}
+
 export function loadStageGraph(): StageEntry[] {
   if (_stageGraph !== null) return _stageGraph;
   _stageGraph = loadStageGraphAll().filter((s) => s.enabled !== false);

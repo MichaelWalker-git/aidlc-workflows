@@ -388,9 +388,10 @@ function pluginOwnedScopeSlugsForLegacy(): ReadonlySet<string> {
 // body marker — NOT by compiled-set membership — is what lets the drift guard see
 // ORPHANS: a runner skill dir that drives `--single` but whose slug is
 // no longer a compiled stage. Non-runner skills (aidlc, aidlc-replay,
-// aidlc-session-cost, aidlc-outcomes-pack, and the scope-runners, which drive
-// `--scope` not `--stage`) carry no `--stage … --single` marker, so they are
-// never mistaken for stage-runners and never flagged.
+// aidlc-session-cost, aidlc-outcomes-pack, aidlc-distill, and the
+// scope-runners, which drive `--scope` not `--stage`) carry no
+// `--stage … --single` marker, so they are never mistaken for stage-runners
+// and never flagged.
 const SINGLE_RUNNER_MARKER = "--stage";
 function stageRunnerSlugFromBody(body: string): string | null {
   if (!body.includes(SINGLE_RUNNER_MARKER) || !body.includes("--single")) return null;
