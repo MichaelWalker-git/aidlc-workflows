@@ -12,7 +12,7 @@
 // literals, the regenerated dist/claude is byte-identical to the hand-authored
 // tree it replaces (the MR-1 keystone gate).
 
-import type { HarnessManifest } from "../../scripts/manifest-types.ts";
+import { sessionSkillDirs, type HarnessManifest } from "../../scripts/manifest-types.ts";
 import onboardingFills from "./onboarding.fills.ts";
 
 const manifest: HarnessManifest = {
@@ -35,11 +35,9 @@ const manifest: HarnessManifest = {
     { src: "scopes", dst: "scopes" },
     { src: "agents", dst: "agents" },
     { src: "hooks", dst: "hooks" },
-    // The four harness-neutral session skills ship in-tree under skills/.
-    { src: "skills/aidlc-session-cost", dst: "skills/aidlc-session-cost" },
-    { src: "skills/aidlc-replay", dst: "skills/aidlc-replay" },
-    { src: "skills/aidlc-outcomes-pack", dst: "skills/aidlc-outcomes-pack" },
-    { src: "skills/aidlc-distill", dst: "skills/aidlc-distill" },
+    // The harness-neutral session skills ship in-tree under skills/
+    // (SESSION_SKILLS in manifest-types.ts is the one roster).
+    ...sessionSkillDirs(),
   ],
 
   // Authored harness surfaces copied verbatim (with token substitution on .md)

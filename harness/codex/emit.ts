@@ -19,7 +19,7 @@ import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, posix, relative, win32 } from "node:path";
 import { stringify } from "smol-toml";
-import type { EmitContext } from "../../scripts/manifest-types.ts";
+import { SESSION_SKILLS, type EmitContext } from "../../scripts/manifest-types.ts";
 import { renderOnboarding } from "../../scripts/onboarding.ts";
 import onboardingFills from "./onboarding.fills.ts";
 import { projectTier } from "../../core/tools/aidlc-tiers.ts";
@@ -406,7 +406,7 @@ export default function emit(ctx: EmitContext): void {
     emissions.push({ path: join(dir, "agents", "openai.yaml"), content: () => IMPLICIT_GUARD });
   }
   // (d) session skills — byte-copy + prose rewrite from core/skills/
-  for (const skill of ["aidlc-session-cost", "aidlc-replay", "aidlc-outcomes-pack", "aidlc-distill"]) {
+  for (const skill of SESSION_SKILLS) {
     const srcDir = join(coreRoot, "skills", skill);
     if (!existsSync(srcDir)) continue;
     for (const file of walk(srcDir)) {

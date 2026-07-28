@@ -14,7 +14,7 @@
 // aidlc.json); the IDE harness relies on .kiro.hook files (the only mechanism
 // the IDE recognises). Both share the same core, adapter, and TS hook bodies.
 
-import type { HarnessManifest } from "../../scripts/manifest-types.ts";
+import { sessionSkillDirs, type HarnessManifest } from "../../scripts/manifest-types.ts";
 import onboardingFills from "./onboarding.fills.ts";
 
 const manifest: HarnessManifest = {
@@ -31,10 +31,9 @@ const manifest: HarnessManifest = {
     { src: "scopes", dst: "scopes" },
     { src: "agents", dst: "agents" },
     { src: "hooks", dst: "hooks" },
-    { src: "skills/aidlc-session-cost", dst: "skills/aidlc-session-cost" },
-    { src: "skills/aidlc-replay", dst: "skills/aidlc-replay" },
-    { src: "skills/aidlc-outcomes-pack", dst: "skills/aidlc-outcomes-pack" },
-    { src: "skills/aidlc-distill", dst: "skills/aidlc-distill" },
+    // The harness-neutral session skills (SESSION_SKILLS in manifest-types.ts
+    // is the one roster).
+    ...sessionSkillDirs(),
   ],
 
   // Authored surfaces: same as CLI but adds .kiro.hook files and omits the

@@ -25,7 +25,7 @@
 //     space switch by aidlc-includes.ts.
 //   - opencode auto-reads the project-root AGENTS.md (its primary rules file).
 
-import type { HarnessManifest } from "../../scripts/manifest-types.ts";
+import { sessionSkillDirs, type HarnessManifest } from "../../scripts/manifest-types.ts";
 import onboardingFills from "./onboarding.fills.ts";
 import emit from "./emit.ts";
 
@@ -45,10 +45,9 @@ const manifest: HarnessManifest = {
     { src: "scopes", dst: "scopes" },
     { src: "agents", dst: "agents" },
     { src: "hooks", dst: "hooks" },
-    { src: "skills/aidlc-session-cost", dst: "skills/aidlc-session-cost" },
-    { src: "skills/aidlc-replay", dst: "skills/aidlc-replay" },
-    { src: "skills/aidlc-outcomes-pack", dst: "skills/aidlc-outcomes-pack" },
-    { src: "skills/aidlc-distill", dst: "skills/aidlc-distill" },
+    // The harness-neutral session skills (SESSION_SKILLS in manifest-types.ts
+    // is the one roster).
+    ...sessionSkillDirs(),
   ],
 
   harnessFiles: [

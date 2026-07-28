@@ -103,7 +103,12 @@ project workspace). The flow:
    Architecture & Why, Key Patterns, Deep-Dive Pointers), proposes the
    `index.md` row (tags, stack, "use when…"), and proposes additions to the
    cross-cutting guides where it spots org-wide conventions.
-5. **Curation.** You review the git diff, edit, and commit — the skill
+5. **Shape verification.** In the fork repo the skill regenerates the dist
+   and runs the profile shape suite
+   (`bun test tests/unit/t246-org-bok-guides.test.ts`) — the drafted
+   profile passes the same tests the shipped fixture passes — and fixes
+   the draft until green.
+6. **Curation.** You review the git diff, edit, and commit — the skill
    drafts, the human curates; it never commits.
 
 Re-running against a repo that already has a profile **refreshes it in

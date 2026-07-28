@@ -127,9 +127,21 @@ guide-worthy when it holds across projects, not just this repo — when in
 doubt, leave it in the profile and note the doubt. Keep each guide's
 existing headings; append under the section it belongs to.
 
-## Step 6: Hand off to curation
+## Step 6: Verify the shape, then hand off to curation
 
-Print a summary of everything drafted: the profile path (new or
+In the fork repo, run the drafted profile through the same shape tests
+the shipped fixture passes: regenerate the dist and run the profile
+shape suite —
+
+```bash
+bun scripts/package.ts && bun test tests/unit/t246-org-bok-guides.test.ts
+```
+
+— and fix the draft until green (t246 sweeps every exemplar, the new
+draft included). Skip this only when no `tests/` tree exists (a packaged
+install rather than the fork).
+
+Then print a summary of everything drafted: the profile path (new or
 refreshed), the index row, each guide addition, and any open questions
 from the interview. Then stop — **never commit, stage, or push**. Tell
 the solution architect to review the git diff, edit freely, and commit

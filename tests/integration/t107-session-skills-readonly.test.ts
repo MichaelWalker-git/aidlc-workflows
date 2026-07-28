@@ -1,9 +1,13 @@
 // covers: subcommand:aidlc-runtime:summary
 //
 // Structural + contract port of tests/integration/t107-session-skills-readonly.sh
-// (TAP plan 24). Mechanism = none: the subject is the shipped read-only
-// session-skill manifests (session-cost / replay / outcomes-pack, plus the
-// org-bok /aidlc-distill added as the 4th session skill) as bytes on disk. There is no process to spawn and no LLM in the loop — the test reads
+// (TAP plan 24). Mechanism = none: the subject is the shipped session-skill
+// manifests (session-cost / replay / outcomes-pack, plus the org-bok
+// /aidlc-distill added as the 4th session skill) as bytes on disk. "read-only"
+// throughout means read-only WITH RESPECT TO WORKFLOW STATE — no audit emit,
+// no state advance; outcomes-pack (OUTCOMES.md) and distill (BoK drafts) do
+// write declared non-workflow artefacts, pinned in the write-surface block
+// below. There is no process to spawn and no LLM in the loop — the test reads
 // each SKILL.md straight off the distributable and asserts on its frontmatter
 // and body, exactly as the .sh did via `grep` on the shipped files. Zero
 // tokens, zero subprocess.

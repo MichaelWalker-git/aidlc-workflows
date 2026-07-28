@@ -3600,15 +3600,20 @@ export function scopesDir(): string {
     ?? resolveHarnessPath(["scopes"]);
 }
 
-// The Org BoK's curated exemplar index. AIDLC_ORG_BOK_INDEX env-var seam
-// mirrors AIDLC_SCOPES_DIR so fixture tests can point the gate predicate at
-// an isolated file. Evaluated at call time so tests that set/unset
-// mid-process see the change.
-export function orgBokIndexPath(): string {
+// Env-overridable Org BoK file path: the fixture-test seam pattern
+// (AIDLC_SCOPES_DIR et al.) — the env var wins, else resolve inside the
+// packaged knowledge/org-bok/ tree. Evaluated at call time so tests that
+// set/unset mid-process see the change.
+function orgBokFilePath(envVar: string, file: string): string {
   return (
-    process.env.AIDLC_ORG_BOK_INDEX ??
-    resolveHarnessPath(["knowledge", "org-bok", "index.md"])
+    process.env[envVar] ?? resolveHarnessPath(["knowledge", "org-bok", file])
   );
+}
+
+// The Org BoK's curated exemplar index. AIDLC_ORG_BOK_INDEX is the seam
+// fixture tests point the gate predicate at.
+export function orgBokIndexPath(): string {
+  return orgBokFilePath("AIDLC_ORG_BOK_INDEX", "index.md");
 }
 
 // The deterministic Org BoK gate predicate for the precedent-research stage:
@@ -3633,15 +3638,10 @@ export function hasOrgBokPrecedent(): boolean {
   return /\]\(exemplars\/[^\s()<>]+\/profile\.md\)/.test(content);
 }
 
-// The Org BoK's curated distill allowlist. AIDLC_DISTILL_ALLOWLIST env-var
-// seam mirrors AIDLC_ORG_BOK_INDEX so fixture tests can point the match
-// predicate at an isolated file. Evaluated at call time so tests that
-// set/unset mid-process see the change.
+// The Org BoK's curated distill allowlist. AIDLC_DISTILL_ALLOWLIST is the
+// seam fixture tests point the match predicate at.
 export function distillAllowlistPath(): string {
-  return (
-    process.env.AIDLC_DISTILL_ALLOWLIST ??
-    resolveHarnessPath(["knowledge", "org-bok", "distill-allowlist.md"])
-  );
+  return orgBokFilePath("AIDLC_DISTILL_ALLOWLIST", "distill-allowlist.md");
 }
 
 // Repo targets and allowlist entries compare after the same normalization:
@@ -3663,7 +3663,8 @@ function normalizeDistillTarget(target: string): string {
 // via `aidlc-utility distill-check` BEFORE any repo access, so a target not on
 // the curated list is never read. Fail-closed: a missing, unreadable, or
 // entry-less allowlist denies every target. Entries may be exact URLs/paths or
-// globs — `*` matches any run of characters after normalization.
+// globs — `*` matches any run of characters WITHIN one path segment (never
+// `/`), so `https://host/org/*` allows the org's repos but not nested paths.
 export function isDistillTargetAllowed(target: string): boolean {
   if (target.trim() === "") return false;
   const listPath = distillAllowlistPath();
@@ -3682,7 +3683,7 @@ export function isDistillTargetAllowed(target: string): boolean {
   return entries.some((entry) => {
     const pattern = normalizeDistillTarget(entry);
     if (!pattern.includes("*")) return pattern === norm;
-    const re = new RegExp(`^${escapeRegex(pattern).replace(/\\\*/g, ".*")}$`);
+    const re = new RegExp(`^${escapeRegex(pattern).replace(/\\\*/g, "[^/]*")}$`);
     return re.test(norm);
   });
 }

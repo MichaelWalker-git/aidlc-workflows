@@ -66,8 +66,9 @@ whatever a session happens to be pointed at.
   backslashes to forward slashes and ignores a trailing `/` or `.git`
   suffix, so `https://host/org/repo`, `https://host/org/repo/`, and
   `https://host/org/repo.git` all name the same target.
-- Glob entries are permitted: `*` matches any run of characters, so
-  `https://git.example.com/org/*` allows every repo in an org namespace.
+- Glob entries are permitted: `*` matches any run of characters within one
+  path segment (it never crosses `/`), so `https://git.example.com/org/*`
+  allows every repo directly under the org namespace but not nested paths.
   Prefer exact entries — a glob trades curation precision for convenience.
 - An empty or missing list denies every target (fail-closed).
 

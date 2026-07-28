@@ -12,6 +12,26 @@ import type { OnboardingFills } from "./onboarding.ts";
 export type DirMap = { src: string; dst: string };
 
 /**
+ * The harness-neutral session skills, in roster order. One list so adding the
+ * next session skill is a one-line change here instead of the same hunk in
+ * every manifest: the four in-tree manifests spread sessionSkillDirs() into
+ * coreDirs, and codex's emit.ts iterates this list for its .agents/skills
+ * emissions. Roster pins (t123 BASE_SKILLS, t150 skill count) still guard the
+ * shipped surface.
+ */
+export const SESSION_SKILLS = [
+  "aidlc-session-cost",
+  "aidlc-replay",
+  "aidlc-outcomes-pack",
+  "aidlc-distill",
+] as const;
+
+/** The SESSION_SKILLS roster as coreDirs rows (core/skills/<s> → skills/<s>). */
+export function sessionSkillDirs(): DirMap[] {
+  return SESSION_SKILLS.map((s) => ({ src: `skills/${s}`, dst: `skills/${s}` }));
+}
+
+/**
  * An authored harness file copied from harness/<name>/<src> into the dist tree.
  * By default <dst> is relative to <harnessDir>/ (e.g. .kiro/skills/aidlc/SKILL.md).
  * Set projectRoot:true to land it at the dist tree ROOT instead, beside the
