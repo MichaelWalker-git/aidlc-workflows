@@ -54,7 +54,7 @@ Load aidlc-design-agent persona from `agents/aidlc-design-agent.md` and knowledg
 
 ### Step 2: Load Prior Context
 
-- Read the reference brief from `<record>/ideation/precedent-research/` (if exists) and follow its exemplar patterns — apply its UI directives (design tokens, spacing and layout conventions, component patterns, copy tone) throughout the refined mockups and interaction spec, subject to the brief's stated precedence rule. Cite the brief explicitly where its directives shaped the mockups or the design-system mapping. If the brief is absent (the stage was skipped), proceed without it.
+- Read the reference brief from `<record>/ideation/precedent-research/` (if exists) and follow its exemplar patterns — apply its UI directives (design tokens, spacing and layout conventions, component patterns, copy tone) throughout the refined mockups and interaction spec, subject to the brief's stated precedence rule. Cite the brief explicitly where its directives shaped the mockups or the design-system mapping. If the brief is absent (the stage was skipped), proceed without it. When the brief's deep-dive pointers name a file that would materially help (the real design-tokens module, a canonical component to imitate), you MAY fetch it from the pointed-at repo using whatever git credentials the session already has; if the fetch fails or the repo is unreachable, note "deep dive unavailable" and continue from the brief — a failed fetch is never a stage failure.
 - Read rough mockups from `<record>/ideation/rough-mockups/` (if exists)
 - Read user stories from `<record>/inception/user-stories/`
 - Read requirements from `<record>/inception/requirements-analysis/`

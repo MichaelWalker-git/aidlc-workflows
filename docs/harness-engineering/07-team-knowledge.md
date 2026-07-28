@@ -67,7 +67,14 @@ headings, so keep them):
 - **`exemplars/<slug>/profile.md`** — one few-shot profile per reference
   repo: the original ask/context, the architecture chosen and why, key
   patterns worth imitating, and a repo URL + notable paths in frontmatter.
-  Loaded by the research agent only.
+  Loaded by the research agent only. The frontmatter's `repo_url` and
+  `notable_paths` are the deep-dive pointers: list the handful of
+  repo-relative files a downstream agent would gain real fidelity from
+  fetching (the actual lint config, a canonical component, the design-tokens
+  module) — targeted pointers, not an invitation to crawl. Agents fetch them
+  with whatever git credentials the session already has; when the repo is
+  unreachable they note "deep dive unavailable" and continue from the
+  profile's markdown, so the profile must stand alone without the fetch.
 - **`guides/`** — conventions distilled *across* repos, loaded as standing
   knowledge by exactly the agents they concern: `architecture-principles.md`
   by the architect; `code-style.md` by the developer and quality agents;

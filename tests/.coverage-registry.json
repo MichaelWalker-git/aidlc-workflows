@@ -34,7 +34,7 @@
       "function": 102,
       "audit": 33,
       "scope": 9,
-      "stage": 9,
+      "stage": 14,
       "hook": 13,
       "subcommand": 83,
       "render-surface": 7
@@ -3837,8 +3837,13 @@
       "unitClass": "stage",
       "unitId": "construction/code-generation",
       "minMechanism": "none",
-      "coveredBy": [],
-      "status": "UNCOVERED"
+      "coveredBy": [
+        {
+          "file": "tests/unit/t247-deep-dive-pointers.test.ts",
+          "mechanism": "none"
+        }
+      ],
+      "status": "covered"
     },
     {
       "unitClass": "stage",
@@ -3892,6 +3897,10 @@
         {
           "file": "tests/unit/t16-phase-rules-structure.test.ts",
           "mechanism": "none"
+        },
+        {
+          "file": "tests/unit/t247-deep-dive-pointers.test.ts",
+          "mechanism": "none"
         }
       ],
       "status": "covered"
@@ -3923,15 +3932,25 @@
       "unitClass": "stage",
       "unitId": "ideation/precedent-research",
       "minMechanism": "none",
-      "coveredBy": [],
-      "status": "UNCOVERED"
+      "coveredBy": [
+        {
+          "file": "tests/unit/t247-deep-dive-pointers.test.ts",
+          "mechanism": "none"
+        }
+      ],
+      "status": "covered"
     },
     {
       "unitClass": "stage",
       "unitId": "ideation/rough-mockups",
       "minMechanism": "none",
-      "coveredBy": [],
-      "status": "UNCOVERED"
+      "coveredBy": [
+        {
+          "file": "tests/unit/t247-deep-dive-pointers.test.ts",
+          "mechanism": "none"
+        }
+      ],
+      "status": "covered"
     },
     {
       "unitClass": "stage",
@@ -3951,8 +3970,13 @@
       "unitClass": "stage",
       "unitId": "inception/application-design",
       "minMechanism": "none",
-      "coveredBy": [],
-      "status": "UNCOVERED"
+      "coveredBy": [
+        {
+          "file": "tests/unit/t247-deep-dive-pointers.test.ts",
+          "mechanism": "none"
+        }
+      ],
+      "status": "covered"
     },
     {
       "unitClass": "stage",
@@ -3972,8 +3996,13 @@
       "unitClass": "stage",
       "unitId": "inception/refined-mockups",
       "minMechanism": "none",
-      "coveredBy": [],
-      "status": "UNCOVERED"
+      "coveredBy": [
+        {
+          "file": "tests/unit/t247-deep-dive-pointers.test.ts",
+          "mechanism": "none"
+        }
+      ],
+      "status": "covered"
     },
     {
       "unitClass": "stage",

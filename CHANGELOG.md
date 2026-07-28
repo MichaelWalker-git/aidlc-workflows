@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.3] - 2026-07-28
+
+Deep dives now reach every consumer of the reference brief. An exemplar profile's frontmatter carries the reference repo's git URL and a short list of notable file paths (the real lint config, a canonical component, design tokens); the brief's Deep-Dive Pointers section carries them downstream, and each consuming stage may fetch a pointed-at file when higher fidelity helps — using whatever git credentials the session already has, with no new auth machinery. When credentials are missing or the repo is unreachable, the agent notes "deep dive unavailable" and continues from the distilled markdown; a failed fetch is never a stage failure, and the brief remains fully usable without any fetch. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.
+
+* The five brief-consuming stages (Feasibility, Rough Mockups, Refined Mockups, Application Design, Code Generation) gain the opt-in deep-dive guidance in their brief-loading step: fetch a pointed-at file only when it materially helps ("MAY fetch", advisory — never a hard dependency), with the graceful-degradation wording spelled out per stage.
+* Code Generation forwards the brief's deep-dive pointers — alongside the UI directives and patterns — into the developer-subagent delegation prompt, including the fetch rule and its degradation, so the agent actually writing the code can copy a real lint config or imitate a canonical component (omitted when Precedent Research was skipped).
+* Docs: the Precedent Research stage reference documents the markdown-first deep-dive contract; the Harness Engineer Guide's Org BoK authoring section explains how to choose `repo_url` + `notable_paths` (targeted pointers, not an invitation to crawl).
+
 ## [2.6.2] - 2026-07-27
 
 The Org BoK's three cross-cutting guides now ship as real template content with targeted per-agent loading. `knowledge/org-bok/guides/` gains `architecture-principles.md`, `code-style.md`, and `ui-design-language.md` — each a structured template with org-default guidance and *Fill in* placeholders a solution architect completes — loaded as standing Tier-1 knowledge by exactly the agents they concern. Because guides are standing knowledge, org defaults (including the "not LLM-looking" UI baseline) apply even on projects where Precedent Research was skipped. **Upgrade:** re-copy your `dist/<harness>/` shell into the project; if you maintain a fork, author your guide content under `core/knowledge/org-bok/guides/`.
