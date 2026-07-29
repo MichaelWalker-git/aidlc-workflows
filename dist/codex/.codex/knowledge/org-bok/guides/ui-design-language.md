@@ -54,6 +54,30 @@ proposing a new token. Until filled in, the enforceable default is: tokens
 are a single importable module, and no component hardcodes a value a token
 covers.*
 
+Conventions observed across exemplars:
+
+- The token module names its aesthetic and states a visual-hierarchy rule in
+  prose — one restrained palette with a single accent, and one deliberately
+  loudest element tied to the product's trust signal (mri-gov-ap's
+  "municipal records" theme; plg-opinion-tool's rule that the amber
+  placeholder chip stays the loudest element on any page).
+- Monospace for figures: money, IDs, GL codes, and other compared-by-eye
+  values render in a mono face (mri-gov-ap).
+- Semantic token names over raw values — `primary`/`destructive`/`muted`
+  mapped to CSS variables or theme entries, never hex in components
+  (meeting-crm, mri-gov-ap).
+- Commit the design language as an enforceable file in the frontend tree
+  (e.g. `.interface-design/system.md`): named tokens, signature rules
+  (borders-only depth, tight radii, tabular-nums on data), and copy-paste
+  default snippets — so agents and humans imitate one contract instead of
+  rediscovering taste per screen (blueprint-checker,
+  tennyson-contract-comparison).
+- Token names may carry the product's domain metaphor ("Blueprint Navy",
+  "Stamp" verdict colors, "Phosphor Desk") — the metaphor builds buyer
+  trust; the *practice* of a named, semantic, single-source palette is the
+  org-wide part (blueprint-checker, market-intelligence-platform,
+  mri-gov-ap).
+
 ## Layout & Spacing
 
 *Fill in: the org's grid and spacing conventions — e.g. base spacing unit,
