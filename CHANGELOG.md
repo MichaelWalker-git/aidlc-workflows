@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.9] - 2026-07-30
+
+The patterns KB gets its first page: `data-layer/connection-pooling.md`, the org's answer to "who holds the connections between Lambda (or a container) and Aurora/RDS". An architect, aws-platform, devsecops, or operations agent whose task mentions pool exhaustion, RDS Proxy, or a `pg.Pool` now matches the INDEX row and reads the org default instead of textbook advice. Content is extracted from the actual pool configuration in eight exemplar repos, so the defaults, the divergences, and the scars are all citable. Ships as `draft` — advisory until the Architect blesses it. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.
+
+* New pattern page `knowledge/org-bok/patterns/data-layer/connection-pooling.md` (`draft`): RDS Proxy plus a per-execution-environment pool for Lambda, framework pool sized to the instance for long-lived compute, and RDS Data API as the no-pool escape hatch — each with the exemplar that proves it.
+* Gotchas carry the scars the org already paid for: a 0-ACU Aurora floor that turned a ~15s resume into `validation_unavailable` holds on real invoices, a named RDS Proxy that made its subnet group unreplaceable, and the pool-per-execution-environment arithmetic (`max: 10` at 100 concurrency = a 1000-connection ask).
+* `patterns/INDEX.md` gains its first row, so the trigger keywords (`pool exhaustion`, `RDS Proxy`, `QueuePool`, `Aurora Serverless ACU`, …) route agents to the page.
+* Exemplars cited with relative links, including explicit do-not-cite entries for the three repos whose profiles record no pooling configuration at all.
+
 ## [2.6.8] - 2026-07-30
 
 The Org BoK gains a patterns knowledge base — `knowledge/org-bok/patterns/`, the org-wide authority for AWS architecture decisions. This release ships the mechanism, not opinions: the retrieval index, the page template, the nine class directories, and the agent wiring, all empty of content so each pattern lands as one file plus one index row. Architect, aws-platform, devsecops, and operations agents now read `patterns/INDEX.md` at activation and open only the pattern files their current task matches. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.

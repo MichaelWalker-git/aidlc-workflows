@@ -183,16 +183,16 @@ describe("t15 — knowledge-file inventory + non-emptiness (mechanism: none)", (
 
   // .sh L11-14: dynamic TAP plan = 11 + 11 + 7 + TOTAL_FILES. Re-derive that
   // arithmetic from the live tree so the migrated suite cannot silently shrink
-  // the surface: pin the total .md count at 114 (59 + the research agent's
+  // the surface: pin the total .md count at 115 (59 + the research agent's
   // method file + the org-bok index, distill allowlist, 48 exemplar profiles,
-  // 3 cross-cutting guides, and the patterns INDEX.md) and the summed plan at
-  // 151. The nine patterns class dirs are empty-but-present (a .gitkeep each,
-  // not .md), so they add nothing here — a pattern PAGE landing under one of
-  // them is what moves this count next; t249 owns the pages' shape.
-  test("TAP-plan parity: 15 + 15 + 7 + TOTAL == 151 with TOTAL == 114 [.sh L11-14]", () => {
+  // 3 cross-cutting guides, the patterns INDEX.md, and 1 pattern page) and the
+  // summed plan at 152. The nine patterns class dirs hold a .gitkeep each (not
+  // .md), so an empty class adds nothing here — each pattern PAGE that lands
+  // under one moves this count by 1; t249 owns the pages' shape.
+  test("TAP-plan parity: 15 + 15 + 7 + TOTAL == 152 with TOTAL == 115 [.sh L11-14]", () => {
     const total = findMd(KNOWLEDGE_DIR).length;
-    expect(total).toBe(114);
+    expect(total).toBe(115);
     const plan = 15 + 15 + 7 + total;
-    expect(plan).toBe(151);
+    expect(plan).toBe(152);
   });
 });

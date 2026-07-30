@@ -91,8 +91,9 @@ brownfield, locally discovered affirmed practices win.
 opinionated page per decision (When to use / Our approach / Exemplars /
 Gotchas / References), filed under one of nine class directories:
 `multi-tenancy`, `data-layer`, `serverless-compute`, `idp`, `genai`,
-`full-stack`, `eventing`, `iac`, `observability`. It ships empty; the
-mechanism is what's shipped.
+`full-stack`, `eventing`, `iac`, `observability`. Shipped today:
+`data-layer/connection-pooling.md` (`draft`). The remaining classes are
+empty-but-present, filled one page at a time.
 
 Unlike the guides, the patterns KB is the **authority** for what it covers.
 `org.md` § Architecture Patterns delegates to it, so a `blessed` page is the

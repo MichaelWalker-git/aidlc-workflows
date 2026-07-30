@@ -17,9 +17,10 @@
 //   3. TEMPLATE HONESTY — the page template documented in INDEX.md itself
 //      passes the very validators this file applies to real pages (the t248
 //      posture: what the authoring surface tells you to write is what the pin
-//      accepts). This is what keeps the pin non-vacuous while the KB is empty
-//      of content, and it means ticket 03-06 is genuinely "add one file and
-//      one index row".
+//      accepts). It kept the pin non-vacuous while the KB was empty of
+//      content, and it is what makes each content ticket genuinely "add one
+//      file and one index row" — the template an author copies is pinned to
+//      the same rules their page will be judged by.
 //   4. INDEX↔FILE CONSISTENCY, both directions — every INDEX row resolves to
 //      an existing file, every pattern file appears in EXACTLY one row, and
 //      each row's Status cell equals that file's frontmatter `status:`. The
@@ -360,9 +361,9 @@ describe("t249 patterns KB structure — shipped by the packager to every harnes
 // 2. Page shape — frontmatter, five sections, precedence header.
 // ---------------------------------------------------------------------------
 describe("t249 pattern pages — frontmatter, required sections, precedence header", () => {
-  // Vacuous while the KB has no content pages; the TEMPLATE block below is what
-  // keeps the rules exercised until tickets 03-06 land real pages. Pin the
-  // discovery so a page that ships is never silently skipped.
+  // Driven by whatever pages ship (the TEMPLATE block below independently
+  // exercises the same rules, so this stayed honest while the KB was empty).
+  // Pin the discovery so a page that ships is never silently skipped.
   test("every discovered pattern page is under one of the nine classes", () => {
     for (const { rel } of PATTERN_PAGES) {
       const cls = rel.split("/")[0];
@@ -458,9 +459,11 @@ describe("t249 INDEX ↔ file consistency — every row has a file, every file h
 
   test("the row parser skips the classification table and the fenced template", () => {
     // Both live in INDEX.md today; a parser that swallowed either would make
-    // the consistency check above lie. With no content pages yet, the honest
-    // row count is 0 — a parser bug would show up as phantom rows here.
-    expect(rows.length).toBe(PATTERN_PAGES.length);
+    // the consistency check above lie. Assert the parsed SET, not just the
+    // count: a count alone would accept a parser that dropped a real row and
+    // gained a phantom one in the same pass. The guards block drives this same
+    // parser with synthetic classification/fenced/unknown-class rows.
+    expect(rows.map((r) => r.path).sort()).toEqual(PATTERN_PAGES.map((p) => p.rel).sort());
   });
 });
 
