@@ -6,13 +6,13 @@
 
 **Blocked by:** 01 — Tracer bullet (org-bok subtree + knowledge-inventory pins must exist). Independent of 02; can run in parallel with it.
 
-**Status:** ready-for-agent
+**Status:** done (2.6.2)
 
-- [ ] The three guides exist with substantive template content (real structure and guidance placeholders an SA can fill, not lorem)
-- [ ] Guide loading follows the ADR-008 wiring table exactly; index + profiles stay research-agent-only; no guide lands in the all-agents shared area
-- [ ] Content-shape tests (following the existing knowledge-doc prose-check pattern): index has required per-exemplar fields (tags, stack, "use when…"), each profile has required sections and a non-empty repo URL in frontmatter, each guide has its expected top-level headings and is non-empty
-- [ ] Knowledge-inventory pins updated for the new files and their per-agent placement
-- [ ] Guides state the precedence rule; wording consistent with the brief contract from ticket 02 (coordinate if 02 lands first)
-- [ ] Dist regenerated; packaging parity green across harnesses
-- [ ] Docs updated (knowledge system / customization guidance for SAs authoring guides); version bump + CHANGELOG per changelog policy
-- [ ] New tests carry `covers:` headers; coverage registry regenerated
+- [x] The three guides exist with substantive template content (real structure and guidance placeholders an SA can fill, not lorem)
+- [x] Guide loading follows the ADR-008 wiring table exactly; index + profiles stay research-agent-only; no guide lands in the all-agents shared area
+- [x] Content-shape tests (following the existing knowledge-doc prose-check pattern): index has required per-exemplar fields (tags, stack, "use when…"), each profile has required sections and a non-empty repo URL in frontmatter, each guide has its expected top-level headings and is non-empty
+- [x] Knowledge-inventory pins updated for the new files and their per-agent placement
+- [x] Guides state the precedence rule; wording consistent with the brief contract from ticket 02 (coordinate if 02 lands first)
+- [x] Dist regenerated; packaging parity green across harnesses
+- [x] Docs updated (knowledge system / customization guidance for SAs authoring guides); version bump + CHANGELOG per changelog policy
+- [x] New tests carry `covers:` headers; coverage registry regenerated

@@ -195,8 +195,12 @@ describe("t244 orchestrator-directive seam — both gate paths through `next` (m
   // observable (mirrors t114's directive-table posture).
   function completeIntentCapture(proj: string): void {
     const intentsDir = join(proj, "aidlc", "spaces", "default", "intents");
-    const record = readdirSync(intentsDir, { withFileTypes: true }).find((e) =>
-      e.isDirectory(),
+    // Filter on the state file like bornStateFile: the seeded fixture record
+    // ships empty and readdirSync order is filesystem-dependent.
+    const record = readdirSync(intentsDir, { withFileTypes: true }).find(
+      (e) =>
+        e.isDirectory() &&
+        existsSync(join(intentsDir, e.name, "aidlc-state.md")),
     );
     expect(record).toBeDefined();
     const statePath = join(intentsDir, record?.name ?? "", "aidlc-state.md");

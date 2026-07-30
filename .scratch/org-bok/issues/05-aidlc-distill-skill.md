@@ -6,14 +6,14 @@
 
 **Blocked by:** 01 — Tracer bullet (profile + index formats), 03 — Guides (guide formats to propose updates against). Ticket 04's pointer fields should be respected if landed; coordinate.
 
-**Status:** ready-for-agent
+**Status:** done (2.6.4)
 
-- [ ] `/aidlc-distill` ships as the 4th session skill and satisfies the existing session-skill contract seams: frontmatter contract, spec conformance, line budget, and the session-skills read-only/data-plane contract (it writes only BoK drafts, never workflow state)
-- [ ] The session flow covers: allowlist check → repo analysis → human interview for ask/why → draft profile → propose index entry → propose guide updates → hand off to human curation (no auto-commit)
-- [ ] Repo allowlist ships as `core/knowledge/org-bok/distill-allowlist.md` (curated frontmatter list of allowed repo URLs/paths, glob entries permitted) and projects into every harness dist; the skill's step 0 loads it and refuses non-matching targets before any repo access
-- [ ] The allowlist match predicate is deterministic and unit-tested at its own seam (missing/empty allowlist, exact-URL match, glob match, non-matching target), following the BoK-gate predicate pattern from ticket 01
-- [ ] Drafted profiles conform to the content-shape required sections (verified against the same shape tests as the fixture exemplar)
-- [ ] Re-run against an existing exemplar updates/refreshes the draft rather than creating a duplicate
-- [ ] Dist regenerated; packaging parity green; skill roster pins (3→4 session skills) and any skill-count checks updated
-- [ ] Docs updated: SA-facing authoring guidance (how to distill a repo, curation expectations), skill listed wherever session skills are enumerated; version bump + CHANGELOG per changelog policy
-- [ ] New tests carry `covers:` headers; coverage registry regenerated
+- [x] `/aidlc-distill` ships as the 4th session skill and satisfies the existing session-skill contract seams: frontmatter contract, spec conformance, line budget, and the session-skills read-only/data-plane contract (it writes only BoK drafts, never workflow state)
+- [x] The session flow covers: allowlist check → repo analysis → human interview for ask/why → draft profile → propose index entry → propose guide updates → hand off to human curation (no auto-commit)
+- [x] Repo allowlist ships as `core/knowledge/org-bok/distill-allowlist.md` (curated frontmatter list of allowed repo URLs/paths, glob entries permitted) and projects into every harness dist; the skill's step 0 loads it and refuses non-matching targets before any repo access
+- [x] The allowlist match predicate is deterministic and unit-tested at its own seam (missing/empty allowlist, exact-URL match, glob match, non-matching target), following the BoK-gate predicate pattern from ticket 01
+- [x] Drafted profiles conform to the content-shape required sections (verified against the same shape tests as the fixture exemplar)
+- [x] Re-run against an existing exemplar updates/refreshes the draft rather than creating a duplicate
+- [x] Dist regenerated; packaging parity green; skill roster pins (3→4 session skills) and any skill-count checks updated
+- [x] Docs updated: SA-facing authoring guidance (how to distill a repo, curation expectations), skill listed wherever session skills are enumerated; version bump + CHANGELOG per changelog policy
+- [x] New tests carry `covers:` headers; coverage registry regenerated

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.5] - 2026-07-30
+
+The Org BoK goes from skeleton to corpus: 45 distilled exemplar profiles ship in every harness dist, the three cross-cutting guides absorb the conventions observed across that corpus, and the org memory layer (`org.md`) grows from placeholder defaults into a full org rulebook. **Upgrade:** re-copy your `dist/<harness>/` shell into the project; note that `aidlc/spaces/default/memory/org.md` changed substantially — if you have edited your copy, merge rather than overwrite.
+
+* 45 exemplar profiles land under `knowledge/org-bok/exemplars/`, each with an index row whose "use when…" guidance names the ask shape for matching; the shipped sample fixture row is replaced by the real corpus. The deterministic precedent-research gate now matches on a stock install with real precedent behind it.
+* The three guides gain corpus-derived content: `architecture-principles.md` principles 5–16, `code-style.md` infra/handler seams, strict-plus TypeScript baseline, pinned deps, and structured-logging rules, `ui-design-language.md` token-naming and visual-hierarchy conventions.
+* The org rule layer `memory/org.md` is now a full rulebook: gate-approval as the merge approval of record (no direct pushes to `main`, no self-approval on multi-person teams, CI-weakening changes are automatic blockers), an E2E testing floor, deploy-on-merge with automated production gates, UI Standards with a WCAG 2.1 AA floor, Anti-Slop Branding rules, greenfield Tech Stack defaults, contract-first API Standards (RFC 9457 errors), Observability, Environments & Naming, and concrete Forbidden/Mandated security + IaC rules.
+* New fork-only skill `aidlc-distill-batch` (in `core/skills/`, not packaged into dist): batch-runs `/aidlc-distill` over the curated allowlist in chunks, with one consolidated human interview per chunk and no auto-commit.
+
 ## [2.6.4] - 2026-07-28
 
 The Org BoK gains its authoring tool: `/aidlc-distill`, the fork's 4th session skill. Run in the fork repo and pointed at a reference repository, it analyzes the repo reverse-engineering-style, interviews the solution architect for the tacit knowledge code can't reveal (the original ask, why the architecture was chosen), and drafts an exemplar profile in the required shape, a proposed `index.md` entry, and proposed additions to the cross-cutting guides — the skill drafts, the human reviews and commits. Before any analysis, a deterministic step-0 gate resolves the target against a curated repo allowlist; a repo not on the list is never read. Re-running against an already-profiled repo refreshes the profile in place rather than duplicating it. **Upgrade:** re-copy your `dist/<harness>/` shell into the project; if you maintain a fork, curate the allowlist at `core/knowledge/org-bok/distill-allowlist.md`.

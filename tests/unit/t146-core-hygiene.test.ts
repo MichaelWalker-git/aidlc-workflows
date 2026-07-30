@@ -50,6 +50,14 @@ function isCarvedOut(relPath: string, line: string): boolean {
   ) {
     return true;
   }
+  // Org BoK exemplar profiles describe EXTERNAL repos: a `notable_paths:`
+  // frontmatter entry (or prose pointer) naming a `.claude/` path inside the
+  // exemplar's own checkout is a truthful literal about that repo, not a
+  // tokenizable path into our harness dir. Scoped to YAML list entries under
+  // exemplars/ so a stray harness path in profile prose still fails.
+  if (relPath.startsWith("knowledge/org-bok/exemplars/") && /^\s*- \S/.test(line)) {
+    return true;
+  }
   return false;
 }
 

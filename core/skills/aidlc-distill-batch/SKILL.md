@@ -51,7 +51,7 @@ For every repo in the chunk run, from the fork root:
 
 ```bash
 AIDLC_DISTILL_ALLOWLIST=core/knowledge/org-bok/distill-allowlist.md \
-  bun dist/claude/.claude/tools/aidlc-utility.ts distill-check --target "<url>" --json
+  bun core/tools/aidlc-utility.ts distill-check --target "<url>" --json
 ```
 
 Exit 1 → that repo is skipped (record why), never read. Never
