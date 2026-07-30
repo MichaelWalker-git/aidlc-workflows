@@ -57,7 +57,7 @@ content. If you fork this repo, the authored home is
 `core/knowledge/org-bok/` and the packager ships it to every harness; if you
 customize a single install, edit the dist copy and re-apply on upgrade.
 
-Three artifact kinds, each with a fixed shape (content-shape tests pin the
+Four artifact kinds, each with a fixed shape (content-shape tests pin the
 headings, so keep them):
 
 - **`index.md`** — the curated decision tree over your exemplar projects.
@@ -83,10 +83,33 @@ headings, so keep them):
   `*Fill in*` placeholders under the existing headings; because guides load
   on every project, they apply even when Precedent Research was skipped.
   Keep them tight — every line spends context in each target agent's window.
+- **`patterns/`** — the architecture patterns KB, and the one BoK subtree
+  that carries *authority* rather than defaults. One page per architecture
+  decision under one of nine class directories (`multi-tenancy`,
+  `data-layer`, `serverless-compute`, `idp`, `genai`, `full-stack`,
+  `eventing`, `iac`, `observability`), with `status: draft | blessed |
+  deprecated`, `reviewed:`, and `owner:` frontmatter, a standing precedence
+  header, and five sections: When to use / Our approach / Exemplars /
+  Gotchas / References. `patterns/INDEX.md` is the entire retrieval layer
+  (one row per page: trigger keywords → pattern → status) and carries the
+  page template, the row format, and the admission rule in place — copy the
+  template from there. Read at activation by the architect, aws-platform,
+  devsecops, and operations agents, which then open only task-relevant
+  pages; there is no search agent. A page is admitted only if it carries at
+  least one org-specific decision, default, exemplar, or scar — textbook AWS
+  content stays a `## References` link. `blessed` binds as the org-wide
+  default (`org.md` § Architecture Patterns delegates here); a `team.md` or
+  `project.md` rule may override one for its space as a documented exception
+  naming the pattern and the reason. Cite exemplars as relative links
+  (`../../exemplars/<repo>/profile.md`), and keep the index row's status in
+  sync with the page's frontmatter — `tests/unit/t249-patterns-kb-shape.test.ts`
+  fails on either drifting.
 
-You don't have to author these by hand: `/aidlc-distill <repo-url-or-path>`,
-run in the fork repo, drafts all three kinds from a reference repository.
-It first gates the target against the curated
+You don't have to author the first three by hand: `/aidlc-distill
+<repo-url-or-path>`, run in the fork repo, drafts the index row, the exemplar
+profile, and guide additions from a reference repository. (Pattern pages stay
+hand-authored — a pattern is a decision the org has *made*, which no amount of
+reading one repo can establish.) It first gates the target against the curated
 `org-bok/distill-allowlist.md` (a frontmatter `allowed:` list of repo
 URLs/paths, glob entries permitted — maintained by hand like the index; a
 target not on the list stops the session before any repo access). It then

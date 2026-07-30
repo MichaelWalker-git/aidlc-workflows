@@ -131,6 +131,25 @@ For authored code, human or agent:
 - AI provenance lives in commit trailers, never as attribution
   comments or markers in source files.
 
+## Architecture Patterns
+
+The org's blessed architecture decisions — how we do multi-tenant
+isolation, connection pooling, read-replica routing, observability
+wiring, and the rest — live in the org-bok patterns KB
+(`knowledge/org-bok/patterns/`), indexed by
+`knowledge/org-bok/patterns/INDEX.md`, so this file survives their
+churn. A page marked `blessed` is the org-wide default for the decision
+it covers; a page marked `draft` is advisory — verify before relying on
+it.
+
+Affirmed memory rules override the KB: a `team.md` or `project.md` rule
+may deviate from a pattern for its space as a **documented exception**
+that names the pattern it departs from and the reason (a customer-
+mandated stack, a regulatory constraint). Absent such a rule, agents
+apply the blessed pattern. Changing the org-wide default is a PR to the
+pattern file under Architect review, never an edit to memory in one
+space.
+
 ## UI Standards
 
 Universal rules for anything with a user interface — web, mobile, or

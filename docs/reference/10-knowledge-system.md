@@ -51,9 +51,12 @@ AI-DLC uses a two-tier knowledge system that separates framework methodology fro
 |   +-- distill-allowlist.md       # Curated repos /aidlc-distill may analyze (step-0 gate)
 |   +-- exemplars/<slug>/profile.md  # One few-shot exemplar profile per reference repo
 |   +-- guides/                    # Cross-cutting org guides (standing Tier-1 defaults, targeted wiring)
-|       +-- architecture-principles.md  # Loaded by aidlc-architect-agent
-|       +-- code-style.md               # Loaded by aidlc-developer-agent + aidlc-quality-agent
-|       +-- ui-design-language.md       # Loaded by aidlc-design-agent + aidlc-developer-agent
+|   |   +-- architecture-principles.md  # Loaded by aidlc-architect-agent
+|   |   +-- code-style.md               # Loaded by aidlc-developer-agent + aidlc-quality-agent
+|   |   +-- ui-design-language.md       # Loaded by aidlc-design-agent + aidlc-developer-agent
+|   +-- patterns/                  # Architecture patterns KB (the org-wide architecture authority)
+|       +-- INDEX.md               # The whole retrieval layer: trigger keywords -> pattern -> status
+|       +-- <class>/<slug>.md      # One opinionated page per decision, in one of nine class dirs
 ```
 
 The Org BoK subtree has targeted wiring, not the all-agents loading the rest
@@ -66,6 +69,30 @@ design-language baseline — apply even on projects where precedent-research
 was skipped. Agents outside that table load none of the BoK. Each guide
 states its own precedence posture: org default on greenfield; on brownfield,
 locally discovered and affirmed practices win.
+
+The `patterns/` subtree has its own wiring, and works differently from the
+guides. It is the org-wide authority for the architecture decisions it
+covers — `org.md` § Architecture Patterns delegates to it, and an affirmed
+`team.md`/`project.md` rule overrides a pattern for its space only as a
+documented exception naming the pattern and the reason. Four agents read
+`patterns/INDEX.md` at activation and open only the pattern files their
+current task matches; there is no search agent, because the index *is* the
+retrieval layer.
+
+| Reads `patterns/INDEX.md` | Deliberately not wired |
+|---------------------------|------------------------|
+| `aidlc-architect-agent`, `aidlc-aws-platform-agent`, `aidlc-devsecops-agent`, `aidlc-operations-agent` | `aidlc-developer-agent`, `aidlc-architecture-reviewer-agent` (deferred — standing context for content they don't yet consume) |
+
+Each page carries `status: draft | blessed | deprecated`, `reviewed:`, and
+`owner:` frontmatter — `blessed` is a binding default, `draft` is advisory —
+plus a standing precedence header, so a page read in isolation still says to
+check the active space's memory. The nine class directories
+(`multi-tenancy`, `data-layer`, `serverless-compute`, `idp`, `genai`,
+`full-stack`, `eventing`, `iac`, `observability`) ship empty-but-present; a
+page is admitted only if it carries at least one org-specific decision,
+default, exemplar, or scar. `INDEX.md` documents the page template, the row
+format, and that admission rule in place;
+`tests/unit/t249-patterns-kb-shape.test.ts` pins the shape and the wiring.
 
 ### Tier 2 Structure
 

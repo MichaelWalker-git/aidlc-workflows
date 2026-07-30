@@ -1,0 +1,8 @@
+# Pattern class: data-layer
+#
+# Relational and key-value data access — connection pooling, read-replica
+# routing, migration safety, schema ownership, and the choice between a
+# relational store and a key-value one.
+#
+# Empty-but-present marker. See ../INDEX.md for the page template, the row
+# format, and the topic admission rule.

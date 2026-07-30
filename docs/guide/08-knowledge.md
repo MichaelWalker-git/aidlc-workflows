@@ -65,10 +65,14 @@ Ships with the framework. Contains shared principles and per-agent methodology r
     ├── index.md                     # Exemplar decision tree — research agent only
     ├── distill-allowlist.md         # Curated repos /aidlc-distill may analyze (step-0 gate)
     ├── exemplars/<slug>/profile.md  # Few-shot exemplar profiles — research agent only
-    └── guides/                      # Cross-cutting org guides, loaded by the agents they concern:
-                                     #   architecture-principles.md → architect
-                                     #   code-style.md → developer + quality
-                                     #   ui-design-language.md → design + developer
+    ├── guides/                      # Cross-cutting org guides, loaded by the agents they concern:
+    │                                #   architecture-principles.md → architect
+    │                                #   code-style.md → developer + quality
+    │                                #   ui-design-language.md → design + developer
+    └── patterns/                    # Architecture patterns KB — the org-wide architecture authority
+        ├── INDEX.md                 # Retrieval layer, read at activation by architect,
+        │                            #   aws-platform, devsecops, operations
+        └── <class>/<slug>.md        # One page per decision, in one of nine class dirs
 ```
 
 The `org-bok/` subtree is your organization's Body of Knowledge. Unlike the
@@ -80,6 +84,36 @@ guidance). The guides are standing defaults: they load for their target
 agents on every project, even when the Precedent Research stage was skipped,
 and each states the precedence rule — org default on greenfield; on
 brownfield, locally discovered affirmed practices win.
+
+### The patterns KB
+
+`org-bok/patterns/` holds your organization's architecture decisions — one
+opinionated page per decision (When to use / Our approach / Exemplars /
+Gotchas / References), filed under one of nine class directories:
+`multi-tenancy`, `data-layer`, `serverless-compute`, `idp`, `genai`,
+`full-stack`, `eventing`, `iac`, `observability`. It ships empty; the
+mechanism is what's shipped.
+
+Unlike the guides, the patterns KB is the **authority** for what it covers.
+`org.md` § Architecture Patterns delegates to it, so a `blessed` page is the
+org-wide default; a `team.md` or `project.md` rule may deviate for its space
+only as a **documented exception** that names the pattern and the reason (a
+customer-mandated stack, a regulatory constraint). Pages marked `draft` are
+advisory — verify before relying on them.
+
+Retrieval is just `patterns/INDEX.md`: one row per page (trigger keywords →
+pattern → status). Four agents — architect, aws-platform, devsecops, and
+operations — read that index at every activation and open only the pages
+their current task matches, so the standing context cost is one small file.
+
+To add a pattern, copy the page template out of `INDEX.md` (it documents the
+frontmatter, the precedence header, and the five sections), write the page
+under its class directory, and add its index row — the row's status must
+match the page's frontmatter. A page is admitted only if it carries at least
+one org-specific decision, default, exemplar, or scar; content that is purely
+AWS's own documentation stays a link under `## References`. Verify with
+`bun test tests/unit/t249-patterns-kb-shape.test.ts`, which pins the page
+shape and both directions of index↔file consistency.
 
 ### Authoring the Org BoK with `/aidlc-distill`
 

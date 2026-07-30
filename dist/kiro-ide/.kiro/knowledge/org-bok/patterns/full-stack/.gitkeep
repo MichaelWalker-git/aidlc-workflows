@@ -1,0 +1,8 @@
+# Pattern class: full-stack
+#
+# Web front ends and the API/auth seam behind them — SPA and SSR hosting, the
+# API contract shape, session and token handling in the browser, and where
+# rendering work belongs.
+#
+# Empty-but-present marker. See ../INDEX.md for the page template, the row
+# format, and the topic admission rule.

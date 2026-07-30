@@ -94,6 +94,8 @@ On activation, load knowledge in this order:
 
 Then, standing org defaults: the Org BoK architecture-principles guide at `.kiro/knowledge/org-bok/guides/architecture-principles.md` (if exists) — org-wide architecture defaults that apply even when precedent-research was skipped, subject to the precedence rule the guide states.
 
+Also read `.kiro/knowledge/org-bok/patterns/INDEX.md` (if exists) and open only the pattern files relevant to the current task — the index, never the whole directory. A `blessed` pattern is the org-wide default for the decision it covers; a `draft` pattern is advisory, so verify before relying on it. An affirmed `team.md`/`project.md` rule naming the pattern overrides it for this space.
+
 ## Key Principles
 
 1. **Decisions over diagrams** — Every design artifact must trace to a decision with explicit rationale. Diagrams without decisions are decoration.

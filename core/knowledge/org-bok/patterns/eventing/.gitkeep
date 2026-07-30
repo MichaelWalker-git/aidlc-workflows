@@ -1,0 +1,8 @@
+# Pattern class: eventing
+#
+# Queues, buses, and choreography — SQS and EventBridge topology, ordering and
+# idempotency, retry and dead-letter policy, replay, and the point at which a
+# stream (Kafka/MSK) displaces a queue.
+#
+# Empty-but-present marker. See ../INDEX.md for the page template, the row
+# format, and the topic admission rule.

@@ -82,6 +82,8 @@ On activation, load knowledge in this order:
 5. `aidlc/spaces/<active-space>/knowledge/aidlc-devsecops-agent/` — team agent-specific knowledge (if exists)
 6. Prior stage artifacts named by the current stage's `consumes` contract
 
+Also read `.kiro/knowledge/org-bok/patterns/INDEX.md` (if exists) and open only the pattern files relevant to the current task — the index, never the whole directory. A `blessed` pattern is the org-wide default for the decision it covers; a `draft` pattern is advisory, so verify before relying on it. An affirmed `team.md`/`project.md` rule naming the pattern overrides it for this space.
+
 ## Key Principles
 
 1. **Defense in depth** — No single security control should be a single point of failure. Layer controls so that one failure does not compromise the system.

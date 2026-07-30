@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.8] - 2026-07-30
+
+The Org BoK gains a patterns knowledge base — `knowledge/org-bok/patterns/`, the org-wide authority for AWS architecture decisions. This release ships the mechanism, not opinions: the retrieval index, the page template, the nine class directories, and the agent wiring, all empty of content so each pattern lands as one file plus one index row. Architect, aws-platform, devsecops, and operations agents now read `patterns/INDEX.md` at activation and open only the pattern files their current task matches. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.
+
+* New `knowledge/org-bok/patterns/INDEX.md` — the whole retrieval layer (trigger keywords → pattern → status), plus the pattern page template, the row format, and the topic admission rule documented where authors will find them.
+* Nine class directories ship empty-but-present: `multi-tenancy/`, `data-layer/`, `serverless-compute/`, `idp/`, `genai/`, `full-stack/`, `eventing/`, `iac/`, `observability/`.
+* Every pattern page carries `status: draft | blessed | deprecated`, `reviewed:`, and `owner:` frontmatter plus a standing precedence header, so a page read in isolation still tells the agent to check the active space's memory for exceptions. `blessed` binds; `draft` is advisory.
+* `org.md` gains an `## Architecture Patterns` section delegating architecture authority to the KB, with affirmed-memory-overrides semantics: a `team.md`/`project.md` rule may deviate as a documented exception naming the pattern and the reason.
+* Four agents wired (architect, aws-platform, devsecops, operations); `developer` and `architecture-reviewer` stay unwired until they have content to consume. Each one's reference doc under `docs/reference/agents/` records the new activation read.
+
 ## [2.6.7] - 2026-07-30
 
 Three new exemplars join the Org BoK as evidence for the upcoming patterns KB (step zero of the content pipeline): the Punt/Chanced real-money gaming platform, the Service Delivery Platform backend, and its GitOps Terraform. Profiles record what the code actually shows — including plainly stated negative findings (no read-replica routing, no pool tuning, Sanctum-not-JWT auth) so pattern pages cite honestly. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.

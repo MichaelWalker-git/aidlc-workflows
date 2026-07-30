@@ -1,0 +1,8 @@
+# Pattern class: observability
+#
+# Errors, traces, metrics, and incident tooling — what is instrumented, what
+# pages a human, how context (user, tenant, release) rides along with an error,
+# and the runbook surface an on-call actually opens.
+#
+# Empty-but-present marker. See ../INDEX.md for the page template, the row
+# format, and the topic admission rule.

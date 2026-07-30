@@ -1,0 +1,8 @@
+# Pattern class: genai
+#
+# Model access and agent topologies — Bedrock versus self-hosted serving, model
+# tiering, prompt and eval discipline, structured-output hardening, and the
+# decisions an LLM must be structurally unable to make.
+#
+# Empty-but-present marker. See ../INDEX.md for the page template, the row
+# format, and the topic admission rule.

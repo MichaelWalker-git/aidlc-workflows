@@ -80,6 +80,13 @@ architecture defaults that apply even when precedent-research was skipped,
 subject to the precedence rule the guide states (brownfield: locally
 discovered affirmed practices win).
 
+It also reads the Org BoK patterns index,
+`.claude/knowledge/org-bok/patterns/INDEX.md`, and opens only the pattern
+files the current task matches — the index, never the whole directory. A
+`blessed` pattern is the org-wide default for the decision it covers; a
+`draft` pattern is advisory. An affirmed `team.md`/`project.md` rule naming
+the pattern overrides it for that space.
+
 ### Team (Tier 2)
 
 Path: `aidlc/knowledge/aidlc-architect-agent/` (the space-level knowledge dir; user-managed)

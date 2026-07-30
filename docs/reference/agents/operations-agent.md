@@ -62,6 +62,13 @@ Path: `.claude/knowledge/aidlc-operations-agent/`
 | observability-patterns.md | Observability patterns (dashboards, alarms, tracing, logging) |
 | slo-sli-patterns.md | SLO/SLI definition patterns, error budget policies |
 
+The agent also reads the Org BoK patterns index,
+`.claude/knowledge/org-bok/patterns/INDEX.md`, and opens only the pattern
+files the current task matches — the index, never the whole directory. A
+`blessed` pattern is the org-wide default for the decision it covers; a
+`draft` pattern is advisory. An affirmed `team.md`/`project.md` rule naming
+the pattern overrides it for that space.
+
 ### Team (Tier 2)
 
 Path: `aidlc/knowledge/aidlc-operations-agent/` (the space-level knowledge dir; user-managed)

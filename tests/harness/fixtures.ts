@@ -69,6 +69,54 @@ export const ORG_BOK_PROFILE_SECTIONS: readonly string[] = [
   "## Deep-Dive Pointers",
 ];
 
+// The patterns-KB shape (patterns ADR-001/003/004). One copy so the shape pin
+// (t249) and any future consumer are held to the SAME contract the INDEX.md
+// template documents — a pattern page an author copies out of that template
+// then passes the same assertions the pin makes.
+//
+// The nine class subdirectories are the Architect's classification (ADR-001);
+// a pattern page lives in exactly one of them.
+export const ORG_BOK_PATTERN_CLASSES: readonly string[] = [
+  "data-layer",
+  "eventing",
+  "full-stack",
+  "genai",
+  "iac",
+  "idp",
+  "multi-tenancy",
+  "observability",
+  "serverless-compute",
+];
+
+// ADR-003's lifecycle states, in `status:` frontmatter.
+export const ORG_BOK_PATTERN_STATUSES: readonly string[] = [
+  "draft",
+  "blessed",
+  "deprecated",
+];
+
+// ADR-004's pattern-page shape: the five required H2 sections, in order.
+export const ORG_BOK_PATTERN_SECTIONS: readonly string[] = [
+  "## When to use",
+  "## Our approach",
+  "## Exemplars",
+  "## Gotchas",
+  "## References",
+];
+
+// The standing precedence header every pattern page carries (ADR-002 decision
+// 3), so a page read in isolation still tells the agent to check the active
+// space's memory for a documented exception. Pinned as the load-bearing
+// phrases rather than a whole paragraph: the wording may be re-edited per page,
+// the semantics may not. Each entry is deliberately free of markup — a page may
+// write ``draft`` or *draft* or plain draft — so the pin binds the meaning, not
+// one author's emphasis.
+export const ORG_BOK_PATTERN_PRECEDENCE_PHRASES: readonly string[] = [
+  "org-wide default",
+  "documented exception",
+  "advisory",
+];
+
 // The per-intent WORKSPACE layout the fixtures seed (P9 — the flat aidlc-docs/
 // layout is retired). A fixture project gets a SEED-style shell (aidlc/active-space
 // + spaces/default/) plus ONE default intent record so the path helpers resolve

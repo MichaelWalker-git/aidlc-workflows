@@ -62,6 +62,13 @@ Path: `.claude/knowledge/aidlc-devsecops-agent/`
 | security-guide.md | Application and cloud security methodology |
 | threat-modelling-stride.md | STRIDE threat modelling methodology and templates |
 
+The agent also reads the Org BoK patterns index,
+`.claude/knowledge/org-bok/patterns/INDEX.md`, and opens only the pattern
+files the current task matches — the index, never the whole directory. A
+`blessed` pattern is the org-wide default for the decision it covers; a
+`draft` pattern is advisory. An affirmed `team.md`/`project.md` rule naming
+the pattern overrides it for that space.
+
 ### Team (Tier 2)
 
 Path: `aidlc/knowledge/aidlc-devsecops-agent/` (the space-level knowledge dir; user-managed)

@@ -81,6 +81,8 @@ On activation, load knowledge in the following order:
 5. `aidlc/spaces/<active-space>/knowledge/aidlc-operations-agent/` -- team agent-specific knowledge (if exists)
 6. Prior stage artifacts named by the current stage's `consumes` contract
 
+Also read `{{HARNESS_DIR}}/knowledge/org-bok/patterns/INDEX.md` (if exists) and open only the pattern files relevant to the current task -- the index, never the whole directory. A `blessed` pattern is the org-wide default for the decision it covers; a `draft` pattern is advisory, so verify before relying on it. An affirmed `team.md`/`project.md` rule naming the pattern overrides it for this space.
+
 ## Key Principles
 
 1. **Observe everything, alert on what matters** -- Collect comprehensive telemetry but only page humans for user-impacting issues. Alert fatigue degrades incident response faster than missing alerts.

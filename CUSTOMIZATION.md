@@ -24,7 +24,7 @@ principle is that none require TypeScript edits.
 | 3 | **Scopes** (which stages run for which kind of work) | `core/scopes/aidlc-<name>.md` + per-stage `scopes:` tags | ✅ | ✅ retag stages |
 | 4 | **Rules / method defaults** (standing team decisions, guardrails) | `core/memory/org.md`, `team.md`, `project.md` | ✅ | ✅ |
 | 5 | **Sensors** (deterministic advisory checks that fire on Write/Edit) | manifest under `core/sensors/` + the stage's `sensors:` binding | ✅ | ✅ |
-| 6 | **Knowledge** (framework methodology agents load before working) | `core/knowledge/aidlc-shared/`, `core/knowledge/aidlc-<agent>-agent/`, `core/knowledge/org-bok/` (exemplar index/profiles + cross-cutting guides) | ✅ | ✅ |
+| 6 | **Knowledge** (framework methodology agents load before working) | `core/knowledge/aidlc-shared/`, `core/knowledge/aidlc-<agent>-agent/`, `core/knowledge/org-bok/` (exemplar index/profiles + cross-cutting guides + the architecture patterns KB) | ✅ | ✅ |
 | 7 | **Construction/swarm posture** (autonomy level, what Bolts parallelize) | `core/memory/` + the `units-generation` stage | — | ✅ |
 | 8 | **Harnesses** (port to another CLI: manifest + orchestrator skill) | new `harness/<name>/` directory, no `core/` edits | ✅ | ✅ |
 | 9 | **Plugins** (reusable optional pack in its own repo) | `plugins/<name>/` with `.aidlc-plugin/plugin.json` | ✅ | ✅ via `contributions/` overlays |

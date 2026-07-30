@@ -53,6 +53,7 @@ import { describe, expect, test } from "bun:test";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { AIDLC_SRC } from "../harness/fixtures.ts";
+import { FENCE, headingOutsideFence } from "../harness/text.ts";
 
 // AIDLC_SRC === <repo>/dist/claude/.claude — the same tree the .sh resolved as
 // STAGES_DIR's grandparent.
@@ -80,30 +81,11 @@ function discoverStageFiles(): { phase: string; slug: string; path: string }[] {
   return out;
 }
 
-const FENCE = "```"; // triple backtick — the code-fence delimiter the awk walker toggled on.
-
-/**
- * Faithful TS port of t87.sh's heading_outside_fence() awk walker. Returns true
- * iff a line EXACTLY equal to the heading appears outside any triple-backtick
- * fenced code block. Toggling "fenced" on every line that starts with the fence
- * delimiter mirrors the awk rule that flips its flag on a fence line and skips
- * it; the whole-line equality mirrors awk's $0 == h.
- */
-function headingOutsideFence(heading: string, fileBody: string): boolean {
-  let fenced = false;
-  for (const rawLine of fileBody.split("\n")) {
-    // awk reads lines without the trailing \n; a CRLF file would leave a \r.
-    // Strip it so the whole-line equality matches the heading the same way
-    // awk's record (sans record separator) would.
-    const line = rawLine.replace(/\r$/, "");
-    if (line.startsWith(FENCE)) {
-      fenced = !fenced;
-      continue;
-    }
-    if (!fenced && line === heading) return true;
-  }
-  return false;
-}
+// headingOutsideFence() + FENCE: this suite's awk-walker port, now shared from
+// tests/harness/text.ts so t249's pattern-page section pin runs the SAME walker
+// (its INDEX.md documents a page template inside a fence — the exact case the
+// walker exists for). Semantics unchanged: whole-line equality, `\r` stripped,
+// `fenced` toggled on every fence line.
 
 const STAGE_FILES = discoverStageFiles();
 

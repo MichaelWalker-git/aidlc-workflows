@@ -1,0 +1,8 @@
+# Pattern class: serverless-compute
+#
+# Lambda, Step Functions, and container compute — sizing and concurrency,
+# orchestration versus choreography inside one workflow, and the threshold at
+# which a job stops fitting serverless and moves to ECS or EC2.
+#
+# Empty-but-present marker. See ../INDEX.md for the page template, the row
+# format, and the topic admission rule.

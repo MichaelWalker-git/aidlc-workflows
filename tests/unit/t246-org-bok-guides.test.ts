@@ -209,11 +209,21 @@ describe("t246 ADR-008 wiring — targeted Tier-1 placement, exactly", () => {
       ...GUIDE_WIRING.flatMap(([, agents]) => agents),
       "aidlc-research-agent",
     ]);
+    // The patterns KB has its OWN wiring table (patterns ADR-004: architect,
+    // aws-platform, devsecops, operations — pinned by t249), so a persona may
+    // reference org-bok/patterns without being in the GUIDE_WIRING table. The
+    // no-bloat invariant this test owns is unchanged: outside its table, an
+    // agent loads no org-bok GUIDE, index, or exemplar. Strip the patterns
+    // reference before asking, so the two tables stay independently enforced
+    // and neither can be used to smuggle in the other's surface.
+    const withoutPatterns = (body: string): string =>
+      body.replaceAll("org-bok/patterns", "<patterns-kb>");
     for (const [name, body] of personas) {
       if (!allowed.has(name)) {
-        expect(body.includes("org-bok"), `${name} must not load org-bok`).toBe(
-          false,
-        );
+        expect(
+          withoutPatterns(body).includes("org-bok"),
+          `${name} must not load org-bok (beyond the patterns KB, which t249 pins)`,
+        ).toBe(false);
       }
     }
   });

@@ -62,6 +62,13 @@ Path: `.claude/knowledge/aidlc-aws-platform-agent/`
 | infrastructure-guide.md | Infrastructure design methodology and environment provisioning |
 | well-architected-framework.md | AWS Well-Architected Framework six pillars reference |
 
+The agent also reads the Org BoK patterns index,
+`.claude/knowledge/org-bok/patterns/INDEX.md`, and opens only the pattern
+files the current task matches — the index, never the whole directory. A
+`blessed` pattern is the org-wide default for the decision it covers; a
+`draft` pattern is advisory. An affirmed `team.md`/`project.md` rule naming
+the pattern overrides it for that space.
+
 ### Team (Tier 2)
 
 Path: `aidlc/knowledge/aidlc-aws-platform-agent/` (the space-level knowledge dir; user-managed)

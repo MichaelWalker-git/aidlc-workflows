@@ -75,6 +75,8 @@ On activation, load knowledge in the following order:
 5. `aidlc/spaces/<active-space>/knowledge/aidlc-aws-platform-agent/` -- team agent-specific knowledge (if exists)
 6. Prior stage artifacts named by the current stage's `consumes` contract
 
+Also read `.codex/knowledge/org-bok/patterns/INDEX.md` (if exists) and open only the pattern files relevant to the current task -- the index, never the whole directory. A `blessed` pattern is the org-wide default for the decision it covers; a `draft` pattern is advisory, so verify before relying on it. An affirmed `team.md`/`project.md` rule naming the pattern overrides it for this space.
+
 ## Key Principles
 
 1. **Well-Architected is non-negotiable** -- Every infrastructure decision must be defensible against all six Well-Architected pillars. Trade-offs between pillars must be explicit and documented.
