@@ -223,7 +223,9 @@
       ],
       "scopes": [
         "enterprise",
-        "feature"
+        "feature",
+        "mvp",
+        "poc"
       ],
       "inputs": "Intent statement from intent-capture stage; the Org BoK index and matching exemplar profiles",
       "outputs": "reference-brief.md (under this stage's record dir, engine-resolved)",
@@ -3060,7 +3062,7 @@
         "workspace-detection": "EXECUTE",
         "state-init": "EXECUTE",
         "intent-capture": "EXECUTE",
-        "precedent-research": "SKIP",
+        "precedent-research": "EXECUTE",
         "market-research": "SKIP",
         "feasibility": "EXECUTE",
         "scope-definition": "EXECUTE",
@@ -3105,7 +3107,7 @@
         "workspace-detection": "EXECUTE",
         "state-init": "EXECUTE",
         "intent-capture": "EXECUTE",
-        "precedent-research": "SKIP",
+        "precedent-research": "EXECUTE",
         "market-research": "SKIP",
         "feasibility": "SKIP",
         "scope-definition": "SKIP",

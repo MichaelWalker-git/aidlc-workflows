@@ -271,8 +271,8 @@ Authoritative data lives in the `.claude/scopes/aidlc-<name>.md` files plus each
 |---|---|---|---|---|
 | `enterprise` | All: 0.1-0.3, 1.1-1.8, 2.1-2.8, 3.1-3.7, 4.1-4.7 | 33 / 33 | Comprehensive | Comprehensive |
 | `feature` | All: 0.1-0.3, 1.1-1.8, 2.1-2.8, 3.1-3.7, 4.1-4.7 | 33 / 33 | Standard | Standard |
-| `mvp` | 0.1-0.3, 1.1, 1.4 (light), 1.5, 2.1 (if brownfield), 2.2, 2.3, 2.4, 2.5 (if UI), 2.6, 2.7, 2.8, 3.1-3.7 | 22 / 33 | Standard | Standard |
-| `poc` | 0.1-0.3, 1.1 (minimal), 2.1 (if brownfield), 2.3 (minimal), 3.5, 3.6 | 8 / 33 | Minimal | Minimal |
+| `mvp` | 0.1-0.3, 1.1, 1.2 (if BoK), 1.4 (light), 1.5, 2.1 (if brownfield), 2.2, 2.3, 2.4, 2.5 (if UI), 2.6, 2.7, 2.8, 3.1-3.7 | 23 / 33 | Standard | Standard |
+| `poc` | 0.1-0.3, 1.1 (minimal), 1.2 (if BoK), 2.1 (if brownfield), 2.3 (minimal), 3.5, 3.6 | 9 / 33 | Minimal | Minimal |
 | `bugfix` | 0.1-0.3, 2.1 (always), 2.3 (minimal), 3.5, 3.6 | 7 / 33 | Minimal | Minimal |
 | `refactor` | 0.1-0.3, 2.1 (always), 2.3 (minimal), 3.1 (refactoring plan), 3.5, 3.6 | 8 / 33 | Minimal | Minimal |
 | `infra` | 0.1-0.3, 2.2, 2.3 (infra requirements), 3.2, 3.3, 3.4, 3.7, 4.1, 4.2, 4.3, 4.4 | 13 / 33 | Standard | Standard |

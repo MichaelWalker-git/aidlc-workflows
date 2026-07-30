@@ -10,6 +10,13 @@ Three new exemplars join the Org BoK as evidence for the upcoming patterns KB (s
 * Distill allowlist gains the three repo URLs; `/aidlc-distill` can refresh these profiles.
 * Architecture-principles guide gains principle 18: CI deploys via short-lived OIDC roles, never long-lived credentials.
 
+## [2.6.6] - 2026-07-30
+
+Precedent Research now also runs in the `mvp` and `poc` scopes (previously enterprise and feature only) — starting from the org's proven exemplars pays off most on fast greenfield builds and spikes. The stage remains gated on the install shipping an Org BoK index with at least one exemplar, so installs without a BoK see no change. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.
+
+* `mvp` scope now executes 23 / 33 stages and `poc` 9 / 33 (each +1: precedent-research). The scope confirmation line and `scope-table` output reflect the new counts.
+* No new commands or flags; existing intents keep their compiled plans — the change applies to plans built after the upgrade.
+
 ## [2.6.5] - 2026-07-30
 
 The Org BoK goes from skeleton to corpus: 45 distilled exemplar profiles ship in every harness dist, the three cross-cutting guides absorb the conventions observed across that corpus, and the org memory layer (`org.md`) grows from placeholder defaults into a full org rulebook. **Upgrade:** re-copy your `dist/<harness>/` shell into the project; note that `aidlc/spaces/default/memory/org.md` changed substantially — if you have edited your copy, merge rather than overwrite.

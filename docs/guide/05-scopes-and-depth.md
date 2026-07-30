@@ -28,17 +28,17 @@ Core ships 9 named scopes. Each scope defines a stage set and a default depth le
 
 **Use when:** Building a greenfield minimum viable product. Skips late-stage operations but retains full design and construction.
 
-- **Stages:** 22 of 33
+- **Stages:** 23 of 33
 - **Default depth:** Standard
-- **Skips:** All 7 Operation stages (deployment pipeline, environment provisioning, deployment execution, observability, incident response, performance validation, feedback) plus Precedent Research, Market Research, Team Formation, and Approval Handoff from Ideation (11 skipped, 22 executed)
+- **Skips:** All 7 Operation stages (deployment pipeline, environment provisioning, deployment execution, observability, incident response, performance validation, feedback) plus Market Research, Team Formation, and Approval Handoff from Ideation (10 skipped, 23 executed). Precedent Research stays in, still gated on the install shipping an Org BoK with at least one exemplar.
 
 ### poc
 
 **Use when:** Proving feasibility quickly. Skips most Ideation and Inception stages, focuses on getting to code fast.
 
-- **Stages:** 8 of 33
+- **Stages:** 9 of 33
 - **Default depth:** Minimal
-- **Skips:** Market Research, Feasibility, Team Formation, Mockups, User Stories, most Operation stages
+- **Skips:** Market Research, Feasibility, Team Formation, Mockups, User Stories, most Operation stages. Precedent Research stays in (BoK-gated) — a spike that starts from a proven exemplar answers "can this work?" faster.
 
 ### bugfix
 
@@ -93,8 +93,8 @@ Authoritative data lives in the `.claude/scopes/aidlc-<name>.md` files (scope id
 |-------|-----------------|-------|---------------|----------|
 | `enterprise` | 33 / 33 | Comprehensive | Comprehensive | Regulated enterprise feature, full audit trail |
 | `feature` | 33 / 33 | Standard | Standard | Default for new features |
-| `mvp` | 22 / 33 | Standard | Standard | Greenfield, skip late operations |
-| `poc` | 8 / 33 | Minimal | Minimal | Prove feasibility fast |
+| `mvp` | 23 / 33 | Standard | Standard | Greenfield, skip late operations |
+| `poc` | 9 / 33 | Minimal | Minimal | Prove feasibility fast |
 | `bugfix` | 7 / 33 | Minimal | Minimal | Fix a specific bug |
 | `refactor` | 8 / 33 | Minimal | Minimal | Clean up existing code |
 | `infra` | 13 / 33 | Standard | Standard | Infrastructure change |
@@ -102,7 +102,7 @@ Authoritative data lives in the `.claude/scopes/aidlc-<name>.md` files (scope id
 | `workshop` | 25 / 33 | Standard | **Minimal** | AI-DLC workshop or training session |
 | (auto-detect) | Varies | Varies | Varies | AI determines from freeform intent |
 
-Scopes differ by an order of magnitude in ceremony: `poc` runs 8 stages with 5 approval gates, while `feature` runs all 33 with 30 gates and five design stages that fan out per Unit of Work in Construction. So the scope confirmation line always names the exact numbers - stage count, approval-gate count, and any per-unit fan-out - computed from the compiled grid, never estimated. You know what you are consenting to before the workflow starts.
+Scopes differ by an order of magnitude in ceremony: `poc` runs 9 stages with 6 approval gates, while `feature` runs all 33 with 30 gates and five design stages that fan out per Unit of Work in Construction. So the scope confirmation line always names the exact numbers - stage count, approval-gate count, and any per-unit fan-out - computed from the compiled grid, never estimated. You know what you are consenting to before the workflow starts.
 
 > **Per-project default scope:** teams can pre-set the default scope for a project by setting `AWS_AIDLC_DEFAULT_SCOPE` in `.claude/settings.json` — useful for workshops where every participant should start at `workshop` without remembering the flag. See [Customization § Per-Project Default Scope](13-customization.md#per-project-default-scope).
 

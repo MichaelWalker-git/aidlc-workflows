@@ -101,10 +101,11 @@ describe("t245 grid validation — the CONDITIONAL producer never starves a cons
   });
 
   // The rows that actually ship a consumer EXECUTE against a SKIPped
-  // producer are the interesting ones — mvp and workshop do this by
-  // default, so they exercise the optional-edge contract with no test
-  // mutation at all. Sweep every shipped row so a future scope can't
-  // reintroduce a starved reference-brief edge unnoticed.
+  // producer are the interesting ones — workshop does this by default
+  // (mvp and poc joined the producer's scopes: list in 2.6.6), so it
+  // exercises the optional-edge contract with no test mutation at all.
+  // Sweep every shipped row so a future scope can't reintroduce a
+  // starved reference-brief edge unnoticed.
   //
   // Scoped to reference-brief on purpose: the lean scopes deliberately
   // skip producers of REQUIRED artifacts (bugfix runs code-generation
@@ -125,9 +126,19 @@ describe("t245 grid validation — the CONDITIONAL producer never starves a cons
     }
   });
 
-  test("mvp and workshop ship consumers EXECUTE while the producer is SKIPped — the real conditional case", () => {
+  test("the greenfield build scopes ship the producer EXECUTE (2.6.6: mvp and poc joined enterprise and feature)", () => {
     const grids = shippedGrids();
-    for (const scope of ["mvp", "workshop"]) {
+    for (const scope of ["enterprise", "feature", "mvp", "poc"]) {
+      expect(
+        grids[scope].stages["precedent-research"],
+        `${scope} executes the producer`,
+      ).toBe("EXECUTE");
+    }
+  });
+
+  test("workshop ships consumers EXECUTE while the producer is SKIPped — the real conditional case", () => {
+    const grids = shippedGrids();
+    for (const scope of ["workshop"]) {
       const stages = grids[scope].stages;
       expect(stages["precedent-research"], `${scope} skips the producer`).toBe(
         "SKIP",

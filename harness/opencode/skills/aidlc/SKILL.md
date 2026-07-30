@@ -144,7 +144,7 @@ The composer proposes; the human decides; the deterministic validator guards. Yo
 
 The engine resolves scope-level stage routing internally (it reads the compiled scope grid the table below summarises). The summary table is kept here as human-readable data — not dispatch logic — and is regenerated, never hand-edited. (One carve-out: the composer flow APPENDS approved composed scopes to the runtime scope registry (`.aidlc/scopes/aidlc-<name>.md` + a `scope-grid.json` entry) - that is the sanctioned write path for composed scopes, not a hand-edit; this summary table itself stays generated.) Source of truth: one file per scope under `.aidlc/scopes/aidlc-<name>.md` plus each stage's `scopes:` frontmatter, transposed at `bun .aidlc/tools/aidlc-graph.ts compile`; regenerate this table with `bun .aidlc/tools/aidlc-utility.ts scope-table`.
 
-<!-- BEGIN: compiled scope grid via `bun aidlc-utility.ts scope-table` — do NOT hand-edit -->
+<!-- BEGIN: compiled scope grid via `bun aidlc-utility.ts scope-table` - do NOT hand-edit -->
 
 | Scope          | Depth         | TestStrategy | EXECUTE / Total |
 |----------------|---------------|--------------|-----------------|
@@ -152,8 +152,8 @@ The engine resolves scope-level stage routing internally (it reads the compiled 
 | enterprise     | Comprehensive | (default)    | 33 / 33         |
 | feature        | Standard      | (default)    | 33 / 33         |
 | infra          | Standard      | (default)    | 13 / 33         |
-| mvp            | Standard      | (default)    | 22 / 33         |
-| poc            | Minimal       | (default)    | 8 / 33          |
+| mvp            | Standard      | (default)    | 23 / 33         |
+| poc            | Minimal       | (default)    | 9 / 33          |
 | refactor       | Minimal       | (default)    | 8 / 33          |
 | security-patch | Minimal       | (default)    | 10 / 33         |
 | workshop       | Standard      | Minimal      | 25 / 33         |
