@@ -135,12 +135,14 @@ describe("t15 — knowledge-file inventory + non-emptiness (mechanism: none)", (
   // The Org BoK corpus: the curated index plus the distilled exemplar
   // profiles ship in every dist, so the deterministic precedent-research gate
   // is satisfied on a stock install. Started as 1 fixture (issue #01 tracer);
-  // the /aidlc-distill batch run grew it to 45 (44 distilled + the fixture).
-  test("org-bok/ ships the curated index and exactly 45 exemplar profiles", () => {
+  // the /aidlc-distill batch run grew it to 45 (44 distilled + the fixture);
+  // the patterns-KB step-zero distills added 3 more (chancedrepos + the two
+  // service-delivery-platform repos) for 48.
+  test("org-bok/ ships the curated index and exactly 48 exemplar profiles", () => {
     const bok = join(KNOWLEDGE_DIR, "org-bok");
     expect(existsSync(join(bok, "index.md"))).toBe(true);
     const profiles = findMd(join(bok, "exemplars"));
-    expect(profiles.length).toBe(45);
+    expect(profiles.length).toBe(48);
     for (const p of profiles) expect(p.endsWith("profile.md"), `${p} is not a profile.md`).toBe(true);
   });
 
@@ -181,13 +183,13 @@ describe("t15 — knowledge-file inventory + non-emptiness (mechanism: none)", (
 
   // .sh L11-14: dynamic TAP plan = 11 + 11 + 7 + TOTAL_FILES. Re-derive that
   // arithmetic from the live tree so the migrated suite cannot silently shrink
-  // the surface: pin the total .md count at 110 (59 + the research agent's
-  // method file + the org-bok index, distill allowlist, 45 exemplar profiles,
-  // and 3 cross-cutting guides) and the summed plan at 147.
-  test("TAP-plan parity: 15 + 15 + 7 + TOTAL == 147 with TOTAL == 110 [.sh L11-14]", () => {
+  // the surface: pin the total .md count at 113 (59 + the research agent's
+  // method file + the org-bok index, distill allowlist, 48 exemplar profiles,
+  // and 3 cross-cutting guides) and the summed plan at 150.
+  test("TAP-plan parity: 15 + 15 + 7 + TOTAL == 150 with TOTAL == 113 [.sh L11-14]", () => {
     const total = findMd(KNOWLEDGE_DIR).length;
-    expect(total).toBe(110);
+    expect(total).toBe(113);
     const plan = 15 + 15 + 7 + total;
-    expect(plan).toBe(147);
+    expect(plan).toBe(150);
   });
 });

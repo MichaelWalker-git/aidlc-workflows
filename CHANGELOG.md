@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.7] - 2026-07-30
+
+Three new exemplars join the Org BoK as evidence for the upcoming patterns KB (step zero of the content pipeline): the Punt/Chanced real-money gaming platform, the Service Delivery Platform backend, and its GitOps Terraform. Profiles record what the code actually shows — including plainly stated negative findings (no read-replica routing, no pool tuning, Sanctum-not-JWT auth) so pattern pages cite honestly. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.
+
+* Exemplar index grows to 47 rows: `chancedrepos`, `service-delivery-platform-backend`, `service-delivery-platform-terraform`, each with tags, tech stack, and "use when…" routing.
+* Distill allowlist gains the three repo URLs; `/aidlc-distill` can refresh these profiles.
+* Architecture-principles guide gains principle 18: CI deploys via short-lived OIDC roles, never long-lived credentials.
+
 ## [2.6.5] - 2026-07-30
 
 The Org BoK goes from skeleton to corpus: 45 distilled exemplar profiles ship in every harness dist, the three cross-cutting guides absorb the conventions observed across that corpus, and the org memory layer (`org.md`) grows from placeholder defaults into a full org rulebook. **Upgrade:** re-copy your `dist/<harness>/` shell into the project; note that `aidlc/spaces/default/memory/org.md` changed substantially — if you have edited your copy, merge rather than overwrite.

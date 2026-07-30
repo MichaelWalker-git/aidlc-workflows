@@ -143,7 +143,17 @@ rationale so an agent can judge when a project genuinely falls outside it.
     cost-bound. (Seen in otter-notion-integration's transcript router,
     genai-classification's document-type vote, labcorp-compendium-agent's
     tiered cascade.)
-18. *Fill in: additional org principles, one numbered entry each — statement
+18. **CI deploys via short-lived OIDC roles, never long-lived credentials.**
+    The CI provider (GitHub Actions) assumes a cloud role through OIDC
+    federation with the trust policy pinned to the specific repo (and
+    branch/environment where supported); no access keys live in CI secrets.
+    The role is defined in the project's own IaC and deployed once manually,
+    so credential rotation is a non-event and a leaked CI log exposes
+    nothing durable. (Seen in tennyson-contract-comparison's CDK-defined
+    branch-scoped deploy role, meeting-crm, land-coverage,
+    vrc-roi-validation, simba-platform, and
+    service-delivery-platform-terraform's per-stack repo-pinned roles.)
+19. *Fill in: additional org principles, one numbered entry each — statement
     in bold, then the rationale and the boundary where it stops applying.*
 
 ## Technology Defaults

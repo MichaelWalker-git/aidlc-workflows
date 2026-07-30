@@ -44,6 +44,9 @@ allowed:
   - https://github.com/MichaelWalker-git/otter-notion-integration
   - https://github.com/MichaelWalker-git/call-terraform-registry
   - https://github.com/MichaelWalker-git/horus-technologies
+  - https://github.com/MichaelWalker-git/ChancedRepos
+  - https://github.com/MichaelWalker-git/service-delivery-platform-backend
+  - https://github.com/MichaelWalker-git/service-delivery-platform-terraform
 ---
 
 # Org BoK — Distill Allowlist
