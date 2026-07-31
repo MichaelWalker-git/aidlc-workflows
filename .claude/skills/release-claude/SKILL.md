@@ -77,13 +77,18 @@ Do NOT push unless the user explicitly asks.
 
 Output goes to `release/` at the repo root (gitignored — never committed).
 
-1. Generate `release/INSTALL.md` from the template below, substituting the
-   version and today's date.
+1. Generate `release/INSTALL.md` from `INSTALL.template.md` (in this skill's
+   directory), substituting `{{VERSION}}` and `{{DATE}}`:
+
+```bash
+mkdir -p release
+sed -e "s/{{VERSION}}/N.N.N/g" -e "s/{{DATE}}/YYYY-MM-DD/g" \
+  .claude/skills/release-claude/INSTALL.template.md > release/INSTALL.md
+```
 2. Zip from *inside* `dist/claude/` so unpacking lands the dot-directories
    at the target root, excluding the generated `aidlc-docs/`:
 
 ```bash
-mkdir -p release
 cd dist/claude && zip -r "../../release/aidlc-claude-vN.N.N.zip" . -x "aidlc-docs/*" && cd -
 zip -j "release/aidlc-claude-vN.N.N.zip" release/INSTALL.md
 ```
@@ -109,66 +114,14 @@ verification results, and (if they want to publish) the one-liner:
 gh release create vN.N.N release/aidlc-claude-vN.N.N.zip --title "vN.N.N" --notes-file <(awk '/^## \[N.N.N\]/{f=1;next} /^## \[/{f=0} f' CHANGELOG.md)
 ```
 
-## INSTALL.md template
+## The installation guide
 
-Keep this in sync with the Claude Code Quick Start section of `README.md` —
-that section is the source of truth for prerequisites and post-install
-steps. Substitute `{{VERSION}}` and `{{DATE}}`.
-
-```markdown
-# AI-DLC for Claude Code — v{{VERSION}} ({{DATE}})
-
-This archive contains the AI-DLC implementation for **Claude Code**. Install
-= unpack + copy into your project. No build step.
-
-## Prerequisites
-
-1. **bun** — every AI-DLC hook and tool runs through bun:
-   `curl -fsSL https://bun.sh/install | bash`
-   (Windows PowerShell: `irm bun.sh/install.ps1 | iex`)
-   bun must be on the PATH that *non-interactive* shells see. If `which bun`
-   works in your terminal but AI-DLC can't find it, copy the
-   `BUN_INSTALL`/`PATH` export into `~/.zshenv` (zsh) or `~/.bashrc` (bash).
-2. **Claude Code** — `curl -fsSL https://claude.ai/install.sh | bash`,
-   verify with `claude --version`.
-3. **AWS Bedrock access** — the shipped `.claude/settings.json` runs on
-   Bedrock (`AWS_REGION=us-east-1`). Enable Anthropic model access in your
-   AWS account and have credentials on your SDK credential chain, or edit
-   `settings.json` to use your own Anthropic setup.
-
-## Install
-
-Unpack into an empty staging folder first (NOT directly into your project —
-the archive ships a `.gitignore` that would overwrite yours):
-
-    mkdir aidlc-staging && cd aidlc-staging
-    unzip ../aidlc-claude-v{{VERSION}}.zip
-
-Then copy into your project:
-
-    cp -r .claude/  your-project/.claude/
-    cp -r aidlc/    your-project/aidlc/     # workspace shell — a SIBLING of .claude/, not inside it
-    cp .mcp.json    your-project/           # skip if you already have one; merge by hand instead
-
-Finally, append the AI-DLC section of the shipped `.gitignore` (everything
-from the `# AI-DLC` comment down) to your project's `.gitignore`. If your
-project has no `.gitignore`, copy the whole file.
-
-## Verify and run
-
-    cd your-project && claude
-
-Inside the Claude Code session:
-
-    /aidlc --doctor          # all checks should pass
-    /aidlc <describe what you want to build>
-
-## Upgrading from a previous version
-
-Re-copy `.claude/` and `aidlc/spaces/default/memory/` from the new archive.
-Do NOT overwrite the rest of `aidlc/` — `aidlc/spaces/` holds your team's
-work (state, artifacts, audit) and is yours, not the framework's.
-```
+The user-facing guide is `INSTALL.template.md` in this skill's directory —
+the full walkthrough (prerequisites, Bedrock setup, install, verify, first
+workflow, upgrade path, troubleshooting). Its content is distilled from
+`README.md`'s Claude Code Quick Start and `docs/guide/01-getting-started.md`;
+when either of those changes materially (prerequisites, copy steps, doctor
+checks, settings), update the template in the same commit.
 
 ## Rules of the road
 
