@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.10] - 2026-07-31
+
+The patterns KB gains its observability page: `observability/sentry.md`, the org's Sentry conventions — the file the devsecops and operations agent wiring exists to serve. A wired agent whose task mentions error tracking, `wrapHandler`, sample rates, sourcemap upload, or incident triage now matches the INDEX row and reads the org's actual configuration and incident history instead of textbook Sentry docs. Content is code-read from five exemplar repos plus the org's triage/fix bots and setup runbook. Ships as `draft` — advisory until the Architect blesses it. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.
+
+* New pattern page `knowledge/org-bok/patterns/observability/sentry.md` (`draft`): one no-op-safe wrapper module per service, environment = deploy stage, errors at 100% / prod traces at 0.1–0.2, release = git commit, user/tenant context set at the auth seam, PII-conscious defaults (masked replay on PHI, redacted headers/bodies, SQL bindings off), sourcemaps uploaded to Sentry and deleted from the public bundle.
+* The incident loop is part of the pattern: Sentry → one Slack alerts channel per project → the org's scheduled read-only triage bot replying in-thread (severity, root cause, reproducible-in-test verdict), with the write-capable fix bot human-triggered only.
+* Gotchas carry the scars: the alert rule that forwards every environment (dev GPU flaps escalating as prod-shaped incidents — now standing knowledge in the triage bot's prompt), a `Date.now()` fallback release that shreds issue grouping, Slack reactions as an unreliable idempotency marker, and a Replay integration shipped with both sample rates at 0.
+* `patterns/INDEX.md` gains the row, so trigger keywords (`captureException`, `tracesSampleRate`, `session replay`, `incident triage`, …) route agents to the page. Exemplars cite five profiles with relative links plus explicit do-not-cite entries for the two SDP repos.
+
 ## [2.6.9] - 2026-07-30
 
 The patterns KB gets its first page: `data-layer/connection-pooling.md`, the org's answer to "who holds the connections between Lambda (or a container) and Aurora/RDS". An architect, aws-platform, devsecops, or operations agent whose task mentions pool exhaustion, RDS Proxy, or a `pg.Pool` now matches the INDEX row and reads the org default instead of textbook advice. Content is extracted from the actual pool configuration in eight exemplar repos, so the defaults, the divergences, and the scars are all citable. Ships as `draft` — advisory until the Architect blesses it. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.

@@ -18,6 +18,7 @@ so a page read in isolation still tells you to check the active space's memory.
 | Trigger keywords | Pattern | Status |
 |------------------|---------|--------|
 | Lambda RDS connections, connection pool, pool exhaustion, too many connections, RDS Proxy, pgBouncer, `pg.Pool`, `createPool`, QueuePool, SQLAlchemy engine, Knex pool, Aurora Serverless ACU, RDS Data API, database cold start | [Connection Pooling — Lambda and containers onto RDS/Aurora](data-layer/connection-pooling.md) | draft |
+| Sentry, error tracking, error monitoring, `captureException`, `wrapHandler`, DSN, tracesSampleRate, session replay, sourcemap upload, ignoreErrors, alert rule, Slack alerts, incident triage, on-call, root cause, breadcrumbs, release tagging, PII scrubbing | [Sentry — errors, traces, and the incident loop](observability/sentry.md) | draft |
 
 The classification directories below are the admitted homes; content lands one
 file plus one row at a time.
