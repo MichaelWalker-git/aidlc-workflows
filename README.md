@@ -11,7 +11,7 @@ A native implementation of the **AI-DLC methodology** (AI-Driven Development Lif
 
 The methodology lives once, in a harness-neutral `core/`; each harness adds a thin surface that decides how it shows up on that harness. So you edit the methodology in one place, and every harness distribution is generated from it — no harness gets special treatment. (See [Repository layout](#repository-layout) for how the pieces fit together.)
 
-![version](https://img.shields.io/badge/version-2.6.12-blue)
+![version](https://img.shields.io/badge/version-2.7.0-blue)
 ![license](https://img.shields.io/badge/license-MIT--0-green)
 ![Kiro IDE](https://img.shields.io/badge/harness-Kiro%20IDE-orange)
 ![Kiro CLI](https://img.shields.io/badge/harness-Kiro%20CLI-orange)
@@ -40,7 +40,7 @@ Ad-hoc AI coding works until the project gets real. Then context drifts between 
 - **[3 test strategy levels](docs/guide/05-scopes-and-depth.md#the-3-test-strategy-levels)** (Minimal/Standard/Comprehensive) — independent of depth for flexible test coverage
 - **[CLI utilities](docs/guide/12-cli-commands.md)** — jump to any stage or phase, check status, change scope/depth/test strategy mid-workflow
 - **[Approval gates at every stage](docs/guide/07-interaction-modes.md)** — you stay in control of all decisions
-- **[Two-tier knowledge system](docs/guide/08-knowledge.md)** — methodology knowledge ships with the framework; team knowledge is user-managed
+- **[Two-tier knowledge system](docs/guide/08-knowledge.md)** — methodology knowledge ships with the framework; team knowledge is user-managed. Includes the [Org BoK](docs/guide/08-knowledge.md#tier-1-methodology-knowledge): distilled exemplar profiles, cross-cutting guides, and the [architecture patterns KB](docs/guide/08-knowledge.md#the-patterns-kb) — your org's blessed AWS decisions, retrieved by trigger keyword
 - **[Rules and a learning loop](docs/guide/09-rules-and-the-learning-loop.md)** — human corrections become persistent behavioral rules
 - **[74-event audit trail](docs/guide/10-state-and-audit.md)** - structured logging for enterprise traceability
 - **[Session resume](docs/guide/11-session-management.md)** — continue from checkpoint, redo, jump to stage, or start fresh
