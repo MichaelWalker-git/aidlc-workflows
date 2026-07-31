@@ -89,8 +89,10 @@ plus a standing precedence header, so a page read in isolation still says to
 check the active space's memory. The nine class directories
 (`multi-tenancy`, `data-layer`, `serverless-compute`, `idp`, `genai`,
 `full-stack`, `eventing`, `iac`, `observability`) are filled one page at a
-time — `data-layer/` carries `connection-pooling.md` and `observability/`
-carries `sentry.md` (both `draft`), the rest are empty-but-present. A page is
+time — `data-layer/` carries `connection-pooling.md`, `observability/`
+carries `sentry.md`, and `multi-tenancy/` carries `jwt-tenant-isolation.md`,
+`tenant-data-partitioning.md`, and `tenant-onboarding.md` (all `draft`); the
+rest are empty-but-present. A page is
 admitted only if it carries at least one org-specific decision,
 default, exemplar, or scar. `INDEX.md` documents the page template, the row
 format, and that admission rule in place;

@@ -28,11 +28,15 @@ can join the curated distill allowlist now.
 2. **Step zero for v1:** add Tennis Systems, Paradise Law, Punch and
    Chance, and Service Delivery Platform to the distill allowlist and run
    the batch distill over them.
-3. **v1 content:** `multi-tenancy/jwt-tenant-isolation.md` (ships as
-   `draft` pending the Architect's SDP audit),
-   `data-layer/connection-pooling.md`, `data-layer/read-replicas.md`,
-   `observability/sentry.md` (sources: Sentry org config + Ivan's bot +
-   Architect's incident stories).
+3. **v1 content:** the `multi-tenancy/` class as pattern pages — one page
+   per mechanism the exemplar code actually shows that passes the topic
+   admission rule (`jwt-tenant-isolation.md`, `tenant-data-partitioning.md`,
+   `tenant-onboarding.md`; all ship as `draft` pending the Architect's SDP
+   audit — amended 2026-07-31 from the single `jwt-tenant-isolation.md`
+   file originally named here, after the code-read showed org decisions
+   across the whole class), `data-layer/connection-pooling.md`,
+   `data-layer/read-replicas.md`, `observability/sentry.md` (sources:
+   Sentry org config + Ivan's bot + Architect's incident stories).
 4. **Topic admission rule:** a new pattern file is added only when it
    carries at least one org-specific statement (decision, default,
    exemplar, or scar). Pure-textbook topics are links inside existing
@@ -48,8 +52,8 @@ can join the curated distill allowlist now.
 
 - The only human bottleneck is Architect review, deliberately the smallest
   step.
-- The multi-tenancy pattern is not blocked on the SDP audit; the audit
-  outcome later either blesses the file or amends it.
+- The multi-tenancy patterns are not blocked on the SDP audit; the audit
+  outcome later either blesses the files or amends them.
 - The admission rule keeps the KB thin-and-opinionated; maintenance load
   grows with org decisions, not with AWS's surface area.
 

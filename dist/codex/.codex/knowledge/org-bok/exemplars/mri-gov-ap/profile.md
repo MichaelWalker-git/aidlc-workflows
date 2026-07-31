@@ -72,9 +72,12 @@ confidence gate → config-driven approval routing → just-in-time ERP write-ba
   records": ink-on-paper neutrals, one deep-teal accent, monospace for money,
   IDs, and GL codes) — calm, dense, trustworthy; built for data validation,
   not decoration.
-- Multi-tenant by convention at every layer: one tenant-context package is the
-  single source of truth for tenant→physical mapping; onboarding a town is one
-  CDK entry plus a runbook.
+- Multi-tenant by convention at every layer: a `TENANTS` registry in
+  shared-types plus a secret-name helper carry the tenant→physical mapping;
+  onboarding a town is one CDK entry plus a runbook. (Corrected 2026-07-31 by
+  the multi-tenancy patterns code-read: the `@mri/tenant-context` package that
+  claims to be the single source of truth is a stub nothing imports — services
+  hand-build the prefixes it defines.)
 
 ## Deep-Dive Pointers
 

@@ -23,12 +23,13 @@ In scope: Lambda handlers that query Postgres/MySQL; long-lived containers
 cluster underneath, because pool timeouts and cluster resume latency fail
 together (see Gotchas).
 
-Out of scope: read/write splitting and replica routing, and per-tenant data
-boundaries — both are planned sibling pages (`data-layer/read-replicas.md`,
-`multi-tenancy/jwt-tenant-isolation.md`) that do not ship yet; check the
-[INDEX](../INDEX.md) for whether they have landed. A per-tenant *pool cache*
-is in scope here and covered under "Our approach". DynamoDB-backed work has no
-pool decision to make.
+Out of scope: read/write splitting and replica routing — a planned sibling
+page (`data-layer/read-replicas.md`) that does not ship yet; check the
+[INDEX](../INDEX.md) for whether it has landed. Per-tenant data boundaries
+are covered by
+[multi-tenancy/tenant-data-partitioning](../multi-tenancy/tenant-data-partitioning.md).
+A per-tenant *pool cache* is in scope here and covered under "Our approach".
+DynamoDB-backed work has no pool decision to make.
 
 ## Our approach
 

@@ -92,9 +92,10 @@ opinionated page per decision (When to use / Our approach / Exemplars /
 Gotchas / References), filed under one of nine class directories:
 `multi-tenancy`, `data-layer`, `serverless-compute`, `idp`, `genai`,
 `full-stack`, `eventing`, `iac`, `observability`. Shipped today:
-`data-layer/connection-pooling.md` and `observability/sentry.md` (both
-`draft`). The remaining classes are empty-but-present, filled one page at a
-time.
+`data-layer/connection-pooling.md`, `observability/sentry.md`, and the three
+`multi-tenancy/` pages (`jwt-tenant-isolation.md`,
+`tenant-data-partitioning.md`, `tenant-onboarding.md`) — all `draft`. The
+remaining classes are empty-but-present, filled one page at a time.
 
 Unlike the guides, the patterns KB is the **authority** for what it covers.
 `org.md` § Architecture Patterns delegates to it, so a `blessed` page is the

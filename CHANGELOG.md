@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.11] - 2026-07-31
+
+The patterns KB gains its multi-tenancy class: three pages covering the org's multi-tenant decisions end to end — how a tenant is identified (`jwt-tenant-isolation.md`), how its data is physically separated (`tenant-data-partitioning.md`), and how a tenant comes into existence (`tenant-onboarding.md`). A wired agent whose task mentions tenant claims, cross-tenant access, silo-vs-pool, or tenant provisioning now matches an INDEX row and reads the org's actual conventions, code-read from seven exemplar repos (Service Delivery Platform among them). All three ship `draft` — advisory pending the Architect's SDP audit, which will bless or amend them (ADR-003/005). **Upgrade:** re-copy your `dist/<harness>/` shell into the project.
+
+* New pattern page `knowledge/org-bok/patterns/multi-tenancy/jwt-tenant-isolation.md` (`draft`): the tenant is a server-set claim, never a client parameter — immutable Cognito attributes stamped server-side, `writeAttributes` hardening, full JWKS/aud/iss verification, one claims-extraction seam per service, recursive-CTE org-hierarchy expansion, and 404-masking on cross-tenant reads.
+* New pattern page `multi-tenancy/tenant-data-partitioning.md` (`draft`): pooled storage partitioned by a tenant key is the default (tenant FK columns, `${tenantId}-`-prefixed DynamoDB keys, server-written S3 prefixes); the silo (database-per-tenant, per-tenant secret) is reserved for data owned by someone else, with mri-gov-ap's per-municipality Aurora as the exemplar.
+* New pattern page `multi-tenancy/tenant-onboarding.md` (`draft`): onboarding is an application flow in the pooled model (server-minted tenant id, role ladder in the create path, idempotent seeding, rollback on partial failure) and one IaC loop entry plus an executed runbook in the silo model.
+* Gotchas carry real scars across the three pages: the HOR-2618 cross-tenant presign attack and its strip-not-forbid fix, a decode-then-verify authorizer, a missing claim that defaulted to a grant, phantom DynamoDB items from keying on the wrong id, and a registry entry whose missing secret paged Sentry from six services at once.
+* `patterns/INDEX.md` gains three rows; ADR-005 and the spec's v1-content list are amended in the same release to name the broadened multi-tenancy class (previously only `jwt-tenant-isolation.md`).
+
 ## [2.6.10] - 2026-07-31
 
 The patterns KB gains its observability page: `observability/sentry.md`, the org's Sentry conventions — the file the devsecops and operations agent wiring exists to serve. A wired agent whose task mentions error tracking, `wrapHandler`, sample rates, sourcemap upload, or incident triage now matches the INDEX row and reads the org's actual configuration and incident history instead of textbook Sentry docs. Content is code-read from five exemplar repos plus the org's triage/fix bots and setup runbook. Ships as `draft` — advisory until the Architect blesses it. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.
