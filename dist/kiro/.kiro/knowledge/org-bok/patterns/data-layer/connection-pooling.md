@@ -23,9 +23,9 @@ In scope: Lambda handlers that query Postgres/MySQL; long-lived containers
 cluster underneath, because pool timeouts and cluster resume latency fail
 together (see Gotchas).
 
-Out of scope: read/write splitting and replica routing — a planned sibling
-page (`data-layer/read-replicas.md`) that does not ship yet; check the
-[INDEX](../INDEX.md) for whether it has landed. Per-tenant data boundaries
+Out of scope: read/write splitting and replica routing — that is
+[data-layer/read-replicas](read-replicas.md), this page's sibling.
+Per-tenant data boundaries
 are covered by
 [multi-tenancy/tenant-data-partitioning](../multi-tenancy/tenant-data-partitioning.md).
 A per-tenant *pool cache* is in scope here and covered under "Our approach".

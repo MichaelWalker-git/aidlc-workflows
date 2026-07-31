@@ -89,7 +89,8 @@ plus a standing precedence header, so a page read in isolation still says to
 check the active space's memory. The nine class directories
 (`multi-tenancy`, `data-layer`, `serverless-compute`, `idp`, `genai`,
 `full-stack`, `eventing`, `iac`, `observability`) are filled one page at a
-time — `data-layer/` carries `connection-pooling.md`, `observability/`
+time — `data-layer/` carries `connection-pooling.md` and
+`read-replicas.md`, `observability/`
 carries `sentry.md`, and `multi-tenancy/` carries `jwt-tenant-isolation.md`,
 `tenant-data-partitioning.md`, and `tenant-onboarding.md` (all `draft`); the
 rest are empty-but-present. A page is

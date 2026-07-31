@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.12] - 2026-07-31
+
+The patterns KB completes its `data-layer/` class: `read-replicas.md`, the org's read-replica decision — which is, deliberately, mostly *not* to have one. Every Aurora cluster in the exemplar fleet ships writer-only with read headroom bought vertically through the Serverless v2 ACU range; the one real reader (plg-opinion-tool) exists as a multi-AZ failover target, not a read-scaling tier, and its sole consumer is read-only by construction. A wired agent whose task mentions reader endpoints, replica lag, read/write splitting, or a reporting database now matches the INDEX row and reads that precedent instead of assuming a replica is the next step. Ships as `draft` — advisory until the Architect blesses it. **Upgrade:** re-copy your `dist/<harness>/` shell into the project.
+
+* New pattern page `knowledge/org-bok/patterns/data-layer/read-replicas.md` (`draft`): writer-only is the default (scale ACU up before scaling instances out, with vrc-idp's `aurora-at-max-capacity` alarm as the watchpoint); a reader, when present, is an availability pair, and anything on the reader endpoint stacks engine-level rejection + `READ ONLY` transaction + a fixed command set; cross-region replication is DR (backup replication), never read serving; when reads outgrow the writer, the org's precedent is moving the workload (DynamoDB, in-Postgres search/vectors), not mirroring it.
+* Gotchas cover the classic misreads: a multi-AZ standby is not readable, the reader endpoint is eventually consistent (read-after-write can miss), RDS Proxy's default endpoint targets the writer, a second `db.serverless` instance doubles the idle ACU floor, and Terraform writer/reader roles are creation-order (pin with `depends_on`).
+* `patterns/INDEX.md` gains the row (trigger keywords: `read replica`, `reader endpoint`, `replica lag`, `read/write split`, `multi-AZ standby`, …); `connection-pooling.md`'s out-of-scope pointer now links the shipped sibling instead of saying it "does not ship yet".
+
 ## [2.6.11] - 2026-07-31
 
 The patterns KB gains its multi-tenancy class: three pages covering the org's multi-tenant decisions end to end — how a tenant is identified (`jwt-tenant-isolation.md`), how its data is physically separated (`tenant-data-partitioning.md`), and how a tenant comes into existence (`tenant-onboarding.md`). A wired agent whose task mentions tenant claims, cross-tenant access, silo-vs-pool, or tenant provisioning now matches an INDEX row and reads the org's actual conventions, code-read from seven exemplar repos (Service Delivery Platform among them). All three ship `draft` — advisory pending the Architect's SDP audit, which will bless or amend them (ADR-003/005). **Upgrade:** re-copy your `dist/<harness>/` shell into the project.
