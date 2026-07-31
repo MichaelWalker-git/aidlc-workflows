@@ -6,6 +6,10 @@ node_modules/
 .DS_Store
 ._*
 
+# Release archives built by the release-claude skill — published as GitHub
+# Release assets, never committed.
+release/
+
 # Generated AI-DLC artifacts (recreated by workflow runs / doctor)
 dist/claude/aidlc-docs/
 dist/kiro/aidlc-docs/
